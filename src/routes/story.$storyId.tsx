@@ -46,8 +46,9 @@ function StoryPage() {
   const { position, status } = useGeolocation(true);
 
   const distance = position ? distanceMeters(position, story.location) : null;
-  const gpsUnlocked = distance != null && distance <= story.location.radius;
-  const unlocked = gpsUnlocked || manualHere;
+  // Enforce a fixed 200 meter proximity requirement. Keep manual override for testing.
+  const proximity200 = distance != null && distance <= 200;
+  const unlocked = proximity200 || manualHere;
   const completed = state.completedStoryIds.includes(story.id);
 
   const accent = useMemo(
@@ -112,47 +113,53 @@ function StoryPage() {
           </div>
         )}
 
-        <AudioPlayer src={story.audio} label={story.title} />
+        {unlocked ? <AudioPlayer src={story.audio} label={story.title} /> : null}
 
-        <article className="whitespace-pre-line rounded-3xl bg-card p-5 text-[15px] leading-relaxed text-foreground shadow-[var(--shadow-soft)]">
-          {story.text}
-        </article>
+        {unlocked ? (
+          <article className="whitespace-pre-line rounded-3xl bg-card p-5 text-[15px] leading-relaxed text-foreground shadow-[var(--shadow-soft)]">
+            {story.text}
+          </article>
+        ) : null}
 
-        <section className="rounded-3xl bg-secondary/50 p-5">
-          <h2 className="font-display text-lg text-secondary-foreground">
-            🌿 {t(state.language, "mission")}
-          </h2>
-          <ul className="mt-3 space-y-2">
-            {story.mission.map((m, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-3 rounded-2xl bg-card/70 px-3 py-3 text-sm text-foreground"
-              >
-                <span
-                  className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
-                  style={{ background: accent, color: "white" }}
+        {unlocked ? (
+          <section className="rounded-3xl bg-secondary/50 p-5">
+            <h2 className="font-display text-lg text-secondary-foreground">
+              🌿 {t(state.language, "mission")}
+            </h2>
+            <ul className="mt-3 space-y-2">
+              {story.mission.map((m, i) => (
+                <li
+                  key={i}
+                  className="flex items-start gap-3 rounded-2xl bg-card/70 px-3 py-3 text-sm text-foreground"
                 >
-                  {i + 1}
-                </span>
-                {m}
-              </li>
-            ))}
-          </ul>
-        </section>
+                  <span
+                    className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                    style={{ background: accent, color: "white" }}
+                  >
+                    {i + 1}
+                  </span>
+                  {m}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
-        <section
-          className="flex items-center gap-3 rounded-3xl p-5"
-          style={{ background: `color-mix(in oklab, ${accent} 18%, white)` }}
-        >
-          <Sparkles className="h-7 w-7 text-accent-foreground" />
-          <div className="flex-1">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              {t(state.language, "reward")}
-            </p>
-            <p className="font-display text-base text-foreground">{story.reward}</p>
-          </div>
-          {completed && <CheckCircle2 className="h-6 w-6 text-primary" />}
-        </section>
+        {unlocked ? (
+          <section
+            className="flex items-center gap-3 rounded-3xl p-5"
+            style={{ background: `color-mix(in oklab, ${accent} 18%, white)` }}
+          >
+            <Sparkles className="h-7 w-7 text-accent-foreground" />
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {t(state.language, "reward")}
+              </p>
+              <p className="font-display text-base text-foreground">{story.reward}</p>
+            </div>
+            {completed && <CheckCircle2 className="h-6 w-6 text-primary" />}
+          </section>
+        ) : null}
 
         {unlocked && !completed && (
           <button
