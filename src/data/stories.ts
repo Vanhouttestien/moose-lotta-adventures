@@ -50,7 +50,7 @@ export const stories: Story[] = [
     title: "Det sjungande huset",
     subtitle: "Folkets Hus",
     location: { lat: 59.1556, lng: 16.4972, radius: 40, label: "Folkets Hus" },
-    audio: "/audio/folketshus.mp3",
+    audio: "/audio/folketshus_swedish.mp3",
     emoji: "🏛️",
     accent: "bark",
     text: `Hej lilla upptäckare 🫎
