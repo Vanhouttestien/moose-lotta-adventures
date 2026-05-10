@@ -113,7 +113,7 @@ function StoryPage() {
           </div>
         )}
 
-        {unlocked ? <AudioPlayer src={story.audio} label={story.title} /> : null}
+        {unlocked && story.audio ? <AudioPlayer src={story.audio} label={story.title} /> : null}
 
         {unlocked ? (
           <article className="whitespace-pre-line rounded-3xl bg-card p-5 text-[15px] leading-relaxed text-foreground shadow-[var(--shadow-soft)]">

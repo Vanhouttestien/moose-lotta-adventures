@@ -76,7 +76,7 @@ const SAMPLE_STORY: Story = {
   id: "test_story",
   villageId: "v1",
   language: "sv",
-  ageGroup: "5-6",
+  ageGroups: ["5-6"],
   title: "Test Title",
   subtitle: "Test Subtitle",
   location: { lat: 59.0, lng: 16.0, radius: 40, label: "Test Place" },
