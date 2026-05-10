@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig({
-  base: "/moose-lotta-adventures/",
+  base: "/", // ✅ FIXED for Netlify
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
