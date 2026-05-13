@@ -22,7 +22,7 @@ export interface Story {
   mission: string[];
   reward: string;
   emoji: string;
-  accent: "moss" | "ember" | "bark";
+  accent: "moss" | "ember" | "bark" | "shadow";
 }
 
 export interface Village {
@@ -43,6 +43,26 @@ export const villages: Village[] = [
 
 // Approximate Hälleforsnäs coordinates – designed to be edited later via CMS.
 export const stories: Story[] = [
+  {
+    id: "test_forest_1",
+    villageId: "halleforsnas",
+    language: "en",
+    ageGroups: ["5-6", "7-9"],
+    title: "The First Moose Signal",
+    subtitle: "Test Forest",
+    location: {
+      lat: 59.1458,
+      lng: 16.5122,
+      radius: 50,
+      label: "Forest Signal Point",
+    },
+    audio: "",
+    text: "A strange signal appears in the forest...",
+    mission: ["Walk closer", "Listen", "Observe"],
+    reward: "Signal Finder",
+    emoji: "📡",
+    accent: "moss",
+  },
   {
     id: "folketshus_sv_5_6",
     villageId: "halleforsnas",
@@ -118,13 +138,12 @@ And even today… if you listen very carefully…
 
 you can almost hear that the house remembers everything that has happened here.`,
     mission: ["Find something old", "Listen for 10 seconds", "Wave at the building"],
-    reward: "Community Hall Friend",
+    reward: "Folkets Hus friend",
   },
   {
     id: "dinosaurieskogen_en_5_6",
     villageId: "halleforsnas",
     language: "en",
-    
     ageGroups: ["3-4", "5-6", "7-9"],
     title: "The Dinosaurs in the Forest",
     subtitle: "Dinosaur Forest",
@@ -576,6 +595,150 @@ maybe you can still hear the sleds coming through the snow toward Kolhuset. ✨`
     ],
     reward: "Dinosaurieupptäckare",
   },
+    {
+      "id": "liktallarna_sv_3_4",
+      "villageId": "halleforsnas",
+      "language": "sv",
+      "ageGroups": ["3-4"],
+      "title": "De gamla tallarna",
+      "subtitle": "Liktallarna",
+      "location": {
+        "lat": 59.148238932534575,
+        "lng": 16.50466225162421,
+        "radius": 50,
+        "label": "Liktallarna"
+      },
+      "audio": "",
+      "emoji": "🌲",
+      "accent": "moss",
+      "text": "Titta på de stora tallarna.\n\nDe har stått här väldigt, väldigt länge.\nKanske längre än gammelmormor och gammelmorfar tillsammans.\n\nMänniskor berättar gamla historier om platsen.\nVissa säger att människor stannade här för att vila när de reste långt.\n\nAndra säger att tallarna är magiska.\n\nKanske viskar de med vinden.\n\nFör länge sedan började tallarna brinna.\nElden gjorde dem mörka och sotiga.\n\nMen de står fortfarande kvar.\n\nStarka.\nTysta.\nVaktande över vägen.\n\nOm du tittar noga kanske du kan se hur gamla de verkligen är.",
+      "mission": [
+        "Krama ett träd",
+        "Lyssna på vinden",
+        "Hitta något mjukt i naturen"
+      ],
+      "reward": "Tallvän"
+    },
+    {
+      "id": "liktallarna_en_3_4",
+      "villageId": "halleforsnas",
+      "language": "en",
+      "ageGroups": ["3-4"],
+      "title": "The Old Pine Trees",
+      "subtitle": "Liktallarna",
+      "location": {
+        "lat": 59.148238932534575,
+        "lng": 16.50466225162421,
+        "radius": 50,
+        "label": "Liktallarna"
+      },
+      "audio": "",
+      "emoji": "🌲",
+      "accent": "moss",
+      "text": "Look at the giant pine trees.\n\nThey have stood here for a very, very long time.\nMaybe longer than great-grandparents together.\n\nPeople tell old stories about this place.\nSome say travelers once stopped here to rest.\n\nOthers say the trees are magical.\n\nMaybe they whisper with the wind.\n\nLong ago, the trees were touched by fire.\nThe flames made them dark and smoky.\n\nBut they are still standing.\n\nStrong.\nQuiet.\nWatching over the road.\n\nIf you look carefully, you might see just how old they really are.",
+      "mission": [
+        "Hug a tree",
+        "Listen to the wind",
+        "Find something soft in nature"
+      ],
+      "reward": "Pine Tree Friend"
+    },
+    {
+      "id": "liktallarna_sv_5_6",
+      "villageId": "halleforsnas",
+      "language": "sv",
+      "ageGroups": ["5-6"],
+      "title": "Tallarna som minns",
+      "subtitle": "Liktallarna",
+      "location": {
+        "lat": 59.148238932534575,
+        "lng": 16.50466225162421,
+        "radius": 50,
+        "label": "Liktallarna"
+      },
+      "audio": "",
+      "emoji": "🌲",
+      "accent": "shadow",
+      "text": "Shhh…\n\nHör du vinden i tallarna?\n\nDe här träden är över 400 år gamla.\n\nDe stod här långt innan bilar, gatlampor och moderna hus.\n\nOch runt dem växte många märkliga berättelser fram.\n\nVissa människor sa att det här var samhällets yttersta gräns.\nEn plats där farliga saker hände för länge sedan.\n\nAndra berättade något helt annat.\n\nDe sa att likskjutsar brukade stanna här för att vila under långa resor.\n\nHästarna pustade i kylan.\nVagnarna knarrade.\nOch tallarna såg allt.\n\nMen det finns ännu en berättelse.\n\nAtt träden har magi.\n\nInte trollkarlsmagi.\n\nUtan gammal skogsmagi.\n\nEn sorts tyst kraft som bara riktigt gamla träd kan bära på.\n\nFör länge sedan började tallarna brinna.\nElden skadade dem svårt.\n\nMen de föll aldrig.\n\nDe fortsatte stå kvar.\n\nSom väktare från en annan tid.",
+      "mission": [
+        "Leta efter spår av eld",
+        "Stå helt stilla i 15 sekunder",
+        "Lägg handen mot barken"
+      ],
+      "reward": "Tallväktare"
+    },
+    {
+      "id": "liktallarna_en_5_6",
+      "villageId": "halleforsnas",
+      "language": "en",
+      "ageGroups": ["5-6"],
+      "title": "The Trees That Remember",
+      "subtitle": "Liktallarna",
+      "location": {
+        "lat": 59.148238932534575,
+        "lng": 16.50466225162421,
+        "radius": 50,
+        "label": "Liktallarna"
+      },
+      "audio": "",
+      "emoji": "🌲",
+      "accent": "shadow",
+      "text": "Shhh…\n\nCan you hear the wind moving through the trees?\n\nThese pine trees are more than 400 years old.\n\nThey stood here long before cars, streetlights, and modern houses.\n\nAnd over the years, many strange stories grew around them.\n\nSome people said this was once the very edge of the village.\nA place where frightening things happened long ago.\n\nOthers told a different story.\n\nThey said funeral wagons once stopped here to rest during long journeys.\n\nThe horses breathed clouds into the cold air.\nThe wagons creaked.\nAnd the trees watched silently.\n\nBut there is another story too.\n\nThat these trees hold magic.\n\nNot wizard magic.\n\nOld forest magic.\n\nThe kind only very ancient trees can carry.\n\nLong ago, fire damaged the trees.\nThe flames blackened their trunks.\n\nBut the trees never fell.\n\nThey are still standing.\n\nLike guardians from another age.",
+      "mission": [
+        "Look for signs of fire",
+        "Stand completely still for 15 seconds",
+        "Place your hand on the bark"
+      ],
+      "reward": "Tree Guardian"
+    },
+    {
+      "id": "liktallarna_sv_7_9",
+      "villageId": "halleforsnas",
+      "language": "sv",
+      "ageGroups": ["7-9"],
+      "title": "Liktallarnas hemlighet",
+      "subtitle": "De brända väktarna",
+      "location": {
+        "lat": 59.148238932534575,
+        "lng": 16.50466225162421,
+        "radius": 50,
+        "label": "Liktallarna"
+      },
+      "audio": "",
+      "emoji": "🌲",
+      "accent": "ember",
+      "text": "Framför dig står några av Hälleforsnäs äldsta träd.\n\nLiktallarna.\n\nÖver 400 år gamla.\n\nUnder hundratals år har människor berättat historier om den här platsen.\n\nIngen vet exakt vilka berättelser som är sanna.\n\nEn gammal sägen säger att detta en gång var samhällets yttersta gräns — platsen där människor hängdes.\n\nEn annan berättelse säger att likskjutsar brukade stanna här för att vila på vägen mot kyrkan.\n\nKanske är det därför platsen känns så märklig.\n\nTyst.\nTung.\nSom om luften minns.\n\nMånga trodde också att tallarna hade särskilda krafter.\n\nI gammal folktro kunde uråldriga träd skydda platser… eller bära på minnen från människor som passerat.\n\nSedan kom elden.\n\nPå 1980- eller 1990-talet skadades tallarna svårt av brand.\n\nÄndå står de kvar.\n\nSotiga.\nVridna.\nLevande.\n\nOch bredvid dem finns idag en plakett med en gammal kolteckning från 1966 av Edvin Axelsson.\n\nSom om någon ville hjälpa platsen att aldrig bli glömd.",
+      "mission": [
+        "Hitta märken efter branden",
+        "Läs plaketten tillsammans",
+        "Fundera över vilken historia du tror mest på"
+      ],
+      "reward": "Liktallarnas väktare"
+    },
+    {
+      "id": "liktallarna_en_7_9",
+      "villageId": "halleforsnas",
+      "language": "en",
+      "ageGroups": ["7-9"],
+      "title": "The Secret of the Pine Trees",
+      "subtitle": "The Burned Guardians",
+      "location": {
+        "lat": 59.148238932534575,
+        "lng": 16.50466225162421,
+        "radius": 50,
+        "label": "Liktallarna"
+      },
+      "audio": "",
+      "emoji": "🌲",
+      "accent": "ember",
+      "text": "Before you stand some of the oldest trees in Hälleforsnäs.\n\nThe Liktallarna.\n\nMore than 400 years old.\n\nFor centuries, people have told stories about this place.\n\nNo one knows exactly which stories are true.\n\nOne old legend says this was once the outer edge of the village — a place where people were hanged.\n\nAnother story says funeral wagons stopped here to rest on their long journey toward the church.\n\nMaybe that is why the place feels different.\n\nQuiet.\nHeavy.\nLike the air itself remembers.\n\nMany people also believed the trees held special powers.\n\nIn old folklore, ancient trees could protect places… or carry memories from the people who passed by.\n\nThen came the fire.\n\nIn the 1980s or 1990s, the trees were badly damaged by flames.\n\nAnd still they survived.\n\nBlackened.\nTwisted.\nAlive.\n\nToday, a memorial plaque stands nearby with a charcoal drawing made in 1966 by Edvin Axelsson.\n\nAlmost as if someone wanted to make sure the trees would never be forgotten.",
+      "mission": [
+        "Find marks left by the fire",
+        "Read the memorial plaque together",
+        "Decide which legend you believe most"
+      ],
+      "reward": "Guardian of the Pines"
+    }
 ];
 
 export function getStories(filter?: { language?: Language; ageGroup?: AgeGroup; villageId?: string }) {

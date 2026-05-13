@@ -36,8 +36,8 @@ function MapPage() {
   const village = villages[0];
 
   const stories = useMemo(
-    () => getStories({ language: state.language, villageId: village.id }),
-    [state.language, village.id],
+    () => getStories({ language: state.language, ageGroup: state.ageGroup, villageId: village.id }),
+    [state.language, state.ageGroup, village.id],
   );
 
   const statuses = useMemo(
