@@ -12,11 +12,18 @@
 - `npm run format` — Prettier
 - `npm test` — Vitest
 
+## Project structure
+- `src/hooks/useAppState.tsx` — `AppStateProvider` context + profile system
+- `src/services/storage.ts` — localStorage persistence for profiles
+- `src/data/stories.ts` — `AgeGroup`, `Language`, `Story`, `Village` types & data
+- `src/data/i18n.ts` — sv/en dictionaries, `t()` lookup
+
 ## Conventions
 - **Imports:** `@/` alias (e.g. `@/hooks/useAppState`, `@/components/Selectors`)
 - **Naming:** PascalCase for components/files, camelCase for hooks/services/utils
 - **Exports:** named exports for everything; default export for page components
-- **State:** single `useAppState` hook with localStorage persistence
+- **State:** `AppStateProvider` context with per-profile localStorage persistence
+- **Profiles:** each profile stores name, ageGroup, language, and progress. App shows picker/create on launch via `ProfileGate` in `__root.tsx`. Switch via `ProfileBadge` → `ProfileSwitcher`.
 - **i18n:** custom `t(lang, key)` with sv/en dictionaries in `src/data/i18n.ts`
 - **CSS:** Tailwind utils + custom OKLCH tokens in `src/styles.css`, use `cn()` from `@/lib/utils`
 - **Router:** file-based in `src/routes/` — `__root.tsx`, `index.tsx`, `map.tsx`, `rewards.tsx`, `story.$storyId.tsx`

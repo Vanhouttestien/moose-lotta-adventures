@@ -1,4 +1,4 @@
-export type AgeGroup = "3-4" | "5-6" | "7-9";
+export type AgeGroup = "3-4" | "5-6" | "7-9" | "10-12" | "adult";
 export type Language = "sv" | "en";
 
 export interface StoryLocation {
@@ -265,7 +265,7 @@ you can almost hear that the house remembers everything that has happened here.`
     ageGroups: ["3-4", "5-6", "7-9"],
     title: "Kolhuset och den svarta elden",
     subtitle: "Kolhuset",
-    location: { lat: 59.1542, lng: 16.4995, radius: 40, label: "Kolhuset" },
+    location: { lat:  59.1526073906632, lng: 16.489412905749873, radius: 40, label: "Kolhuset" },
     audio: "/audio/kolhuset.mp3",
     emoji: "🔥",
     accent: "ember",
@@ -370,7 +370,7 @@ you can almost hear that the house remembers everything that has happened here.`
     ageGroups: ["3-4", "5-6", "7-9"],
     title: "Kolhuset and the Black Fire",
     subtitle: "Kolhuset",
-    location: { lat: 59.1542, lng: 16.4995, radius: 40, label: "Kolhuset" },
+    location: { lat:  59.1526073906632, lng: 16.489412905749873, radius: 40, label: "Kolhuset" },
     audio: "",
     emoji: "🔥",
     accent: "ember",

@@ -46,10 +46,10 @@ function StoryPage() {
   const { position, status } = useGeolocation(true);
 
   const distance = position ? distanceMeters(position, story.location) : null;
+  const completed = state.completedStoryIds.includes(story.id);
   // Enforce a fixed 200 meter proximity requirement. Keep manual override for testing.
   const proximity200 = distance != null && distance <= 200;
-  const unlocked = proximity200 || manualHere;
-  const completed = state.completedStoryIds.includes(story.id);
+  const unlocked = completed || proximity200 || manualHere;
 
   const accent = useMemo(
     () =>

@@ -24,11 +24,13 @@ export function getStoryStatuses(
   completedIds: string[],
 ): StoryStatus[] {
   return stories.map((story) => {
+    const completed = completedIds.includes(story.id);
     const distance = position ? distanceMeters(position, story.location) : null;
     const unlockRadius = Math.max(story.location.radius, DISCOVERY_THRESHOLDS.unlock);
-    const unlocked = distance != null && distance <= unlockRadius;
+    const unlocked = completed || (distance != null && distance <= unlockRadius);
     let tier: DiscoveryTier = "hidden";
-    if (distance == null) tier = "hidden";
+    if (completed) tier = "visible";
+    else if (distance == null) tier = "hidden";
     else if (unlocked) tier = "unlocked";
     else if (distance <= DISCOVERY_THRESHOLDS.warm) tier = "warm";
     else if (distance <= DISCOVERY_THRESHOLDS.visible) tier = "visible";
@@ -37,7 +39,7 @@ export function getStoryStatuses(
       story,
       distance,
       unlocked,
-      completed: completedIds.includes(story.id),
+      completed,
       tier,
     };
   });

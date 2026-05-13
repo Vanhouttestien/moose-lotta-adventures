@@ -9,11 +9,14 @@ export const ageGroups = [
   { code: "3-4" as const, label: "3–4 år" },
   { code: "5-6" as const, label: "5–6 år" },
   { code: "7-9" as const, label: "7–9 år" },
+  { code: "10-12" as const, label: "10–12 år" },
+  { code: "adult" as const, label: "Vuxen" },
 ];
 
 type Dict = Record<string, string>;
 const sv: Dict = {
   appTitle: "Moose Lotta Äventyr",
+  location: "Hälleforsnäs · Sörmland",
   tagline: "Upptäck hemliga berättelser i Hälleforsnäs",
   start: "Starta äventyret",
   language: "Språk",
@@ -44,9 +47,19 @@ const sv: Dict = {
   noRewards: "Inga skatter ännu. Gå ut och upptäck!",
   markComplete: "Markera som klart",
   completed: "Avklarad",
+  selectProfile: "Välj profil",
+  newProfile: "Ny profil",
+  profileName: "Namn",
+  profileNamePlaceholder: "Skriv ditt namn",
+  createProfile: "Skapa profil",
+  deleteProfile: "Ta bort profil",
+  deleteConfirm: "Är du säker? Alla framsteg försvinner.",
+  switchProfile: "Byt profil",
+  profile: "Profil",
 };
 const en: Dict = {
   appTitle: "Moose Lotta Adventures",
+  location: "Hälleforsnäs · Sörmland",
   tagline: "Discover secret stories in Hälleforsnäs",
   start: "Start the adventure",
   language: "Language",
@@ -77,6 +90,15 @@ const en: Dict = {
   noRewards: "No treasures yet. Go outside and explore!",
   markComplete: "Mark as done",
   completed: "Completed",
+  selectProfile: "Select profile",
+  newProfile: "New profile",
+  profileName: "Name",
+  profileNamePlaceholder: "Enter your name",
+  createProfile: "Create profile",
+  deleteProfile: "Delete profile",
+  deleteConfirm: "Are you sure? All progress will be lost.",
+  switchProfile: "Switch profile",
+  profile: "Profile",
 };
 
 const dicts: Record<Language, Dict> = { sv, en };

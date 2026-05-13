@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Moose Lotta Adventures** is a fully client-side, location-based Progressive Web App (PWA) for children aged 3–9. It unlocks narrated audio stories when users physically visit real-world locations in **Hälleforsnäs, Sweden**. The app is named after "Moose Lotta", a friendly moose character who guides children through a Nordic forest-themed experience.
+**Moose Lotta Adventures** is a fully client-side, location-based Progressive Web App (PWA) for children (and adults) to discover narrated audio stories by visiting real-world locations in **Hälleforsnäs, Sweden**. Multiple profiles are supported — each with its own name, language, age group, and progress — all stored locally. The app is named after "Moose Lotta", a friendly moose character who guides children through a Nordic forest-themed experience.
 
 There is **no backend, database, or API** — all story content is static TypeScript data, and all state is persisted to `localStorage`. The app is deployable to Netlify or Cloudflare Pages.
 
@@ -22,7 +22,8 @@ There is **no backend, database, or API** — all story content is static TypeSc
 | Map | Leaflet 1.9 (OpenStreetMap tiles) |
 | Geolocation | `navigator.geolocation.watchPosition` |
 | Testing | Vitest 3 + Testing Library |
-| i18n | Custom (~48 keys per locale: sv/en) |
+| i18n | Custom (~56 keys per locale: sv/en) |
+| Age Groups | `3-4`, `5-6`, `7-9`, `10-12`, `adult` |
 | Package Manager | Bun / npm |
 | Deployment | Netlify / Cloudflare Workers |
 
@@ -33,20 +34,20 @@ There is **no backend, database, or API** — all story content is static TypeSc
 ```
 src/
 ├── main.tsx                  # Bundle entry — ReactDOM.createRoot
-├── App.tsx                   # Root component — <RouterProvider>
+├── App.tsx                   # Root component — <AppStateProvider> → <RouterProvider>
 ├── router.tsx                # TanStack Router setup with QueryClient
 ├── routeTree.gen.ts          # Auto-generated route tree (do not edit)
 ├── styles.css                # Global CSS — Tailwind + design tokens
 │
 ├── routes/                   # File-based route definitions
-│   ├── __root.tsx            # Root layout — QueryClientProvider, <Outlet>, 404/error pages
+│   ├── __root.tsx            # Root layout — QueryClientProvider, ProfileGate, <Outlet>, 404/error pages
 │   ├── index.tsx             # /  — Home page (language/age selectors, start button)
 │   ├── map.tsx               # /map  — Interactive map, GPS tracking, compass, story list, unlock popup
 │   ├── rewards.tsx           # /rewards  — Progress bar, treasure cards
 │   └── story.$storyId.tsx    # /story/:storyId  — Distance gate, audio, missions, completion
 │
 ├── components/               # Reusable UI components
-│   ├── AppShell.tsx          # Page wrapper (max-width container + BottomNav)
+│   ├── AppShell.tsx          # Page wrapper (max-width container + ProfileBadge + BottomNav)
 │   ├── BottomNav.tsx         # Fixed bottom nav bar (Home / Map / Rewards)
 │   ├── MapView.tsx           # Leaflet map — colored story pins, moose-pointer marker
 │   ├── Compass.tsx           # Directional compass pointing to nearest story
@@ -55,10 +56,14 @@ src/
 │   ├── AudioPlayer.tsx       # Play/pause/replay audio controller
 │   ├── GpsPermissionCard.tsx # GPS permission prompt/denied/unavailable
 │   ├── Selectors.tsx         # LanguageSelector + AgeSelector toggle buttons
+│   ├── ProfileBadge.tsx      # Top-bar pill showing active profile name, tappable
+│   ├── ProfilePicker.tsx     # Full-screen profile list on app launch
+│   ├── CreateProfile.tsx     # Form to create a new profile (name, age, language)
+│   ├── ProfileSwitcher.tsx   # Bottom-sheet modal to switch or delete profiles
 │   └── ui/                   # shadcn/ui primitives (~50 components)
 │
 ├── hooks/                    # Custom React hooks
-│   ├── useAppState.ts        # Global state — loads/saves localStorage via storage.ts
+│   ├── useAppState.tsx       # Global state — AppStateProvider context + profiles via storage.ts
 │   ├── useGeolocation.ts     # GPS watchPosition wrapper — Haversine distance
 │   ├── useSmoothPosition.ts  # Low-pass filter for noisy GPS (alpha=0.25)
 │   ├── useCompass.ts         # Device orientation / compass heading
@@ -93,17 +98,30 @@ src/
 index.html
   └─ <script src="/src/main.tsx">
        └─ ReactDOM.createRoot(#root)
-            └─ <App />  ──>  <RouterProvider router={router} />
+            └─ <App />  ──>  <AppStateProvider>
+                               ├── <CreateProfile />   (no profiles)
+                               ├── <ProfilePicker />   (no active profile)
+                               └── <RouterProvider />  (profile active)
 ```
 
-The router is created in `router.tsx` using the auto-generated `routeTree.gen.ts`. A `QueryClient` is provided via context in `__root.tsx`'s shell component.
+The `App` component wraps `AppStateProvider` around an `AppGate` component (not a route). `AppGate` reads the profile state and shows either the profile picker, the create-profile form, or the `RouterProvider`. The router is created in `router.tsx` using the auto-generated `routeTree.gen.ts`. A `QueryClient` is provided via context in `__root.tsx`.
 
-### 2. Route Navigation Map
+### 2. Profile Selection (App Launch)
+
+On every app launch, an **AppGate** in `App.tsx` checks for an active profile:
+
+- **No profiles exist** → shows `CreateProfile` (enter name, pick language & age group)
+- **Profiles exist but none active** → shows `ProfilePicker` (list of saved profiles to tap)
+- **Profile active** → renders normal route content
+
+After selecting or creating a profile, the user's name, age group, and language are used throughout the session.
+
+### 3. Route Navigation Map
 
 ```
 /  (HomePage)
-├── Select language & age group
-├── Click "Starta äventyret" ──> navigates to /map
+├── Select language & age group (saved to active profile)
+├── Click "Starta äventryet" ──> navigates to /map
 └── Link to /rewards
 
 /map  (MapPage)
@@ -129,35 +147,50 @@ The router is created in `router.tsx` using the auto-generated `routeTree.gen.ts
 └── Link back to /map
 ```
 
-### 3. State Management
+### 4. State Management
 
-All persistent user state flows through a single pipeline:
+State uses a **profile-based model** with React Context:
 
 ```
-src/services/storage.ts          # Raw localStorage read/write (key: "moose-lotta:v1")
+src/services/storage.ts                # Raw localStorage read/write (key: "moose-lotta:profiles")
        ↕
-src/hooks/useAppState.ts         # React state hook — loads on mount, saves on change
+src/hooks/useAppState.tsx              # AppStateProvider context — loads profiles, manages active
        ↕
 (consumed by all route components)
 ```
 
-**AppState shape:**
+**Storage types:**
 
 ```typescript
-interface AppState {
+interface ProfileData {
   language: "sv" | "en";
-  ageGroup: "3-4" | "5-6" | "7-9";
+  ageGroup: "3-4" | "5-6" | "7-9" | "10-12" | "adult";
   completedStoryIds: string[];
   rewards: string[];
   onboarded: boolean;
 }
+
+interface Profile {
+  name: string;            // unique, set by user
+  data: ProfileData;       // per-profile progress and settings
+  createdAt: string;       // ISO date
+}
 ```
 
-- `useAppState()` loads from localStorage once on mount
-- Every state change triggers `useEffect` → `saveState()`
-- Exposes `update(patch)` for partial updates and `completeStory(story)` for completion
+**AppStateProvider** (in `App.tsx`) wraps the whole app with context:
+- `profiles: Profile[]` — all saved profiles
+- `activeProfile: Profile | null` — currently selected profile
+- `selectProfile(name)` — switch active profile
+- `createProfile(name, ageGroup, language)` — add new profile and select it
+- `deleteProfile(name)` — remove profile and its progress
+- `updateProfileData(patch)` — update active profile's settings/progress
+- `state: ProfileData` — active profile's data (backward-compat with old single-profile API)
+- `update(patch)` — shorthand for `updateProfileData`
+- `completeStory(story)` — mark story as done on active profile
 
-### 4. GPS & Location Pipeline (Core Experience)
+Per-profile progress is separated: switching profiles changes which completed stories and rewards are shown. Old single-profile data (`moose-lotta:v1`) is auto-migrated to a nameless profile on first load.
+
+### 5. GPS & Location Pipeline (Core Experience)
 
 This is the heart of the app — the data flow on `/map`:
 
@@ -181,7 +214,7 @@ StoryStatus[] → drives everything:
   └── UnlockPopup — fires once per story on unlock transition
 ```
 
-### 5. Discovery Engine (`storyEngine.ts`)
+### 6. Discovery Engine (`storyEngine.ts`)
 
 Each story's **DiscoveryTier** is determined by distance from the user's GPS position:
 
@@ -195,7 +228,7 @@ Each story's **DiscoveryTier** is determined by distance from the user's GPS pos
 
 The actual unlock radius is `max(story.location.radius, 50)` meters.
 
-### 6. Story Page Proximity Gate
+### 7. Story Page Proximity Gate
 
 On `/story/:storyId`, a second proximity check enforces **200 meters**:
 
@@ -206,7 +239,7 @@ unlocked = distance <= 200 || manualHere (override button)
 
 If locked, only the distance + override button is shown. All content (audio, text, missions, reward) is gated behind `unlocked`.
 
-### 7. Auto-Unlock Popup
+### 8. Auto-Unlock Popup
 
 On `/map`, a `useEffect` watches for stories that transition to `unlocked`:
 
@@ -218,18 +251,19 @@ statuses.find(s => s.unlocked && !s.completed && not yet seen)
 
 Each story triggers this popup only once per session via a `useRef<Set<string>>`.
 
-### 8. Completion & Rewards
+### 9. Completion & Rewards
 
-When a user completes a story:
+When a user completes a story on a profile:
 
-1. `completeStory(story)` in `useAppState`:
-   - Adds `story.id` to `completedStoryIds[]`
-   - Adds `story.reward` to `rewards[]` (deduplicated)
-2. localStorage is updated via `useEffect`
-3. `/rewards` page shows all stories as cards — completed ones display "✨"
-4. Progress bar shows `done / total * 100%`
+1. `completeStory(story)` on `useAppState`:
+   - Adds `story.id` to the active profile's `completedStoryIds[]`
+   - Adds `story.reward` to the active profile's `rewards[]` (deduplicated)
+2. `localStorage` is updated via `useEffect` in the provider
+3. Per-profile progress: each profile has its own completion data
+4. `/rewards` page shows stories filtered by the active profile's age group — completed ones display "✨"
+5. Progress bar shows `done / total * 100%`
 
-### 9. Internationalization
+### 10. Internationalization
 
 Custom i18n module (`data/i18n.ts`) with two dictionaries:
 
@@ -239,9 +273,9 @@ sv (48 keys) ←→ en (48 keys)
 Usage:  t(language, "key")  →  returns translated string
 ```
 
-Language selection persists in `AppState.language` and filters stories via `getStories({ language })`.
+Language selection persists per-profile in `ProfileData.language` and filters stories via `getStories({ language })`.
 
-### 10. Design System
+### 11. Design System
 
 Defined in `src/styles.css` using OKLCH color space:
 
@@ -263,6 +297,24 @@ Accent colors are per-story (`story.accent`: `"moss" | "ember" | "bark"`) and dr
 ---
 
 ## Key Data Structures
+
+### Profile
+
+```typescript
+interface Profile {
+  name: string;            // unique display name chosen by the user
+  data: ProfileData;       // settings and progress for this profile
+  createdAt: string;       // ISO timestamp
+}
+
+interface ProfileData {
+  language: Language;
+  ageGroup: AgeGroup;
+  completedStoryIds: string[];
+  rewards: string[];
+  onboarded: boolean;
+}
+```
 
 ### Story
 
@@ -302,16 +354,18 @@ interface StoryStatus {
 
 ```
 <App>
-  <RouterProvider>
-    <QueryClientProvider>          (in __root.tsx)
-      <AppShell>                   (in every route)
-        <BottomNav />             Home / Map / Rewards
-        <Outlet />                page content
+  <AppStateProvider>               (in App.tsx)
+    <AppGate>                      selects one of:
+      ├── <ProfilePicker />        (profiles exist, none active)
+      ├── <CreateProfile />        (no profiles at all)
+      └── <RouterProvider>
+            <QueryClientProvider>     (in __root.tsx)
+              <AppShell>              (in every route)
+                <ProfileBadge />     top bar — tap → <ProfileSwitcher>
+                <BottomNav />        Home / Map / Rewards
+                <Outlet />           page content
 
         -- HomePage (/) --
-        <LanguageSelector />
-        <AgeSelector />
-        <button>Start</button>
 
         -- MapPage (/map) --
         <MapView />               Leaflet map
