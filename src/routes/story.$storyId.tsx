@@ -127,7 +127,7 @@ function StoryPage() {
               🌿 {t(state.language, "mission")}
             </h2>
             <ul className="mt-3 space-y-2">
-              {story.mission.map((m, i) => (
+              {(story.mission as string[]).map((m: string, i: number) => (
                 <li
                   key={i}
                   className="flex items-start gap-3 rounded-2xl bg-card/70 px-3 py-3 text-sm text-foreground"

@@ -140,6 +140,13 @@
 .animate-pulse-ring { animation: ml-pulse-ring 2.4s ease-out infinite; }
 .animate-fade-up { animation: ml-fade-up 0.5s ease-out both; }
 
+/* Warm-tier story pin: gentle glow inviting children to come closer */
+@keyframes ml-warm-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 oklch(0.78 0.12 60 / 0)); transform: translateY(0); }
+  50%      { filter: drop-shadow(0 0 8px oklch(0.78 0.12 60 / 0.7)); transform: translateY(-2px); }
+}
+.ml-warm-ring { animation: ml-warm-glow 1.8s ease-in-out infinite; }
+
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
