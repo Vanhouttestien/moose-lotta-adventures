@@ -133,7 +133,7 @@ function MapPage() {
               Inga äventyr känns härifrån
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Gå en bit till — Lotta känner äventyr inom 1 km.
+              Gå en bit till — Lotta känner äventyr inom 3 km.
             </p>
           </div>
         )}
