@@ -9,6 +9,7 @@ import { router } from "./router";
 function AppGate() {
   const { profiles, activeProfile } = useAppState();
   const [showSplash, setShowSplash] = useState(true);
+  const [showCreate, setShowCreate] = useState(false);
 
   if (activeProfile) {
     return <RouterProvider router={router} />;
