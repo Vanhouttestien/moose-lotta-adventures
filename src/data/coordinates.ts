@@ -1,5 +1,5 @@
 export const LOCATIONS = {
-  FOREST_SIGNAL_POINT: { lat: 59.1458, lng: 16.5122, radius: 50 },
+  FOREST_SIGNAL_POINT: { lat: 59.1452556258794, lng: 16.51281060728679, radius: 50 },
   FOLKETS_HUS: { lat: 59.1556, lng: 16.4972, radius: 40 },
   DINOSAUR_FOREST: { lat: 59.1571, lng: 16.4938, radius: 60 },
   KOLHUSET: { lat: 59.1526073906632, lng: 16.489412905749873, radius: 40 },

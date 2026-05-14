@@ -1,9 +1,10 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { AppShell } from "@/components/AppShell";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { useAppState } from "@/hooks/useAppState";
-import { useGeolocation, distanceMeters } from "@/hooks/useGeolocation";
+import { useGeolocation } from "@/hooks/useGeolocation";
+import { getStoryStatuses } from "@/engine/storyEngine";
 import { getStoryById } from "@/data/stories";
 import { t } from "@/data/i18n";
 import { CheckCircle2, MapPin, Sparkles } from "lucide-react";
@@ -42,14 +43,16 @@ function StoryPage() {
   const story = Route.useLoaderData();
   const { state, completeStory } = useAppState();
   const navigate = useNavigate();
-  const [manualHere, setManualHere] = useState(false);
   const { position, status } = useGeolocation(true);
 
-  const distance = position ? distanceMeters(position, story.location) : null;
-  const completed = state.completedStoryIds.includes(story.id);
-  // Enforce a fixed 200 meter proximity requirement. Keep manual override for testing.
-  const proximity200 = distance != null && distance <= 200;
-  const unlocked = completed || proximity200 || manualHere;
+  const result = useMemo(
+    () => getStoryStatuses([story], position, state.completedStoryIds),
+    [story, position, state.completedStoryIds],
+  );
+  const storyStatus = result[0];
+  const unlocked = storyStatus.unlocked;
+  const distance = storyStatus.distance;
+  const completed = storyStatus.completed;
 
   const accent = useMemo(
     () =>
@@ -98,12 +101,6 @@ function StoryPage() {
             <p className="mt-2 font-display text-base text-foreground">
               {t(state.language, "feels")}
             </p>
-            <button
-              onClick={() => setManualHere(true)}
-              className="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-95"
-            >
-              {t(state.language, "iAmHere")} 🫎
-            </button>
           </div>
         ) : (
           <div className="rounded-3xl bg-primary/10 px-4 py-3 text-center text-sm font-semibold text-primary animate-pulse-ring">

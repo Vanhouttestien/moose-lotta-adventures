@@ -123,7 +123,7 @@ export function MapView({
 
       const marker = L.marker([lat, lng], { icon }).addTo(map);
       marker.on("click", () => {
-        if (s.tier === "hint") return; // can't tap a vague hint
+        if (s.tier !== "unlocked" && !s.completed) return;
         navigate({ to: "/story/$storyId", params: { storyId: s.story.id } });
       });
       storyMarkersRef.current.set(id, marker);
