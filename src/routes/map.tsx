@@ -20,10 +20,14 @@ export const Route = createFileRoute("/map")({
 
 function MapPage() {
   const { state } = useAppState();
-  const [gpsEnabled, setGpsEnabled] = useState(true);
-  const { status, position: rawPosition } = useGeolocation(gpsEnabled);
+  const { status, position: rawPosition, start } = useGeolocation();
   const heading = useDeviceHeading();
   const position = useSmoothPosition(rawPosition);
+
+  // Auto-start on mount: works on desktop & after permission granted on mobile
+  useEffect(() => { start(); }, [start]);
+
+
 
   const village = useMemo(() => {
     if (!position) return villages[0];
@@ -115,7 +119,7 @@ function MapPage() {
 
       <div className="space-y-3 px-6 pt-6">
         {(status === "idle" || status === "denied" || status === "unavailable") && (
-          <GpsPermissionCard status={status} onEnable={() => setGpsEnabled(true)} />
+          <GpsPermissionCard status={status} onEnable={start} />
         )}
         {status === "watching" && !position && (
           <p className="rounded-2xl bg-card px-4 py-3 text-center text-sm text-muted-foreground">

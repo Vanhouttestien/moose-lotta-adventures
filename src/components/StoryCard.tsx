@@ -15,9 +15,18 @@ export function StoryCard({ s }: { s: StoryStatus }) {
       ? "unlocked"
       : "locked";
   const Wrapper = status === "locked" ? "div" : Link;
-  const wrapperProps = status === "locked"
-    ? { className: "group relative block overflow-hidden rounded-3xl bg-card p-5 shadow-[var(--shadow-soft)]" }
-    : { to: "/story/$storyId" as const, params: { storyId: s.story.id }, className: "group relative block overflow-hidden rounded-3xl bg-card p-5 shadow-[var(--shadow-soft)] transition-transform active:scale-[0.99]" };
+  const wrapperProps =
+    status === "locked"
+      ? {
+          className:
+            "group relative block overflow-hidden rounded-3xl bg-card p-5 shadow-[var(--shadow-soft)]",
+        }
+      : {
+          to: "/story/$storyId" as const,
+          params: { storyId: s.story.id },
+          className:
+            "group relative block overflow-hidden rounded-3xl bg-card p-5 shadow-[var(--shadow-soft)] transition-transform active:scale-[0.99]",
+        };
 
   return (
     <Wrapper {...wrapperProps}>

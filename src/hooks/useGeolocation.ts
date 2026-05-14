@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type GeoStatus = "idle" | "prompt" | "watching" | "denied" | "unavailable";
 
@@ -8,39 +8,55 @@ export interface GeoPosition {
   accuracy: number;
 }
 
-export function useGeolocation(enabled: boolean) {
+export function useGeolocation() {
   const [status, setStatus] = useState<GeoStatus>("idle");
   const [position, setPosition] = useState<GeoPosition | null>(null);
-  const watchId = useRef<number | null>(null);
+  const watchIdRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    if (!enabled) return;
+  const start = useCallback(() => {
     if (typeof navigator === "undefined" || !navigator.geolocation) {
       setStatus("unavailable");
       return;
     }
+    if (watchIdRef.current != null) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+      watchIdRef.current = null;
+    }
     setStatus("watching");
-    watchId.current = navigator.geolocation.watchPosition(
-      (pos) => {
-        setPosition({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-          accuracy: pos.coords.accuracy,
-        });
-        setStatus("watching");
-      },
-      (err) => {
-        if (err.code === err.PERMISSION_DENIED) setStatus("denied");
-        else setStatus("unavailable");
-      },
-      { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 },
-    );
-    return () => {
-      if (watchId.current != null) navigator.geolocation.clearWatch(watchId.current);
+    const onSuccess = (pos: GeolocationPosition) => {
+      setPosition({
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+        accuracy: pos.coords.accuracy,
+      });
+      setStatus("watching");
     };
-  }, [enabled]);
+    const onError = (err: GeolocationPositionError) => {
+      if (err.code === err.PERMISSION_DENIED) setStatus("denied");
+      else setStatus("unavailable");
+    };
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0,
+    });
+    watchIdRef.current = navigator.geolocation.watchPosition(onSuccess, onError, {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0,
+    });
+  }, []);
 
-  return { status, position };
+  useEffect(() => {
+    return () => {
+      if (watchIdRef.current != null) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+        watchIdRef.current = null;
+      }
+    };
+  }, []);
+
+  return { status, position, start };
 }
 
 export function distanceMeters(

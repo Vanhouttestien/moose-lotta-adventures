@@ -1,5 +1,12 @@
 import { createContext, useContext, useCallback, useEffect, useState } from "react";
-import { loadProfiles, saveProfiles, saveActiveProfile, loadActiveProfile, type Profile, type ProfileData } from "@/services/storage";
+import {
+  loadProfiles,
+  saveProfiles,
+  saveActiveProfile,
+  loadActiveProfile,
+  type Profile,
+  type ProfileData,
+} from "@/services/storage";
 import type { AgeGroup, Language, Story } from "@/data/stories";
 
 interface AppStateContextValue {
