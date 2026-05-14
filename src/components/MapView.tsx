@@ -79,6 +79,9 @@ export function MapView({
 
     mapRef.current = map;
 
+    // Mobile: recalculate tile dimensions after container fully renders
+    setTimeout(() => map.invalidateSize(), 200);
+
     return () => {
       if (animFrameRef.current != null) cancelAnimationFrame(animFrameRef.current);
       map.remove();
@@ -171,6 +174,8 @@ export function MapView({
       userMarkerRef.current = L.marker(target, { icon: userIcon() }).addTo(map);
       map.setView(target, map.getZoom(), { animate: false });
       hasCenteredRef.current = true;
+      // GPS just arrived — map may have been behind a permission card
+      setTimeout(() => map.invalidateSize(), 200);
       return;
     }
 

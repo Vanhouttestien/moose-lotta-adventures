@@ -25,9 +25,9 @@ function MapPage() {
   const position = useSmoothPosition(rawPosition);
 
   // Auto-start on mount: works on desktop & after permission granted on mobile
-  useEffect(() => { start(); }, [start]);
-
-
+  useEffect(() => {
+    start();
+  }, [start]);
 
   const village = useMemo(() => {
     if (!position) return villages[0];

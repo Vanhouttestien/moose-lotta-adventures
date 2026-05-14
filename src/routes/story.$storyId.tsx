@@ -45,7 +45,9 @@ function StoryPage() {
   const navigate = useNavigate();
   const { position, status, start } = useGeolocation();
 
-  useEffect(() => { start(); }, [start]);
+  useEffect(() => {
+    start();
+  }, [start]);
 
   const result = useMemo(
     () => getStoryStatuses([story], position, state.completedStoryIds),
