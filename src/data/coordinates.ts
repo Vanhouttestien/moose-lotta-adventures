@@ -1,7 +1,7 @@
 export const LOCATIONS = {
   FOREST_SIGNAL_POINT: { lat: 59.1452556258794, lng: 16.51281060728679, radius: 50 },
-  FOLKETS_HUS: { lat: 59.1556, lng: 16.4972, radius: 40 },
-  DINOSAUR_FOREST: { lat: 59.1571, lng: 16.4938, radius: 60 },
+  FOLKETS_HUS: { lat: 59.15152379187815, lng: 16.49791869159524, radius: 40 },
+  DINOSAUR_FOREST: { lat: 59.1568158, lng: 16.5131656, radius: 60 },
   KOLHUSET: { lat: 59.1526073906632, lng: 16.489412905749873, radius: 40 },
   LIKTALLARNA: { lat: 59.148238932534575, lng: 16.50466225162421, radius: 50 },
   FOUNDRY_MUSEUM: { lat: 59.1518, lng: 16.4898, radius: 80 },
