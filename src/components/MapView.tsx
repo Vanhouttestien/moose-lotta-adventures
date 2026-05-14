@@ -91,7 +91,6 @@ export function MapView({
     const map = mapRef.current;
     if (!map) return;
     const visibleIds = new Set<string>();
-    const bounds = L.latLngBounds([]);
 
     statuses.forEach((s) => {
       // Hidden stories never appear on the map.
@@ -115,8 +114,6 @@ export function MapView({
       const lng =
         s.tier === "hint" ? Math.round(s.story.location.lng * 1000) / 1000 : s.story.location.lng;
 
-      bounds.extend([lat, lng]);
-
       if (storyMarkersRef.current.has(id)) {
         const marker = storyMarkersRef.current.get(id)!;
         marker.setIcon(icon);
@@ -139,12 +136,29 @@ export function MapView({
         storyMarkersRef.current.delete(id);
       }
     });
-
-    // Fit map to story bounds, padded so markers aren't cropped
-    if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 16 });
-    }
   }, [statuses, navigate]);
+
+  // FIT BOUNDS — zoom to show all markers + user position
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const bounds = L.latLngBounds([]);
+    let hasPoint = false;
+
+    if (position) {
+      bounds.extend([position.lat, position.lng]);
+      hasPoint = true;
+    }
+    statuses.forEach((s) => {
+      if (s.tier === "hidden") return;
+      bounds.extend([s.story.location.lat, s.story.location.lng]);
+      hasPoint = true;
+    });
+
+    if (hasPoint) {
+      map.fitBounds(bounds, { padding: [60, 60] });
+    }
+  }, [statuses, position]);
 
   // USER / MOOSE MARKER — animate between positions for buttery motion
   useEffect(() => {

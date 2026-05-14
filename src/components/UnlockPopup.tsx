@@ -17,8 +17,8 @@ export function UnlockPopup({ story, onClose }: { story: Story | null; onClose: 
   if (!story) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6 backdrop-blur-sm animate-fade-up">
-      <div className="relative w-full max-w-sm overflow-hidden rounded-[2rem] bg-card p-6 text-center shadow-[var(--shadow-cozy)]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6 backdrop-blur-sm">
+      <div className="relative w-full max-w-sm max-h-[85vh] overflow-y-auto rounded-[2rem] bg-card p-6 text-center shadow-[var(--shadow-cozy)]">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full opacity-50 blur-2xl"

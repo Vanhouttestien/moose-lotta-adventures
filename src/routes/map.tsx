@@ -22,8 +22,8 @@ function MapPage() {
   const { state } = useAppState();
   const [gpsEnabled, setGpsEnabled] = useState(true);
   const { status, position: rawPosition } = useGeolocation(gpsEnabled);
-  const position = useSmoothPosition(rawPosition);
   const heading = useDeviceHeading();
+  const position = useSmoothPosition(rawPosition);
 
   const village = useMemo(() => {
     if (!position) return villages[0];
@@ -98,7 +98,7 @@ function MapPage() {
       </header>
 
       <div className="px-6">
-        <div className="relative h-[320px] overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]">
+        <div className="relative isolate h-[320px] overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]">
           <MapView village={village} statuses={statuses} position={position} />
           {/* Floating compass overlay */}
           <div className="pointer-events-none absolute left-3 right-3 top-3 flex justify-center">
