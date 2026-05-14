@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export type GeoStatus = "idle" | "prompt" | "watching" | "denied" | "unavailable";
+export type GeoStatus = "idle" | "prompt" | "watching" | "unavailable";
 
 export interface GeoPosition {
   lat: number;
@@ -13,16 +13,21 @@ export function useGeolocation() {
   const [position, setPosition] = useState<GeoPosition | null>(null);
   const watchIdRef = useRef<number | null>(null);
 
+  const stop = useCallback(() => {
+    if (watchIdRef.current != null) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+      watchIdRef.current = null;
+    }
+  }, []);
+
   const start = useCallback(() => {
     if (typeof navigator === "undefined" || !navigator.geolocation) {
       setStatus("unavailable");
       return;
     }
-    if (watchIdRef.current != null) {
-      navigator.geolocation.clearWatch(watchIdRef.current);
-      watchIdRef.current = null;
-    }
-    setStatus("watching");
+
+    stop();
+
     const onSuccess = (pos: GeolocationPosition) => {
       setPosition({
         lat: pos.coords.latitude,
@@ -30,31 +35,41 @@ export function useGeolocation() {
         accuracy: pos.coords.accuracy,
       });
       setStatus("watching");
-    };
-    const onError = (err: GeolocationPositionError) => {
-      if (err.code === err.PERMISSION_DENIED) setStatus("denied");
-      else setStatus("unavailable");
-    };
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, {
-      enableHighAccuracy: true,
-      timeout: 15000,
-      maximumAge: 0,
-    });
-    watchIdRef.current = navigator.geolocation.watchPosition(onSuccess, onError, {
-      enableHighAccuracy: true,
-      timeout: 15000,
-      maximumAge: 0,
-    });
-  }, []);
 
-  useEffect(() => {
-    return () => {
-      if (watchIdRef.current != null) {
-        navigator.geolocation.clearWatch(watchIdRef.current);
-        watchIdRef.current = null;
+      if (watchIdRef.current == null) {
+        watchIdRef.current = navigator.geolocation.watchPosition(
+          (p) => {
+            setPosition({
+              lat: p.coords.latitude,
+              lng: p.coords.longitude,
+              accuracy: p.coords.accuracy,
+            });
+          },
+          () => setStatus("unavailable"),
+          { enableHighAccuracy: true, timeout: 30000, maximumAge: 5000 },
+        );
       }
     };
-  }, []);
+
+    const onError = (err: GeolocationPositionError) => {
+      if (err.code === err.PERMISSION_DENIED) {
+        setStatus("prompt");
+      } else {
+        setStatus("unavailable");
+      }
+    };
+
+    setStatus("watching");
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+      enableHighAccuracy: true,
+      timeout: 30000,
+      maximumAge: 60000,
+    });
+  }, [stop]);
+
+  useEffect(() => {
+    return () => stop();
+  }, [stop]);
 
   return { status, position, start };
 }

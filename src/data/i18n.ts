@@ -56,7 +56,7 @@ const sv: Dict = {
   permissionBody:
     "Vi använder din plats för att hitta hemliga äventyr nära dig. Vi sparar ingenting.",
   enableGps: "Slå på platsen",
-  gpsDenied: "Platsen är avstängd – du kan ändå trycka 'Jag är här' vid varje plats.",
+  gpsDenied: "Platsen är avstängd. Tryck igen eller ändra i webbläsarens inställningar.",
   progress: "framsteg",
   collected: "samlade skatter",
   noRewards: "Inga skatter ännu. Gå ut och upptäck!",
@@ -98,7 +98,7 @@ const en: Dict = {
   permissionTitle: "May Moose Lotta know where you are?",
   permissionBody: "We use your location to find secret adventures nearby. Nothing is stored.",
   enableGps: "Enable location",
-  gpsDenied: "Location is off – you can still tap 'I'm here' at each place.",
+  gpsDenied: "Location is off. Tap again or change settings in your browser.",
   progress: "progress",
   collected: "collected treasures",
   noRewards: "No treasures yet. Go outside and explore!",

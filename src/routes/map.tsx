@@ -118,7 +118,7 @@ function MapPage() {
       </div>
 
       <div className="space-y-3 px-6 pt-6">
-        {(status === "idle" || status === "denied" || status === "unavailable") && (
+        {(status === "idle" || status === "prompt" || status === "unavailable") && (
           <GpsPermissionCard status={status} onEnable={start} />
         )}
         {status === "watching" && !position && (

@@ -100,22 +100,24 @@ function StoryPage() {
                 ? `Du är ungefär ${Math.round(distance)} m bort.`
                 : status === "watching"
                   ? t(state.language, "searching")
-                  : status === "idle"
+                  : status === "idle" || status === "prompt"
                     ? ""
                     : t(state.language, "locked")}
             </p>
-            {status === "idle" ? (
+            {status === "idle" || status === "prompt" ? (
               <button
                 onClick={start}
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-95"
               >
-                {t(state.language, "enableGps")}
+                {status === "prompt"
+                  ? t(state.language, "enableGps") + " igen"
+                  : t(state.language, "enableGps")}
               </button>
-            ) : (
+            ) : status !== "unavailable" ? (
               <p className="mt-2 font-display text-base text-foreground">
                 {t(state.language, "feels")}
               </p>
-            )}
+            ) : null}
           </div>
         ) : (
           <div className="rounded-3xl bg-primary/10 px-4 py-3 text-center text-sm font-semibold text-primary animate-pulse-ring">
