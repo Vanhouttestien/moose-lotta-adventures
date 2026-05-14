@@ -24,11 +24,6 @@ function MapPage() {
   const heading = useDeviceHeading();
   const position = useSmoothPosition(rawPosition);
 
-  // Auto-start on mount: works on desktop & after permission granted on mobile
-  useEffect(() => {
-    start();
-  }, [start]);
-
   const village = useMemo(() => {
     if (!position) return villages[0];
     let closest = villages[0];
@@ -118,7 +113,7 @@ function MapPage() {
       </div>
 
       <div className="space-y-3 px-6 pt-6">
-        {(status === "idle" || status === "prompt" || status === "unavailable") && (
+        {(status === "idle" || status === "unavailable") && (
           <GpsPermissionCard status={status} onEnable={start} />
         )}
         {status === "watching" && !position && (

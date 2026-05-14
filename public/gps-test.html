@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>GPS Test</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, sans-serif; padding: 20px; background: #f5f5f5; }
+  h1 { font-size: 1.4rem; margin-bottom: 16px; }
+  .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  h2 { font-size: 1rem; margin-bottom: 8px; }
+  .log { font-size: 0.85rem; font-family: monospace; white-space: pre-wrap; line-height: 1.6; }
+  .success { color: #16a34a; }
+  .error { color: #dc2626; }
+  .info { color: #2563eb; }
+  button { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-size: 1rem; cursor: pointer; }
+  button:active { opacity: 0.8; }
+  hr { margin: 16px 0; border: none; border-top: 1px solid #e5e5e5; }
+  .badge { display: inline-block; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-left: 6px; }
+  .badge-auto { background: #fef3c7; color: #92400e; }
+  .badge-click { background: #dbeafe; color: #1e40af; }
+</style>
+</head>
+<body>
+<h1>📍 GPS Test</h1>
+
+<div class="card">
+  <h2>Auto-start on page load <span class="badge badge-auto">AUTO</span></h2>
+  <div id="auto-log" class="log">idle</div>
+</div>
+
+<div class="card">
+  <h2>Button click <span class="badge badge-click">CLICK</span></h2>
+  <button id="btn">Request GPS</button>
+  <div id="click-log" class="log" style="margin-top:8px">idle</div>
+</div>
+
+<hr/>
+
+<div class="card">
+  <h2>Device info</h2>
+  <div id="device" class="log"></div>
+</div>
+
+<script>
+function $(id) { return document.getElementById(id); }
+
+function append(el, text, className) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  if (className) div.className = className;
+  el.appendChild(div);
+}
+
+// Device info
+const device = $('device');
+device.textContent = [
+  `UA: ${navigator.userAgent}`,
+  `Secure: ${location.protocol === 'https:' ? 'yes' : 'no (might block GPS)'}`,
+  `Geolocation API: ${'geolocation' in navigator ? 'available' : 'NOT AVAILABLE'}`,
+].join('\n');
+
+// === AUTO test (runs immediately) ===
+const autoLog = $('auto-log');
+append(autoLog, `⏱ ${new Date().toISOString().slice(11,19)} — auto-start triggered`, 'info');
+
+if (!('geolocation' in navigator)) {
+  append(autoLog, '✗ Geolocation not available', 'error');
+} else {
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      append(autoLog, `✓ lat=${pos.coords.latitude.toFixed(5)} lng=${pos.coords.longitude.toFixed(5)} acc=${pos.coords.accuracy}m`, 'success');
+    },
+    (err) => {
+      const msgs = {
+        1: 'PERMISSION_DENIED — blocked (no user gesture)',
+        2: 'POSITION_UNAVAILABLE',
+        3: 'TIMEOUT',
+      };
+      append(autoLog, `✗ ${msgs[err.code] || err.message} (code ${err.code})`, 'error');
+    },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+  );
+}
+
+// === CLICK test ===
+const clickLog = $('click-log');
+const btn = $('btn');
+
+btn.addEventListener('click', () => {
+  append(clickLog, `⏱ ${new Date().toISOString().slice(11,19)} — button clicked`, 'info');
+
+  if (!('geolocation' in navigator)) {
+    append(clickLog, '✗ Geolocation not available', 'error');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      append(clickLog, `✓ lat=${pos.coords.latitude.toFixed(5)} lng=${pos.coords.longitude.toFixed(5)} acc=${pos.coords.accuracy}m`, 'success');
+    },
+    (err) => {
+      const msgs = {
+        1: 'PERMISSION_DENIED',
+        2: 'POSITION_UNAVAILABLE',
+        3: 'TIMEOUT',
+      };
+      append(clickLog, `✗ ${msgs[err.code] || err.message} (code ${err.code})`, 'error');
+    },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+  );
+});
+</script>
+</body>
+</html>

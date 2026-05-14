@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export type GeoStatus = "idle" | "prompt" | "watching" | "unavailable";
+export type GeoStatus = "idle" | "watching" | "unavailable";
 
 export interface GeoPosition {
   lat: number;
@@ -51,12 +51,8 @@ export function useGeolocation() {
       }
     };
 
-    const onError = (err: GeolocationPositionError) => {
-      if (err.code === err.PERMISSION_DENIED) {
-        setStatus("prompt");
-      } else {
-        setStatus("unavailable");
-      }
+    const onError = () => {
+      setStatus("unavailable");
     };
 
     setStatus("watching");

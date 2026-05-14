@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { AppShell } from "@/components/AppShell";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { useAppState } from "@/hooks/useAppState";
@@ -44,10 +44,6 @@ function StoryPage() {
   const { state, completeStory } = useAppState();
   const navigate = useNavigate();
   const { position, status, start } = useGeolocation();
-
-  useEffect(() => {
-    start();
-  }, [start]);
 
   const result = useMemo(
     () => getStoryStatuses([story], position, state.completedStoryIds),
@@ -100,18 +96,16 @@ function StoryPage() {
                 ? `Du är ungefär ${Math.round(distance)} m bort.`
                 : status === "watching"
                   ? t(state.language, "searching")
-                  : status === "idle" || status === "prompt"
+                  : status === "idle"
                     ? ""
                     : t(state.language, "locked")}
             </p>
-            {status === "idle" || status === "prompt" ? (
+            {status === "idle" ? (
               <button
                 onClick={start}
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-95"
               >
-                {status === "prompt"
-                  ? t(state.language, "enableGps") + " igen"
-                  : t(state.language, "enableGps")}
+                {t(state.language, "enableGps")}
               </button>
             ) : status !== "unavailable" ? (
               <p className="mt-2 font-display text-base text-foreground">
