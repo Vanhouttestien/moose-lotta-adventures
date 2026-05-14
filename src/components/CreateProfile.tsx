@@ -20,7 +20,13 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
     }
     const ok = createProfile(trimmed, ageGroup, language);
     if (!ok) {
-      setError(t(language, "profileName") + ' "' + trimmed + '" ' + (language === "sv" ? "finns redan" : "already exists"));
+      setError(
+        t(language, "profileName") +
+          ' "' +
+          trimmed +
+          '" ' +
+          (language === "sv" ? "finns redan" : "already exists"),
+      );
       return;
     }
     onDone();
@@ -55,16 +61,17 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
               <input
                 type="text"
                 value={name}
-                onChange={(e) => { setName(e.target.value); setError(""); }}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setError("");
+                }}
                 placeholder={t(language, "profileName")}
                 className="w-full rounded-2xl bg-card px-5 py-3.5 text-center text-[15px] text-foreground placeholder:text-muted-foreground/60 shadow-[var(--shadow-soft)] outline-none ring-1 ring-border/50 transition-shadow focus:ring-2 focus:ring-primary/30"
                 autoFocus
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               />
             </div>
-            {error && (
-              <p className="mt-2 text-center text-xs text-destructive">{error}</p>
-            )}
+            {error && <p className="mt-2 text-center text-xs text-destructive">{error}</p>}
           </div>
 
           {/* language */}
@@ -81,7 +88,7 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
               {t(language, "age")}
             </p>
             <div className="flex justify-center">
-              <AgeSelector value={ageGroup} onChange={setAgeGroup} />
+              <AgeSelector value={ageGroup} onChange={setAgeGroup} language={language} />
             </div>
           </div>
 

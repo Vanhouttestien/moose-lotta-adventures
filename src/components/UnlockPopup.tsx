@@ -2,13 +2,7 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import type { Story } from "@/data/stories";
 
-export function UnlockPopup({
-  story,
-  onClose,
-}: {
-  story: Story | null;
-  onClose: () => void;
-}) {
+export function UnlockPopup({ story, onClose }: { story: Story | null; onClose: () => void }) {
   useEffect(() => {
     if (!story) return;
     if (typeof navigator !== "undefined" && "vibrate" in navigator) {
@@ -35,9 +29,7 @@ export function UnlockPopup({
             ✨ Du hittade ett äventyr
           </p>
           <div className="mt-3 text-5xl animate-float">{story.emoji}</div>
-          <h2 className="mt-3 font-display text-2xl text-forest-deep">
-            {story.title}
-          </h2>
+          <h2 className="mt-3 font-display text-2xl text-forest-deep">{story.title}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{story.subtitle}</p>
           <div className="mt-6 flex flex-col gap-2">
             <Link

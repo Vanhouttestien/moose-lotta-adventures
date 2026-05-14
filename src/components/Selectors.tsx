@@ -1,4 +1,4 @@
-import { ageGroups, languages } from "@/data/i18n";
+import { ageGroups, getAgeGroupLabel, languages } from "@/data/i18n";
 import type { AgeGroup, Language } from "@/data/stories";
 
 export function LanguageSelector({
@@ -31,9 +31,11 @@ export function LanguageSelector({
 export function AgeSelector({
   value,
   onChange,
+  language = "sv",
 }: {
   value: AgeGroup;
   onChange: (a: AgeGroup) => void;
+  language?: Language;
 }) {
   return (
     <div className="flex flex-wrap gap-2">
@@ -47,7 +49,7 @@ export function AgeSelector({
               : "bg-muted text-muted-foreground hover:bg-muted/80"
           }`}
         >
-          {a.label}
+          {getAgeGroupLabel(language, a.code)}
         </button>
       ))}
     </div>

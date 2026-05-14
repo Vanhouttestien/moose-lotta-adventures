@@ -21,8 +21,7 @@ export function Compass({ bearing, heading, distance, label, warm }: CompassProp
 
   useEffect(() => {
     if (bearing == null || !arrowRef.current) return;
-    const target =
-      heading != null ? (bearing - heading + 360) % 360 : bearing;
+    const target = heading != null ? (bearing - heading + 360) % 360 : bearing;
     // Shortest-path delta
     const cur = currentRef.current;
     let delta = target - (((cur % 360) + 360) % 360);

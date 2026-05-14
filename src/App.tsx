@@ -25,12 +25,7 @@ function AppGate() {
     return <CreateProfile onDone={() => setShowCreate(false)} />;
   }
 
-  return (
-    <ProfilePicker
-      onSelect={() => {}}
-      onCreate={() => setShowCreate(true)}
-    />
-  );
+  return <ProfilePicker onSelect={() => {}} onCreate={() => setShowCreate(true)} />;
 }
 
 export default function App() {

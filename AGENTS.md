@@ -1,11 +1,13 @@
 # moose-lotta-adventures — Agent Guide
 
 ## Stack
+
 - React 19, TypeScript 5.8, Vite 7, Tailwind CSS v4, TanStack Router, TanStack Query
 - shadcn/ui (New York), lucide-react, Leaflet
 - Vitest + Testing Library, ESLint 9 + Prettier
 
 ## Commands
+
 - `npm run dev` — start dev server
 - `npm run build` — production build
 - `npm run lint` — ESLint
@@ -13,12 +15,14 @@
 - `npm test` — Vitest
 
 ## Project structure
+
 - `src/hooks/useAppState.tsx` — `AppStateProvider` context + profile system
 - `src/services/storage.ts` — localStorage persistence for profiles
 - `src/data/stories.ts` — `AgeGroup`, `Language`, `Story`, `Village` types & data
 - `src/data/i18n.ts` — sv/en dictionaries, `t()` lookup
 
 ## Conventions
+
 - **Imports:** `@/` alias (e.g. `@/hooks/useAppState`, `@/components/Selectors`)
 - **Naming:** PascalCase for components/files, camelCase for hooks/services/utils
 - **Exports:** named exports for everything; default export for page components

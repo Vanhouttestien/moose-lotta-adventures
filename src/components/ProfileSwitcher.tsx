@@ -36,7 +36,7 @@ export function ProfileSwitcher({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/30 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[1000] flex items-end justify-center bg-black/30 backdrop-blur-sm">
       <div className="w-full max-w-md rounded-t-3xl bg-background px-6 pb-10 pt-6 shadow-[var(--shadow-cozy)] animate-in slide-in-from-bottom">
         <div className="flex items-center justify-between">
           <h2 className="font-display text-lg font-semibold text-foreground">
@@ -73,9 +73,7 @@ export function ProfileSwitcher({
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-foreground truncate text-sm">
-                      {profile.name}
-                    </p>
+                    <p className="font-semibold text-foreground truncate text-sm">{profile.name}</p>
                     <p className="text-xs text-muted-foreground">
                       {profile.data.ageGroup} ·{" "}
                       {profile.data.language === "sv" ? "Svenska" : "English"}

@@ -7,7 +7,7 @@ import { GpsPermissionCard } from "@/components/GpsPermissionCard";
 import { Compass } from "@/components/Compass";
 import { UnlockPopup } from "@/components/UnlockPopup";
 import { useAppState } from "@/hooks/useAppState";
-import { useGeolocation } from "@/hooks/useGeolocation";
+import { distanceMeters, useGeolocation } from "@/hooks/useGeolocation";
 import { useSmoothPosition } from "@/hooks/useSmoothPosition";
 import { bearingDeg, useDeviceHeading } from "@/hooks/useCompass";
 import { getStoryStatuses } from "@/engine/storyEngine";
@@ -15,15 +15,6 @@ import { getStories, villages, type Story } from "@/data/stories";
 import { t } from "@/data/i18n";
 
 export const Route = createFileRoute("/map")({
-  head: () => ({
-    meta: [
-      { title: "Karta — Moose Lotta Äventyr" },
-      {
-        name: "description",
-        content: "Hitta hemliga äventyr i Hälleforsnäs på den magiska kartan.",
-      },
-    ],
-  }),
   component: MapPage,
 });
 
@@ -33,7 +24,20 @@ function MapPage() {
   const { status, position: rawPosition } = useGeolocation(gpsEnabled);
   const position = useSmoothPosition(rawPosition);
   const heading = useDeviceHeading();
-  const village = villages[0];
+
+  const village = useMemo(() => {
+    if (!position) return villages[0];
+    let closest = villages[0];
+    let closestDist = distanceMeters(position, closest.center);
+    for (let i = 1; i < villages.length; i++) {
+      const d = distanceMeters(position, villages[i].center);
+      if (d < closestDist) {
+        closest = villages[i];
+        closestDist = d;
+      }
+    }
+    return closest;
+  }, [position]);
 
   const stories = useMemo(
     () => getStories({ language: state.language, ageGroup: state.ageGroup, villageId: village.id }),
@@ -78,10 +82,7 @@ function MapPage() {
 
   useEffect(() => {
     const fresh = statuses.find(
-      (s) =>
-        s.unlocked &&
-        !s.completed &&
-        !seenUnlockedRef.current.has(s.story.id),
+      (s) => s.unlocked && !s.completed && !seenUnlockedRef.current.has(s.story.id),
     );
     if (fresh) {
       seenUnlockedRef.current.add(fresh.story.id);
@@ -92,12 +93,8 @@ function MapPage() {
   return (
     <AppShell>
       <header className="px-6 pt-8 pb-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-moss">
-          {village.name}
-        </p>
-        <h1 className="mt-1 font-display text-3xl text-forest-deep">
-          {t(state.language, "map")}
-        </h1>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-moss">{village.name}</p>
+        <h1 className="mt-1 font-display text-3xl text-forest-deep">{t(state.language, "map")}</h1>
       </header>
 
       <div className="px-6">
@@ -150,8 +147,8 @@ function MapPage() {
                   ✨ Något väntar här i närheten
                 </p>
                 <p className="mt-1 font-display text-base text-forest-deep">
-                  Lotta känner ett äventyr ungefär{" "}
-                  {Math.round((s.distance ?? 0) / 100) * 100} m bort…
+                  Lotta känner ett äventyr ungefär {Math.round((s.distance ?? 0) / 100) * 100} m
+                  bort…
                 </p>
               </div>
             ) : (

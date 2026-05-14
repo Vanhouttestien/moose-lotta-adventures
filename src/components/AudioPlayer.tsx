@@ -39,7 +39,9 @@ export function AudioPlayer({ src, label }: { src: string; label?: string }) {
     const a = audioRef.current;
     if (!a) return;
     a.currentTime = 0;
-    a.play().then(() => setPlaying(true)).catch(() => setAvailable(false));
+    a.play()
+      .then(() => setPlaying(true))
+      .catch(() => setAvailable(false));
   };
 
   return (

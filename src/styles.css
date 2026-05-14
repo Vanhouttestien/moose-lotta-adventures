@@ -5,7 +5,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 /*
  * Design system definition.
  *
@@ -66,19 +65,19 @@
 :root {
   --radius: 1.25rem;
   /* Nordic forest palette */
-  --background: oklch(0.97 0.015 95);          /* warm beige */
-  --foreground: oklch(0.28 0.03 150);          /* deep moss */
+  --background: oklch(0.97 0.015 95); /* warm beige */
+  --foreground: oklch(0.28 0.03 150); /* deep moss */
   --card: oklch(0.985 0.01 95);
   --card-foreground: oklch(0.28 0.03 150);
   --popover: oklch(0.985 0.01 95);
   --popover-foreground: oklch(0.28 0.03 150);
-  --primary: oklch(0.48 0.06 150);             /* moss green */
+  --primary: oklch(0.48 0.06 150); /* moss green */
   --primary-foreground: oklch(0.98 0.01 95);
-  --secondary: oklch(0.88 0.04 80);            /* warm wood */
+  --secondary: oklch(0.88 0.04 80); /* warm wood */
   --secondary-foreground: oklch(0.3 0.04 60);
   --muted: oklch(0.93 0.02 95);
   --muted-foreground: oklch(0.45 0.03 120);
-  --accent: oklch(0.78 0.12 60);               /* soft orange */
+  --accent: oklch(0.78 0.12 60); /* soft orange */
   --accent-foreground: oklch(0.25 0.04 60);
   --destructive: oklch(0.6 0.18 30);
   --destructive-foreground: oklch(0.98 0.01 95);
@@ -119,33 +118,78 @@
 }
 
 @layer base {
-  html, body { font-family: "Nunito", system-ui, -apple-system, sans-serif; }
-  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  html,
+  body {
+    font-family:
+      "Nunito",
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
 }
 
 @keyframes ml-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 @keyframes ml-pulse-ring {
-  0% { box-shadow: 0 0 0 0 oklch(0.55 0.08 145 / 0.5); }
-  70% { box-shadow: 0 0 0 18px oklch(0.55 0.08 145 / 0); }
-  100% { box-shadow: 0 0 0 0 oklch(0.55 0.08 145 / 0); }
+  0% {
+    box-shadow: 0 0 0 0 oklch(0.55 0.08 145 / 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 18px oklch(0.55 0.08 145 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.55 0.08 145 / 0);
+  }
 }
 @keyframes ml-fade-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-float { animation: ml-float 5s ease-in-out infinite; }
-.animate-pulse-ring { animation: ml-pulse-ring 2.4s ease-out infinite; }
-.animate-fade-up { animation: ml-fade-up 0.5s ease-out both; }
+.animate-float {
+  animation: ml-float 5s ease-in-out infinite;
+}
+.animate-pulse-ring {
+  animation: ml-pulse-ring 2.4s ease-out infinite;
+}
+.animate-fade-up {
+  animation: ml-fade-up 0.5s ease-out both;
+}
 
 /* Warm-tier story pin: gentle glow inviting children to come closer */
 @keyframes ml-warm-glow {
-  0%, 100% { filter: drop-shadow(0 0 0 oklch(0.78 0.12 60 / 0)); transform: translateY(0); }
-  50%      { filter: drop-shadow(0 0 8px oklch(0.78 0.12 60 / 0.7)); transform: translateY(-2px); }
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 oklch(0.78 0.12 60 / 0));
+    transform: translateY(0);
+  }
+  50% {
+    filter: drop-shadow(0 0 8px oklch(0.78 0.12 60 / 0.7));
+    transform: translateY(-2px);
+  }
 }
-.ml-warm-ring { animation: ml-warm-glow 1.8s ease-in-out infinite; }
+.ml-warm-ring {
+  animation: ml-warm-glow 1.8s ease-in-out infinite;
+}
 
 .dark {
   --background: oklch(0.129 0.042 264.695);

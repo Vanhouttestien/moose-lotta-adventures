@@ -2,13 +2,7 @@ import { useAppState } from "@/hooks/useAppState";
 import { t } from "@/data/i18n";
 import { MapPin } from "lucide-react";
 
-export function GpsPermissionCard({
-  status,
-  onEnable,
-}: {
-  status: string;
-  onEnable: () => void;
-}) {
+export function GpsPermissionCard({ status, onEnable }: { status: string; onEnable: () => void }) {
   const { state } = useAppState();
   if (status === "watching") return null;
 

@@ -23,7 +23,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
   }, [profiles]);
 
   const activeProfile = activeProfileName
-    ? profiles.find((p) => p.name === activeProfileName) ?? null
+    ? (profiles.find((p) => p.name === activeProfileName) ?? null)
     : null;
 
   const state: ProfileData = activeProfile?.data ?? {

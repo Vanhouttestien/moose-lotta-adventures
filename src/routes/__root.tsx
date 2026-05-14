@@ -73,16 +73,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Moose Lotta Adventures" },
-      { name: "description", content: "A location-based adventure app for children to discover narrated stories by visiting real-world places." },
+      {
+        name: "description",
+        content:
+          "A location-based adventure app for children to discover narrated stories by visiting real-world places.",
+      },
       { name: "author", content: "Moose Lotta" },
       { property: "og:title", content: "Moose Lotta Adventures" },
-      { property: "og:description", content: "A location-based adventure app for children to discover narrated stories by visiting real-world places." },
+      {
+        property: "og:description",
+        content:
+          "A location-based adventure app for children to discover narrated stories by visiting real-world places.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Moose Lotta Adventures" },
-      { name: "twitter:description", content: "A location-based adventure app for children to discover narrated stories by visiting real-world places." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/78de1ad1-493d-4cee-984c-5d9b6e538a82/id-preview-4cf9ee7e--a388d45a-09e7-4faf-a7f4-1c205da09c7b.lovable.app-1778399372822.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/78de1ad1-493d-4cee-984c-5d9b6e538a82/id-preview-4cf9ee7e--a388d45a-09e7-4faf-a7f4-1c205da09c7b.lovable.app-1778399372822.png" },
+      {
+        name: "twitter:description",
+        content:
+          "A location-based adventure app for children to discover narrated stories by visiting real-world places.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/78de1ad1-493d-4cee-984c-5d9b6e538a82/id-preview-4cf9ee7e--a388d45a-09e7-4faf-a7f4-1c205da09c7b.lovable.app-1778399372822.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/78de1ad1-493d-4cee-984c-5d9b6e538a82/id-preview-4cf9ee7e--a388d45a-09e7-4faf-a7f4-1c205da09c7b.lovable.app-1778399372822.png",
+      },
     ],
     links: [
       {

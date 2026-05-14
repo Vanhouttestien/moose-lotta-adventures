@@ -81,9 +81,7 @@ function HomePage() {
                   : "Moose Lotta"}
               </h1>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                {hasUnlockable
-                  ? t(state.language, "tagline")
-                  : t(state.language, "done")}
+                {hasUnlockable ? t(state.language, "tagline") : t(state.language, "done")}
               </p>
             </div>
           </div>
@@ -109,8 +107,7 @@ function HomePage() {
             <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
               <Gift size={13} />
               <span>
-                {state.rewards.length}{" "}
-                {t(state.language, "collected")}
+                {state.rewards.length} {t(state.language, "collected")}
               </span>
             </div>
           </div>
@@ -132,7 +129,9 @@ function HomePage() {
                 >
                   <span className="text-2xl">{story.emoji}</span>
                   <div className="flex-1 min-w-0">
-                    <p className={`font-display text-sm font-semibold truncate ${isDone ? "text-muted-foreground/60" : "text-foreground"}`}>
+                    <p
+                      className={`font-display text-sm font-semibold truncate ${isDone ? "text-muted-foreground/60" : "text-foreground"}`}
+                    >
                       {story.title}
                     </p>
                     <p className="mt-0.5 text-xs text-muted-foreground/70 truncate">
@@ -144,7 +143,10 @@ function HomePage() {
                       {t(state.language, "done")}
                     </span>
                   ) : (
-                    <ChevronRight size={16} className="shrink-0 text-muted-foreground/30 transition-transform group-hover:translate-x-0.5" />
+                    <ChevronRight
+                      size={16}
+                      className="shrink-0 text-muted-foreground/30 transition-transform group-hover:translate-x-0.5"
+                    />
                   )}
                 </button>
               );
@@ -162,9 +164,7 @@ function HomePage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-forest-mist to-moss/10">
                 <Map size={20} className="text-primary" />
               </div>
-              <p className="text-xs font-semibold text-foreground">
-                {t(state.language, "map")}
-              </p>
+              <p className="text-xs font-semibold text-foreground">{t(state.language, "map")}</p>
             </Link>
             <Link
               to="/rewards"

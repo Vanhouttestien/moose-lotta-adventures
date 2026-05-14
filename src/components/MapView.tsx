@@ -9,11 +9,11 @@ type PinKind = "hint" | "visible" | "warm" | "unlocked" | "completed";
 
 function pinIcon(kind: PinKind, emoji: string) {
   const palette: Record<PinKind, { fill: string; glyph: string; opacity: number; ring: string }> = {
-    hint:      { fill: "#b9b3a4", glyph: "?",   opacity: 0.55, ring: "" },
-    visible:   { fill: "#a89070", glyph: emoji, opacity: 1,    ring: "" },
-    warm:      { fill: "#d49a5c", glyph: emoji, opacity: 1,    ring: "ml-warm-ring" },
-    unlocked:  { fill: "#7ea66a", glyph: emoji, opacity: 1,    ring: "" },
-    completed: { fill: "#d49a5c", glyph: "✨",  opacity: 1,    ring: "" },
+    hint: { fill: "#b9b3a4", glyph: "?", opacity: 0.55, ring: "" },
+    visible: { fill: "#a89070", glyph: emoji, opacity: 1, ring: "" },
+    warm: { fill: "#d49a5c", glyph: emoji, opacity: 1, ring: "ml-warm-ring" },
+    unlocked: { fill: "#7ea66a", glyph: emoji, opacity: 1, ring: "" },
+    completed: { fill: "#d49a5c", glyph: "✨", opacity: 1, ring: "" },
   };
   const p = palette[kind];
   return L.divIcon({
@@ -66,22 +66,16 @@ export function MapView({
 
     const map = L.map(ref.current, {
       center: [village.center.lat, village.center.lng],
-      zoom: 13, // ~5 km area
+      zoom: 14,
       zoomControl: false,
       attributionControl: false,
     });
 
-    L.tileLayer(
-      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {
-        maxZoom: 19,
-      },
-    ).addTo(map);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+    }).addTo(map);
 
-    L.control
-      .attribution({ prefix: false })
-      .addAttribution("© OpenStreetMap")
-      .addTo(map);
+    L.control.attribution({ prefix: false }).addAttribution("© OpenStreetMap").addTo(map);
 
     mapRef.current = map;
 
@@ -97,6 +91,7 @@ export function MapView({
     const map = mapRef.current;
     if (!map) return;
     const visibleIds = new Set<string>();
+    const bounds = L.latLngBounds([]);
 
     statuses.forEach((s) => {
       // Hidden stories never appear on the map.
@@ -116,13 +111,11 @@ export function MapView({
       // Hint pins are intentionally offset / fuzzy — show approximate area
       // by snapping to nearest 0.001 deg (≈100m) so children "search" for it.
       const lat =
-        s.tier === "hint"
-          ? Math.round(s.story.location.lat * 1000) / 1000
-          : s.story.location.lat;
+        s.tier === "hint" ? Math.round(s.story.location.lat * 1000) / 1000 : s.story.location.lat;
       const lng =
-        s.tier === "hint"
-          ? Math.round(s.story.location.lng * 1000) / 1000
-          : s.story.location.lng;
+        s.tier === "hint" ? Math.round(s.story.location.lng * 1000) / 1000 : s.story.location.lng;
+
+      bounds.extend([lat, lng]);
 
       if (storyMarkersRef.current.has(id)) {
         const marker = storyMarkersRef.current.get(id)!;
@@ -146,6 +139,11 @@ export function MapView({
         storyMarkersRef.current.delete(id);
       }
     });
+
+    // Fit map to story bounds, padded so markers aren't cropped
+    if (bounds.isValid()) {
+      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 16 });
+    }
   }, [statuses, navigate]);
 
   // USER / MOOSE MARKER — animate between positions for buttery motion
@@ -157,7 +155,7 @@ export function MapView({
 
     if (!userMarkerRef.current) {
       userMarkerRef.current = L.marker(target, { icon: userIcon() }).addTo(map);
-      map.setView(target, 13, { animate: false });
+      map.setView(target, map.getZoom(), { animate: false });
       hasCenteredRef.current = true;
       return;
     }

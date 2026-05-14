@@ -37,9 +37,7 @@ export function ProfilePicker({
             <h1 className="mt-4 font-display text-2xl font-semibold text-foreground">
               Moose Lotta
             </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t(lang, "selectProfile")}
-            </p>
+            <p className="mt-1 text-sm text-muted-foreground">{t(lang, "selectProfile")}</p>
           </div>
 
           {/* profile list */}
@@ -61,9 +59,7 @@ export function ProfilePicker({
                   </span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-foreground truncate">
-                    {profile.name}
-                  </p>
+                  <p className="font-semibold text-foreground truncate">{profile.name}</p>
                   <p className="text-xs text-muted-foreground">
                     {profile.data.ageGroup} ·{" "}
                     {profile.data.language === "sv" ? "Svenska" : "English"}

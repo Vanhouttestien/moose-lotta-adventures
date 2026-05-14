@@ -5,13 +5,22 @@ export const languages: { code: Language; label: string; flag: string }[] = [
   { code: "en", label: "English", flag: "🇬🇧" },
 ];
 
+const ageGroupLabels: Record<Language, Record<string, string>> = {
+  sv: { "3-4": "3–4 år", "5-6": "5–6 år", "7-9": "7–9 år", "10-12": "10–12 år", adult: "Vuxen" },
+  en: { "3-4": "3–4 years", "5-6": "5–6 years", "7-9": "7–9 years", "10-12": "10–12 years", adult: "Adult" },
+};
+
 export const ageGroups = [
-  { code: "3-4" as const, label: "3–4 år" },
-  { code: "5-6" as const, label: "5–6 år" },
-  { code: "7-9" as const, label: "7–9 år" },
-  { code: "10-12" as const, label: "10–12 år" },
-  { code: "adult" as const, label: "Vuxen" },
+  { code: "3-4" as const },
+  { code: "5-6" as const },
+  { code: "7-9" as const },
+  { code: "10-12" as const },
+  { code: "adult" as const },
 ];
+
+export function getAgeGroupLabel(lang: Language, code: string): string {
+  return ageGroupLabels[lang]?.[code] ?? code;
+}
 
 type Dict = Record<string, string>;
 const sv: Dict = {
@@ -81,8 +90,7 @@ const en: Dict = {
   replay: "Play again",
   noStories: "No adventures here yet",
   permissionTitle: "May Moose Lotta know where you are?",
-  permissionBody:
-    "We use your location to find secret adventures nearby. Nothing is stored.",
+  permissionBody: "We use your location to find secret adventures nearby. Nothing is stored.",
   enableGps: "Enable location",
   gpsDenied: "Location is off – you can still tap 'I'm here' at each place.",
   progress: "progress",

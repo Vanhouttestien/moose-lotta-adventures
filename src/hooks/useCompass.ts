@@ -13,9 +13,7 @@ export function bearingDeg(from: LatLng, to: LatLng): number {
   const φ2 = toRad(to.lat);
   const Δλ = toRad(to.lng - from.lng);
   const y = Math.sin(Δλ) * Math.cos(φ2);
-  const x =
-    Math.cos(φ1) * Math.sin(φ2) -
-    Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+  const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
   return (toDeg(Math.atan2(y, x)) + 360) % 360;
 }
 
@@ -31,9 +29,11 @@ export function useDeviceHeading(): number | null {
 
     const handler = (e: DeviceOrientationEvent) => {
       // iOS Safari exposes webkitCompassHeading (already adjusted to true north)
-      const wk = (e as DeviceOrientationEvent & {
-        webkitCompassHeading?: number;
-      }).webkitCompassHeading;
+      const wk = (
+        e as DeviceOrientationEvent & {
+          webkitCompassHeading?: number;
+        }
+      ).webkitCompassHeading;
       if (typeof wk === "number") {
         setHeading(wk);
         return;

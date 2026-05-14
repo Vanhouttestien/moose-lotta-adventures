@@ -17,22 +17,17 @@ export function AppShell({
   const [showCreate, setShowCreate] = useState(false);
 
   if (showCreate) {
-    return (
-      <CreateProfile onDone={() => setShowCreate(false)} />
-    );
+    return <CreateProfile onDone={() => setShowCreate(false)} />;
   }
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col bg-background">
       {!hideProfile && (
-        <div className="sticky top-0 z-30 flex items-center justify-end px-4 pt-3 pb-1">
+        <div className="sticky top-0 z-[900] flex items-center justify-end px-4 pt-3 pb-1">
           <ProfileBadge onPress={() => setShowSwitcher(true)} />
         </div>
       )}
-      <main
-        id="main-content"
-        className={`flex-1 ${hideNav ? "" : "pb-24"}`}
-      >
+      <main id="main-content" className={`flex-1 ${hideNav ? "" : "pb-24"}`}>
         {children}
       </main>
       {!hideNav && <BottomNav />}

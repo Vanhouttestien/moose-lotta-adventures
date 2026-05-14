@@ -76,9 +76,7 @@ function StoryPage() {
           <MapPin className="h-3 w-3" />
           {story.location.label}
         </div>
-        <h1 className="mt-2 font-display text-3xl leading-tight text-forest-deep">
-          {story.title}
-        </h1>
+        <h1 className="mt-2 font-display text-3xl leading-tight text-forest-deep">{story.title}</h1>
         <div
           className="mt-6 flex h-32 items-center justify-center rounded-3xl text-6xl shadow-[var(--shadow-soft)]"
           style={{ background: `color-mix(in oklab, ${accent} 25%, white)` }}

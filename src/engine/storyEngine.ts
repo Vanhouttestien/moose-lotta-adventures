@@ -4,7 +4,7 @@ import { distanceMeters } from "@/hooks/useGeolocation";
 export type DiscoveryTier = "hidden" | "hint" | "visible" | "warm" | "unlocked";
 
 export const DISCOVERY_THRESHOLDS = {
-  hint: 3000,
+  hint: 1000,
   visible: 300,
   warm: 100,
   unlock: 50,
