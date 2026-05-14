@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useAppState } from "@/hooks/useAppState";
-import { stories } from "@/data/stories";
+import { getStories } from "@/data/stories";
 import { t } from "@/data/i18n";
 import { Sparkles } from "lucide-react";
 
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/rewards")({
 
 function RewardsPage() {
   const { state } = useAppState();
-  const all = stories.filter((s) => s.language === state.language);
+  const all = getStories({ language: state.language, ageGroup: state.ageGroup });
   const total = all.length;
   const done = state.completedStoryIds.length;
   const pct = total === 0 ? 0 : Math.round((done / total) * 100);

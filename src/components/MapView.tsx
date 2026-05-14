@@ -5,45 +5,30 @@ import type { StoryStatus } from "@/engine/storyEngine";
 import type { Village } from "@/data/stories";
 import { useNavigate } from "@tanstack/react-router";
 
-function pinIcon(status: "available" | "unlocked" | "completed") {
-  const colors = {
-    available: "#a89070",
-    unlocked: "#7ea66a",
-    completed: "#d49a5c",
-  } as const;
+type PinKind = "hint" | "visible" | "warm" | "unlocked" | "completed";
 
-  const c = colors[status];
-
+function pinIcon(kind: PinKind, emoji: string) {
+  const palette: Record<PinKind, { fill: string; glyph: string; opacity: number; ring: string }> = {
+    hint: { fill: "#b9b3a4", glyph: "?", opacity: 0.55, ring: "" },
+    visible: { fill: "#a89070", glyph: emoji, opacity: 1, ring: "" },
+    warm: { fill: "#d49a5c", glyph: emoji, opacity: 1, ring: "ml-warm-ring" },
+    unlocked: { fill: "#7ea66a", glyph: emoji, opacity: 1, ring: "" },
+    completed: { fill: "#d49a5c", glyph: "✨", opacity: 1, ring: "" },
+  };
+  const p = palette[kind];
   return L.divIcon({
     className: "",
     iconSize: [44, 54],
     iconAnchor: [22, 52],
     html: `
-      <div style="position:relative;width:44px;height:54px;">
+      <div class="${p.ring}" style="position:relative;width:44px;height:54px;opacity:${p.opacity};">
         <svg viewBox="0 0 44 54" width="44" height="54">
           <path d="M22 2 C 10 2 2 11 2 22 C 2 36 22 52 22 52 C 22 52 42 36 42 22 C 42 11 34 2 22 2 Z"
-                fill="${c}" stroke="white" stroke-width="2.5"/>
+                fill="${p.fill}" stroke="white" stroke-width="2.5"/>
           <circle cx="22" cy="22" r="8" fill="white"/>
         </svg>
-
-        <div
-          style="
-            position:absolute;
-            inset:0;
-            display:flex;
-            align-items:flex-start;
-            justify-content:center;
-            padding-top:13px;
-            font-size:14px;
-          "
-        >
-          ${
-            status === "completed"
-              ? "✨"
-              : status === "unlocked"
-                ? "🫎"
-                : "🌲"
-          }
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding-top:11px;font-size:15px;">
+          ${p.glyph}
         </div>
       </div>
     `,
@@ -58,29 +43,6 @@ function userIcon() {
   });
 }
 
-function distanceMeters(
-  a: { lat: number; lng: number },
-  b: { lat: number; lng: number },
-) {
-  const R = 6371000;
-
-  const toRad = (d: number) => (d * Math.PI) / 180;
-
-  const dLat = toRad(b.lat - a.lat);
-  const dLng = toRad(b.lng - a.lng);
-
-  const lat1 = toRad(a.lat);
-  const lat2 = toRad(b.lat);
-
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1) *
-      Math.cos(lat2) *
-      Math.sin(dLng / 2) ** 2;
-
-  return 2 * R * Math.asin(Math.sqrt(h));
-}
-
 export function MapView({
   village,
   statuses,
@@ -91,17 +53,11 @@ export function MapView({
   position: { lat: number; lng: number } | null;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-
   const mapRef = useRef<L.Map | null>(null);
-
   const userMarkerRef = useRef<L.Marker | null>(null);
-
-  const storyMarkersRef = useRef<Map<string, L.Marker>>(
-    new Map(),
-  );
-
+  const storyMarkersRef = useRef<Map<string, L.Marker>>(new Map());
+  const animFrameRef = useRef<number | null>(null);
   const navigate = useNavigate();
-
   const hasCenteredRef = useRef(false);
 
   // INIT MAP
@@ -110,152 +66,133 @@ export function MapView({
 
     const map = L.map(ref.current, {
       center: [village.center.lat, village.center.lng],
-      zoom: 16,
+      zoom: 14,
       zoomControl: false,
       attributionControl: false,
     });
 
-    L.tileLayer(
-      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {
-        maxZoom: 19,
-      },
-    ).addTo(map);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+    }).addTo(map);
 
-    L.control
-      .attribution({ prefix: false })
-      .addAttribution("© OpenStreetMap")
-      .addTo(map);
+    L.control.attribution({ prefix: false }).addAttribution("© OpenStreetMap").addTo(map);
 
     mapRef.current = map;
 
     return () => {
+      if (animFrameRef.current != null) cancelAnimationFrame(animFrameRef.current);
       map.remove();
       mapRef.current = null;
     };
   }, [village]);
 
-  // STORY MARKERS
+  // STORY MARKERS — only render hint+ tiers; tier drives icon style
   useEffect(() => {
     const map = mapRef.current;
-
-    if (!map || !position) return;
-
+    if (!map) return;
     const visibleIds = new Set<string>();
 
     statuses.forEach((s) => {
-      const d = distanceMeters(
-        position,
-        s.story.location,
-      );
-
-      if (d > 3000) return;
+      // Hidden stories never appear on the map.
+      if (s.tier === "hidden") return;
 
       const id = s.story.id;
-
       visibleIds.add(id);
 
-      const status = s.completed
+      const kind: PinKind = s.completed
         ? "completed"
         : s.unlocked
           ? "unlocked"
-          : "available";
+          : (s.tier as PinKind);
 
-      // update existing marker
+      const icon = pinIcon(kind, s.story.emoji);
+
+      // Hint pins are intentionally offset / fuzzy — show approximate area
+      // by snapping to nearest 0.001 deg (≈100m) so children "search" for it.
+      const lat =
+        s.tier === "hint" ? Math.round(s.story.location.lat * 1000) / 1000 : s.story.location.lat;
+      const lng =
+        s.tier === "hint" ? Math.round(s.story.location.lng * 1000) / 1000 : s.story.location.lng;
+
       if (storyMarkersRef.current.has(id)) {
-        const marker =
-          storyMarkersRef.current.get(id)!;
-
-        marker.setIcon(pinIcon(status));
-
+        const marker = storyMarkersRef.current.get(id)!;
+        marker.setIcon(icon);
+        marker.setLatLng([lat, lng]);
         return;
       }
 
-      // create marker
-      const marker = L.marker(
-        [
-          s.story.location.lat,
-          s.story.location.lng,
-        ],
-        {
-          icon: pinIcon(status),
-        },
-      ).addTo(map);
-
+      const marker = L.marker([lat, lng], { icon }).addTo(map);
       marker.on("click", () => {
-        navigate({
-          to: "/story/$storyId",
-          params: {
-            storyId: s.story.id,
-          },
-        });
+        if (s.tier === "hint") return; // can't tap a vague hint
+        navigate({ to: "/story/$storyId", params: { storyId: s.story.id } });
       });
-
       storyMarkersRef.current.set(id, marker);
-
-      // radius circle
-      L.circle(
-        [
-          s.story.location.lat,
-          s.story.location.lng,
-        ],
-        {
-          radius: s.story.location.radius,
-          color: "#7ea66a",
-          fillColor: "#7ea66a",
-          fillOpacity: 0.08,
-          weight: 1,
-        },
-      ).addTo(map);
     });
 
     // remove out-of-range markers
-    storyMarkersRef.current.forEach(
-      (marker, id) => {
-        if (!visibleIds.has(id)) {
-          map.removeLayer(marker);
+    storyMarkersRef.current.forEach((marker, id) => {
+      if (!visibleIds.has(id)) {
+        map.removeLayer(marker);
+        storyMarkersRef.current.delete(id);
+      }
+    });
+  }, [statuses, navigate]);
 
-          storyMarkersRef.current.delete(id);
-        }
-      },
-    );
-  }, [statuses, position, navigate]);
-
-  // USER / MOOSE MARKER
+  // FIT BOUNDS — zoom to show all markers + user position
   useEffect(() => {
     const map = mapRef.current;
+    if (!map) return;
+    const bounds = L.latLngBounds([]);
+    let hasPoint = false;
 
+    if (position) {
+      bounds.extend([position.lat, position.lng]);
+      hasPoint = true;
+    }
+    statuses.forEach((s) => {
+      if (s.tier === "hidden") return;
+      bounds.extend([s.story.location.lat, s.story.location.lng]);
+      hasPoint = true;
+    });
+
+    if (hasPoint) {
+      map.fitBounds(bounds, { padding: [60, 60] });
+    }
+  }, [statuses, position]);
+
+  // USER / MOOSE MARKER — animate between positions for buttery motion
+  useEffect(() => {
+    const map = mapRef.current;
     if (!map || !position) return;
 
-    const latLng: [number, number] = [
-      position.lat,
-      position.lng,
-    ];
+    const target: [number, number] = [position.lat, position.lng];
 
-    // create or move moose
     if (!userMarkerRef.current) {
-      userMarkerRef.current = L.marker(
-        latLng,
-        {
-          icon: userIcon(),
-        },
-      ).addTo(map);
-    } else {
-      userMarkerRef.current.setLatLng(
-        latLng,
-      );
-    }
-
-    // center map on user
-    if (!hasCenteredRef.current) {
-      map.setView(latLng, 13);
-
+      userMarkerRef.current = L.marker(target, { icon: userIcon() }).addTo(map);
+      map.setView(target, map.getZoom(), { animate: false });
       hasCenteredRef.current = true;
-    } else {
-      map.panTo(latLng, {
-        animate: true,
-      });
+      return;
     }
+
+    const marker = userMarkerRef.current;
+    const start = marker.getLatLng();
+    const startTime = performance.now();
+    const duration = 800;
+
+    if (animFrameRef.current != null) cancelAnimationFrame(animFrameRef.current);
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - startTime) / duration);
+      // ease-out cubic
+      const e = 1 - Math.pow(1 - t, 3);
+      const lat = start.lat + (target[0] - start.lat) * e;
+      const lng = start.lng + (target[1] - start.lng) * e;
+      marker.setLatLng([lat, lng]);
+      if (t < 1) animFrameRef.current = requestAnimationFrame(tick);
+    };
+    animFrameRef.current = requestAnimationFrame(tick);
+
+    map.panTo(target, { animate: true, duration: 0.8 });
   }, [position]);
 
   return (

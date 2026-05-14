@@ -46,10 +46,10 @@ function StoryPage() {
   const { position, status } = useGeolocation(true);
 
   const distance = position ? distanceMeters(position, story.location) : null;
+  const completed = state.completedStoryIds.includes(story.id);
   // Enforce a fixed 200 meter proximity requirement. Keep manual override for testing.
   const proximity200 = distance != null && distance <= 200;
-  const unlocked = proximity200 || manualHere;
-  const completed = state.completedStoryIds.includes(story.id);
+  const unlocked = completed || proximity200 || manualHere;
 
   const accent = useMemo(
     () =>
@@ -76,9 +76,7 @@ function StoryPage() {
           <MapPin className="h-3 w-3" />
           {story.location.label}
         </div>
-        <h1 className="mt-2 font-display text-3xl leading-tight text-forest-deep">
-          {story.title}
-        </h1>
+        <h1 className="mt-2 font-display text-3xl leading-tight text-forest-deep">{story.title}</h1>
         <div
           className="mt-6 flex h-32 items-center justify-center rounded-3xl text-6xl shadow-[var(--shadow-soft)]"
           style={{ background: `color-mix(in oklab, ${accent} 25%, white)` }}
@@ -127,7 +125,7 @@ function StoryPage() {
               🌿 {t(state.language, "mission")}
             </h2>
             <ul className="mt-3 space-y-2">
-              {story.mission.map((m, i) => (
+              {(story.mission as string[]).map((m: string, i: number) => (
                 <li
                   key={i}
                   className="flex items-start gap-3 rounded-2xl bg-card/70 px-3 py-3 text-sm text-foreground"

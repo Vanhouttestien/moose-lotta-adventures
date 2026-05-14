@@ -1,0 +1,16 @@
+export const LOCATIONS = {
+  FOREST_SIGNAL_POINT: { lat: 59.1458, lng: 16.5122, radius: 50 },
+  FOLKETS_HUS: { lat: 59.1556, lng: 16.4972, radius: 40 },
+  DINOSAUR_FOREST: { lat: 59.1571, lng: 16.4938, radius: 60 },
+  KOLHUSET: { lat: 59.1526073906632, lng: 16.489412905749873, radius: 40 },
+  LIKTALLARNA: { lat: 59.148238932534575, lng: 16.50466225162421, radius: 50 },
+  FOUNDRY_MUSEUM: { lat: 59.1518, lng: 16.4898, radius: 80 },
+  KOLHUSET_ADULT: { lat: 59.1542, lng: 16.4995, radius: 90 },
+  HASTSKON: { lat: 59.1543, lng: 16.4994, radius: 70 },
+  STATION: { lat: 59.1504, lng: 16.497, radius: 80 },
+  SIGGES_KIOSK: { lat: 59.1517, lng: 16.4958, radius: 60 },
+  GENK_POINT_1: { lat: 50.95744447501356, lng: 5.5007122100234, radius: 50 },
+  GENK_POINT_2: { lat: 50.95905653912931, lng: 5.500005411300328, radius: 50 },
+  LEUVEN_POINT_1: { lat: 50.858088762767835, lng: 4.693747364532862, radius: 50 },
+  LEUVEN_POINT_2: { lat: 50.860569484028694,  lng: 4.689670978839485, radius: 50 },
+} as const;

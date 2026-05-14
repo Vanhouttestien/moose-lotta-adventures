@@ -1,4 +1,4 @@
-import { ageGroups, languages } from "@/data/i18n";
+import { ageGroups, getAgeGroupLabel, languages } from "@/data/i18n";
 import type { AgeGroup, Language } from "@/data/stories";
 
 export function LanguageSelector({
@@ -14,13 +14,14 @@ export function LanguageSelector({
         <button
           key={l.code}
           onClick={() => onChange(l.code)}
-          className={`flex-1 rounded-2xl border-2 px-4 py-3 text-sm font-semibold transition-all ${
+          className={`flex flex-1 items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold transition-all ${
             value === l.code
-              ? "border-primary bg-primary/10 text-primary"
-              : "border-transparent bg-card text-muted-foreground"
+              ? "bg-foreground text-background shadow-sm"
+              : "bg-muted text-muted-foreground hover:bg-muted/80"
           }`}
         >
-          <span className="mr-1 text-base">{l.flag}</span> {l.label}
+          <span className="text-base">{l.flag}</span>
+          {l.label}
         </button>
       ))}
     </div>
@@ -30,23 +31,25 @@ export function LanguageSelector({
 export function AgeSelector({
   value,
   onChange,
+  language = "sv",
 }: {
   value: AgeGroup;
   onChange: (a: AgeGroup) => void;
+  language?: Language;
 }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-wrap gap-2">
       {ageGroups.map((a) => (
         <button
           key={a.code}
           onClick={() => onChange(a.code)}
-          className={`flex-1 rounded-2xl border-2 px-3 py-3 text-sm font-semibold transition-all ${
+          className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
             value === a.code
-              ? "border-primary bg-primary/10 text-primary"
-              : "border-transparent bg-card text-muted-foreground"
+              ? "bg-accent text-accent-foreground shadow-sm"
+              : "bg-muted text-muted-foreground hover:bg-muted/80"
           }`}
         >
-          {a.label}
+          {getAgeGroupLabel(language, a.code)}
         </button>
       ))}
     </div>
