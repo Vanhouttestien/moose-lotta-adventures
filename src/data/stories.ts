@@ -926,7 +926,7 @@ maybe you can still hear the sleds coming through the snow toward Kolhuset. ✨`
     audio: "",
     emoji: "💻",
     accent: "ember",
-    text: "What do you get if you cross a moose with a computer?\n\nA \"moose-byte.\" 💻",
+    text: 'What do you get if you cross a moose with a computer?\n\nA "moose-byte." 💻',
     mission: [
       "Try typing with your nose (sanitize first)",
       "Invent an app name by combining an animal with a tech term",
@@ -964,7 +964,7 @@ maybe you can still hear the sleds coming through the snow toward Kolhuset. ✨`
     audio: "",
     emoji: "💻",
     accent: "shadow",
-    text: "What do you get if you cross a moose with a computer?\n\nA \"moose-byte.\" 💻",
+    text: 'What do you get if you cross a moose with a computer?\n\nA "moose-byte." 💻',
     mission: [
       "Invent a startup idea involving nature",
       "Pitch it to someone nearby",

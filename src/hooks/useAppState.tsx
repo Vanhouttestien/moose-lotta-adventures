@@ -1,5 +1,5 @@
 import { createContext, useContext, useCallback, useEffect, useState } from "react";
-import { loadProfiles, saveProfiles, type Profile, type ProfileData } from "@/services/storage";
+import { loadProfiles, saveProfiles, saveActiveProfile, loadActiveProfile, type Profile, type ProfileData } from "@/services/storage";
 import type { AgeGroup, Language, Story } from "@/data/stories";
 
 interface AppStateContextValue {
@@ -16,11 +16,19 @@ const AppStateContext = createContext<AppStateContextValue | null>(null);
 
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
   const [profiles, setProfiles] = useState<Profile[]>(() => loadProfiles());
-  const [activeProfileName, setActiveProfileName] = useState<string | null>(null);
+  const [activeProfileName, setActiveProfileName] = useState<string | null>(() => {
+    const saved = loadActiveProfile();
+    if (saved && loadProfiles().some((p) => p.name === saved)) return saved;
+    return null;
+  });
 
   useEffect(() => {
     saveProfiles(profiles);
   }, [profiles]);
+
+  useEffect(() => {
+    saveActiveProfile(activeProfileName);
+  }, [activeProfileName]);
 
   const activeProfile = activeProfileName
     ? (profiles.find((p) => p.name === activeProfileName) ?? null)

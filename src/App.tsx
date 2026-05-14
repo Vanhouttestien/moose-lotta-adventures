@@ -9,14 +9,13 @@ import { router } from "./router";
 function AppGate() {
   const { profiles, activeProfile } = useAppState();
   const [showSplash, setShowSplash] = useState(true);
-  const [showCreate, setShowCreate] = useState(false);
-
-  if (showSplash) {
-    return <SplashPage onStart={() => setShowSplash(false)} />;
-  }
 
   if (activeProfile) {
     return <RouterProvider router={router} />;
+  }
+
+  if (showSplash) {
+    return <SplashPage onStart={() => setShowSplash(false)} />;
   }
 
   const namedProfiles = profiles.filter((p) => p.name.trim());

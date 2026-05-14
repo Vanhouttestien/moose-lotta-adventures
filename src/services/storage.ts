@@ -71,3 +71,23 @@ export function saveProfiles(profiles: Profile[]) {
   if (typeof window === "undefined") return;
   localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
 }
+
+const ACTIVE_KEY = "moose-lotta:active";
+
+export function saveActiveProfile(name: string | null) {
+  if (typeof window === "undefined") return;
+  if (name === null) {
+    localStorage.removeItem(ACTIVE_KEY);
+  } else {
+    localStorage.setItem(ACTIVE_KEY, name);
+  }
+}
+
+export function loadActiveProfile(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return localStorage.getItem(ACTIVE_KEY);
+  } catch {
+    return null;
+  }
+}
