@@ -1,8 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import type { StoryStatus } from "@/engine/storyEngine";
+import { useAppState } from "@/hooks/useAppState";
+import { t } from "@/data/i18n";
 import { Lock, Sparkles, MapPin } from "lucide-react";
 
 export function StoryCard({ s }: { s: StoryStatus }) {
+  const { state } = useAppState();
   const accentVar =
     s.story.accent === "moss"
       ? "var(--moss)"
@@ -70,6 +73,11 @@ export function StoryCard({ s }: { s: StoryStatus }) {
               <MapPin className="h-3 w-3" />
               {s.story.location.label}
             </span>
+            {status === "locked" && (
+              <p className="mt-1 w-full text-xs text-muted-foreground/70">
+                {t(state.language, "walkCloser")}
+              </p>
+            )}
           </div>
         </div>
       </div>
