@@ -51,8 +51,12 @@ export function useGeolocation() {
       }
     };
 
-    const onError = () => {
-      setStatus("unavailable");
+    const onError = (err: GeolocationPositionError) => {
+      if (err.code === err.PERMISSION_DENIED) {
+        setStatus("idle");
+      } else {
+        setStatus("unavailable");
+      }
     };
 
     setStatus("watching");

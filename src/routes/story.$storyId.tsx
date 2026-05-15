@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { AppShell } from "@/components/AppShell";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { useAppState } from "@/hooks/useAppState";
@@ -44,6 +44,8 @@ function StoryPage() {
   const { state, completeStory } = useAppState();
   const navigate = useNavigate();
   const { position, status, start } = useGeolocation();
+
+  useEffect(() => { start(); }, [start]);
 
   const result = useMemo(
     () => getStoryStatuses([story], position, state.completedStoryIds),

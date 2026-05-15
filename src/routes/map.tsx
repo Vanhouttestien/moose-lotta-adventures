@@ -24,6 +24,8 @@ function MapPage() {
   const heading = useDeviceHeading();
   const position = useSmoothPosition(rawPosition);
 
+  useEffect(() => { start(); }, [start]);
+
   const village = useMemo(() => {
     if (!position) return villages[0];
     let closest = villages[0];
