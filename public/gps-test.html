@@ -1,121 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>GPS Test</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, sans-serif; padding: 20px; background: #f5f5f5; }
-  h1 { font-size: 1.4rem; margin-bottom: 16px; }
-  .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  h2 { font-size: 1rem; margin-bottom: 8px; }
-  .log { font-size: 0.85rem; font-family: monospace; white-space: pre-wrap; line-height: 1.6; }
-  .pass { color: #16a34a; }
-  .fail { color: #dc2626; }
-  .info { color: #2563eb; }
-  button { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-size: 1rem; cursor: pointer; }
-  button:active { opacity: 0.8; }
-  .help { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-top: 12px; }
-  .help code { background: #fde68a; padding: 1px 4px; border-radius: 3px; }
-</style>
-</head>
-<body>
-<h1>📍 GPS Diagnosis</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>GPS Test</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: -apple-system, sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+      .card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      h2 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+      .log {
+        font-size: 0.85rem;
+        font-family: monospace;
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+      .pass {
+        color: #16a34a;
+      }
+      .fail {
+        color: #dc2626;
+      }
+      .info {
+        color: #2563eb;
+      }
+      button {
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      button:active {
+        opacity: 0.8;
+      }
+      .help {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin-top: 12px;
+      }
+      .help code {
+        background: #fde68a;
+        padding: 1px 4px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📍 GPS Diagnosis</h1>
 
-<div id="checks" class="card">
-  <h2>Environment checks</h2>
-  <div id="env-log" class="log"></div>
-</div>
+    <div id="checks" class="card">
+      <h2>Environment checks</h2>
+      <div id="env-log" class="log"></div>
+    </div>
 
-<div class="card">
-  <h2>1. Auto-start (on page load) <span style="background:#fef3c7;color:#92400e;font-size:0.75rem;padding:2px 8px;border-radius:4px;font-weight:600;margin-left:6px">AUTO</span></h2>
-  <div id="auto-log" class="log">waiting…</div>
-</div>
+    <div class="card">
+      <h2>
+        1. Auto-start (on page load)
+        <span
+          style="
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 6px;
+          "
+          >AUTO</span
+        >
+      </h2>
+      <div id="auto-log" class="log">waiting…</div>
+    </div>
 
-<div class="card">
-  <h2>2. Button click <span style="background:#dbeafe;color:#1e40af;font-size:0.75rem;padding:2px 8px;border-radius:4px;font-weight:600;margin-left:6px">CLICK</span></h2>
-  <button id="btn">Request GPS now</button>
-  <div id="click-log" class="log" style="margin-top:8px">not yet requested</div>
-</div>
+    <div class="card">
+      <h2>
+        2. Button click
+        <span
+          style="
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 6px;
+          "
+          >CLICK</span
+        >
+      </h2>
+      <button id="btn">Request GPS now</button>
+      <div id="click-log" class="log" style="margin-top: 8px">not yet requested</div>
+    </div>
 
-<div class="card" style="background:#fef3c7;border-left:4px solid #f59e0b">
-  <h2 style="color:#92400e">⚠️ If both say PERMISSION_DENIED</h2>
-  <ol style="font-size:0.85rem;line-height:1.8;padding-left:20px;margin-top:4px">
-    <li><strong>Check the URL:</strong> must start with <code>https://</code> — iOS blocks GPS on HTTP</li>
-    <li><strong>Clear website data:</strong> iOS Settings → Safari → Advanced → Website Data → swipe to delete this site</li>
-    <li><strong>Check Location Services:</strong> iOS Settings → Privacy & Security → Location Services → <strong>ON</strong></li>
-    <li><strong>Safari permission:</strong> iOS Settings → Safari → Location → <strong>Ask</strong> (not Deny)</li>
-    <li>Then reload this page and tap the button</li>
-  </ol>
-</div>
+    <div class="card" style="background: #fef3c7; border-left: 4px solid #f59e0b">
+      <h2 style="color: #92400e">⚠️ If both say PERMISSION_DENIED</h2>
+      <ol style="font-size: 0.85rem; line-height: 1.8; padding-left: 20px; margin-top: 4px">
+        <li>
+          <strong>Check the URL:</strong> must start with <code>https://</code> — iOS blocks GPS on
+          HTTP
+        </li>
+        <li>
+          <strong>Clear website data:</strong> iOS Settings → Safari → Advanced → Website Data →
+          swipe to delete this site
+        </li>
+        <li>
+          <strong>Check Location Services:</strong> iOS Settings → Privacy & Security → Location
+          Services → <strong>ON</strong>
+        </li>
+        <li>
+          <strong>Safari permission:</strong> iOS Settings → Safari → Location →
+          <strong>Ask</strong> (not Deny)
+        </li>
+        <li>Then reload this page and tap the button</li>
+      </ol>
+    </div>
 
-<script>
-function $(id) { return document.getElementById(id); }
+    <script>
+      function $(id) {
+        return document.getElementById(id);
+      }
 
-function append(el, text, className) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  if (className) div.className = className;
-  el.appendChild(div);
-}
+      function append(el, text, className) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        if (className) div.className = className;
+        el.appendChild(div);
+      }
 
-// === Environment checks ===
-const envLog = $('env-log');
-append(envLog, `Protocol: ${location.protocol} ${location.protocol === 'https:' ? '✅ OK for iOS GPS' : '❌ iOS blocks GPS on HTTP'}`, location.protocol === 'https:' ? 'pass' : 'fail');
-append(envLog, `Geolocation API: ${'geolocation' in navigator ? '✅ available' : '❌ NOT AVAILABLE'}`, 'geolocation' in navigator ? 'pass' : 'fail');
-append(envLog, `User Agent: ${navigator.userAgent}`, 'info');
+      // === Environment checks ===
+      const envLog = $("env-log");
+      append(
+        envLog,
+        `Protocol: ${location.protocol} ${location.protocol === "https:" ? "✅ OK for iOS GPS" : "❌ iOS blocks GPS on HTTP"}`,
+        location.protocol === "https:" ? "pass" : "fail",
+      );
+      append(
+        envLog,
+        `Geolocation API: ${"geolocation" in navigator ? "✅ available" : "❌ NOT AVAILABLE"}`,
+        "geolocation" in navigator ? "pass" : "fail",
+      );
+      append(envLog, `User Agent: ${navigator.userAgent}`, "info");
 
-// Try permissions API (iOS doesn't support geolocation permission query)
-if ('permissions' in navigator) {
-  navigator.permissions.query({ name: 'geolocation' }).then(r => {
-    append(envLog, `Permission state (navigator.permissions): ${r.state} — ${r.state === 'granted' ? '✅' : r.state === 'prompt' ? '🟡 will prompt' : '❌ denied'}`, r.state === 'granted' ? 'pass' : 'info');
-  }).catch(e => {
-    append(envLog, `Permission API: error querying — ${e.message} (normal on iOS)`, 'fail');
-  });
-} else {
-  append(envLog, 'navigator.permissions API: not available', 'fail');
-}
+      // Try permissions API (iOS doesn't support geolocation permission query)
+      if ("permissions" in navigator) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then((r) => {
+            append(
+              envLog,
+              `Permission state (navigator.permissions): ${r.state} — ${r.state === "granted" ? "✅" : r.state === "prompt" ? "🟡 will prompt" : "❌ denied"}`,
+              r.state === "granted" ? "pass" : "info",
+            );
+          })
+          .catch((e) => {
+            append(envLog, `Permission API: error querying — ${e.message} (normal on iOS)`, "fail");
+          });
+      } else {
+        append(envLog, "navigator.permissions API: not available", "fail");
+      }
 
-// === AUTO test ===
-const autoLog = $('auto-log');
+      // === AUTO test ===
+      const autoLog = $("auto-log");
 
-if (!('geolocation' in navigator)) {
-  append(autoLog, '❌ Geolocation not available', 'fail');
-} else {
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      append(autoLog, `✅ lat=${pos.coords.latitude.toFixed(5)} lng=${pos.coords.longitude.toFixed(5)} ±${pos.coords.accuracy}m`, 'pass');
-    },
-    (err) => {
-      const msgs = { 1: 'PERMISSION_DENIED', 2: 'POSITION_UNAVAILABLE', 3: 'TIMEOUT' };
-      append(autoLog, `❌ ${msgs[err.code]} (code ${err.code}) — called WITHOUT user gesture`, 'fail');
-    },
-    { enableHighAccuracy: false, timeout: 20000, maximumAge: 60000 }
-  );
-}
+      if (!("geolocation" in navigator)) {
+        append(autoLog, "❌ Geolocation not available", "fail");
+      } else {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            append(
+              autoLog,
+              `✅ lat=${pos.coords.latitude.toFixed(5)} lng=${pos.coords.longitude.toFixed(5)} ±${pos.coords.accuracy}m`,
+              "pass",
+            );
+          },
+          (err) => {
+            const msgs = { 1: "PERMISSION_DENIED", 2: "POSITION_UNAVAILABLE", 3: "TIMEOUT" };
+            append(
+              autoLog,
+              `❌ ${msgs[err.code]} (code ${err.code}) — called WITHOUT user gesture`,
+              "fail",
+            );
+          },
+          { enableHighAccuracy: false, timeout: 20000, maximumAge: 60000 },
+        );
+      }
 
-// === CLICK test ===
-const clickLog = $('click-log');
-const btn = $('btn');
+      // === CLICK test ===
+      const clickLog = $("click-log");
+      const btn = $("btn");
 
-btn.addEventListener('click', () => {
-  if (!('geolocation' in navigator)) {
-    append(clickLog, '❌ Geolocation not available', 'fail');
-    return;
-  }
+      btn.addEventListener("click", () => {
+        if (!("geolocation" in navigator)) {
+          append(clickLog, "❌ Geolocation not available", "fail");
+          return;
+        }
 
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      append(clickLog, `✅ lat=${pos.coords.latitude.toFixed(5)} lng=${pos.coords.longitude.toFixed(5)} ±${pos.coords.accuracy}m`, 'pass');
-    },
-    (err) => {
-      const msgs = { 1: 'PERMISSION_DENIED', 2: 'POSITION_UNAVAILABLE', 3: 'TIMEOUT' };
-      append(clickLog, `❌ ${msgs[err.code]} (code ${err.code}) — called FROM button tap`, 'fail');
-    },
-    { enableHighAccuracy: false, timeout: 20000, maximumAge: 60000 }
-  );
-});
-</script>
-</body>
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            append(
+              clickLog,
+              `✅ lat=${pos.coords.latitude.toFixed(5)} lng=${pos.coords.longitude.toFixed(5)} ±${pos.coords.accuracy}m`,
+              "pass",
+            );
+          },
+          (err) => {
+            const msgs = { 1: "PERMISSION_DENIED", 2: "POSITION_UNAVAILABLE", 3: "TIMEOUT" };
+            append(
+              clickLog,
+              `❌ ${msgs[err.code]} (code ${err.code}) — called FROM button tap`,
+              "fail",
+            );
+          },
+          { enableHighAccuracy: false, timeout: 20000, maximumAge: 60000 },
+        );
+      });
+    </script>
+  </body>
 </html>

@@ -6,7 +6,7 @@ import { useAppState } from "@/hooks/useAppState";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { getStoryStatuses } from "@/engine/storyEngine";
 import { getStoryById } from "@/data/stories";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 import { CheckCircle2, MapPin, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/story/$storyId")({
@@ -45,7 +45,9 @@ function StoryPage() {
   const navigate = useNavigate();
   const { position, status, start } = useGeolocation();
 
-  useEffect(() => { start(); }, [start]);
+  useEffect(() => {
+    start();
+  }, [start]);
 
   const result = useMemo(
     () => getStoryStatuses([story], position, state.completedStoryIds),
@@ -75,7 +77,7 @@ function StoryPage() {
         }}
       >
         <Link to="/map" className="text-xs font-medium text-muted-foreground">
-          ← {t(state.language, "toMap")}
+          ← {t(state.language, "ui.toMap")}
         </Link>
         <div className="mt-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           <MapPin className="h-3 w-3" />
@@ -95,23 +97,23 @@ function StoryPage() {
           <div className="rounded-3xl border-2 border-dashed border-primary/30 bg-card p-5 text-center">
             <p className="text-sm text-muted-foreground">
               {distance != null
-                ? `Du är ungefär ${Math.round(distance)} m bort.`
+                ? t(state.language, "story.distance.locked", { dist: Math.round(distance / 10) * 10 })
                 : status === "watching"
-                  ? t(state.language, "searching")
+                  ? t(state.language, "gps.searching")
                   : status === "idle"
                     ? ""
-                    : t(state.language, "locked")}
+                    : t(state.language, "ui.story.locked")}
             </p>
             {status === "idle" ? (
               <button
                 onClick={start}
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-95"
               >
-                {t(state.language, "enableGps")}
+                {t(state.language, "gps.enable")}
               </button>
             ) : status !== "unavailable" ? (
               <p className="mt-2 font-display text-base text-foreground">
-                {t(state.language, "feels")}
+{t(state.language, "character.lotta.feels")}
               </p>
             ) : null}
           </div>
@@ -132,7 +134,7 @@ function StoryPage() {
         {unlocked ? (
           <section className="rounded-3xl bg-secondary/50 p-5">
             <h2 className="font-display text-lg text-secondary-foreground">
-              🌿 {t(state.language, "mission")}
+              🌿 {t(state.language, "ui.mission")}
             </h2>
             <ul className="mt-3 space-y-2">
               {(story.mission as string[]).map((m: string, i: number) => (
@@ -161,7 +163,7 @@ function StoryPage() {
             <Sparkles className="h-7 w-7 text-accent-foreground" />
             <div className="flex-1">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {t(state.language, "reward")}
+                {t(state.language, "ui.reward")}
               </p>
               <p className="font-display text-base text-foreground">{story.reward}</p>
             </div>
@@ -174,7 +176,7 @@ function StoryPage() {
             onClick={() => completeStory(story)}
             className="w-full rounded-full bg-primary py-4 font-display text-lg font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-[0.98]"
           >
-            ✨ {t(state.language, "markComplete")}
+            ✨ {t(state.language, "ui.markComplete")}
           </button>
         )}
         {completed && (
@@ -182,7 +184,7 @@ function StoryPage() {
             onClick={() => navigate({ to: "/map" })}
             className="w-full rounded-full bg-card py-4 font-display text-base font-semibold text-foreground shadow-[var(--shadow-soft)]"
           >
-            {t(state.language, "toMap")} →
+            {t(state.language, "ui.toMap")} →
           </button>
         )}
       </div>

@@ -1,5 +1,5 @@
 import { useAppState } from "@/hooks/useAppState";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 import { Plus, ChevronRight } from "lucide-react";
 import mooseHero from "@/assets/moose-lotta-hero2.jpg";
 
@@ -37,7 +37,7 @@ export function ProfilePicker({
             <h1 className="mt-4 font-display text-2xl font-semibold text-foreground">
               Moose Lotta
             </h1>
-            <p className="mt-1 text-sm text-muted-foreground">{t(lang, "selectProfile")}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{t(lang, "ui.profile.select")}</p>
           </div>
 
           {/* profile list */}
@@ -80,7 +80,7 @@ export function ProfilePicker({
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-card/50 px-5 py-4 text-sm font-semibold text-muted-foreground shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all hover:bg-card hover:ring-primary/20 hover:text-primary"
             >
               <Plus size={18} />
-              {t(lang, "newProfile")}
+              {t(lang, "ui.profile.new")}
             </button>
           </div>
         </div>

@@ -28,7 +28,7 @@
 - **Exports:** named exports for everything; default export for page components
 - **State:** `AppStateProvider` context with per-profile localStorage persistence
 - **Profiles:** each profile stores name, ageGroup, language, and progress. App shows picker/create on launch via `ProfileGate` in `__root.tsx`. Switch via `ProfileBadge` → `ProfileSwitcher`.
-- **i18n:** custom `t(lang, key)` with sv/en dictionaries in `src/data/i18n.ts`
+- **i18n:** custom `t(lang, path, params?)` with nested sv/en dictionaries in `src/i18n/`. Import from `@/i18n`. Uses dot-path access (e.g. `"ui.map"`, `"gps.permission.title"`). Supports `{{placeholder}}` interpolation via third argument. Age group helpers in `src/i18n/age.ts`.
 - **CSS:** Tailwind utils + custom OKLCH tokens in `src/styles.css`, use `cn()` from `@/lib/utils`
 - **Router:** file-based in `src/routes/` — `__root.tsx`, `index.tsx`, `map.tsx`, `rewards.tsx`, `story.$storyId.tsx`
 - **Types:** story/village types in `src/data/stories.ts`

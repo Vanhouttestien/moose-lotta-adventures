@@ -1,4 +1,4 @@
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 import mooseHero from "@/assets/moose-lotta-hero.jpg";
 
 export function SplashPage({ onStart }: { onStart: () => void }) {
@@ -25,16 +25,16 @@ export function SplashPage({ onStart }: { onStart: () => void }) {
 
           {/* location label */}
           <p className="mt-6 text-center text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground/60">
-            {t("sv", "location")}
+            {t("sv", "app.location")}
           </p>
 
           {/* title */}
           <h1 className="mt-2 text-center font-display text-2xl font-semibold leading-tight text-foreground">
-            {t("sv", "appTitle")}
+            {t("sv", "app.title")}
           </h1>
 
           {/* tagline */}
-          <p className="mt-2 text-center text-sm text-muted-foreground">{t("sv", "tagline")}</p>
+          <p className="mt-2 text-center text-sm text-muted-foreground">                {t("sv", "app.tagline")}</p>
 
           {/* cta */}
           <div className="mt-10 flex justify-center">
@@ -42,7 +42,7 @@ export function SplashPage({ onStart }: { onStart: () => void }) {
               onClick={onStart}
               className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-8 py-3 font-display text-sm font-semibold text-background shadow-[var(--shadow-cozy)] transition-all hover:opacity-90 active:scale-[0.97]"
             >
-              {t("sv", "start")}
+              {t("sv", "ui.start")}
               <span className="text-base">→</span>
             </button>
           </div>

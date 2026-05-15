@@ -1,4 +1,4 @@
-import { ageGroups, getAgeGroupLabel, languages } from "@/data/i18n";
+import { ageGroups, getAgeGroupLabel, languages } from "@/i18n";
 import type { AgeGroup, Language } from "@/data/stories";
 
 export function LanguageSelector({

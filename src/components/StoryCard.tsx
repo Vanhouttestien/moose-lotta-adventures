@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { StoryStatus } from "@/engine/storyEngine";
 import { useAppState } from "@/hooks/useAppState";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 import { Lock, Sparkles, MapPin } from "lucide-react";
 
 export function StoryCard({ s }: { s: StoryStatus }) {
@@ -75,7 +75,7 @@ export function StoryCard({ s }: { s: StoryStatus }) {
             </span>
             {status === "locked" && (
               <p className="mt-1 w-full text-xs text-muted-foreground/70">
-                {t(state.language, "walkCloser")}
+                {t(state.language, "ui.story.walkCloser")}
               </p>
             )}
           </div>

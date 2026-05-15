@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppState } from "@/hooks/useAppState";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 import { AgeSelector, LanguageSelector } from "@/components/Selectors";
 import type { AgeGroup, Language } from "@/data/stories";
 import mooseHero from "@/assets/moose-lotta-hero2.jpg";
@@ -49,10 +49,10 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
           </div>
 
           <h1 className="mt-5 text-center font-display text-2xl font-semibold leading-tight text-foreground">
-            {t(language, "newProfile")}
+            {t(language, "ui.profile.new")}
           </h1>
           <p className="mt-1.5 text-center text-sm text-muted-foreground">
-            {t(language, "profileNamePlaceholder")}
+            {t(language, "ui.profile.createSubtitle")}
           </p>
 
           {/* name input */}
@@ -65,7 +65,7 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
                   setName(e.target.value);
                   setError("");
                 }}
-                placeholder={t(language, "profileName")}
+                placeholder={t(language, "ui.profile.name")}
                 className="w-full rounded-2xl bg-card px-5 py-3.5 text-center text-[15px] text-foreground placeholder:text-muted-foreground/60 shadow-[var(--shadow-soft)] outline-none ring-1 ring-border/50 transition-shadow focus:ring-2 focus:ring-primary/30"
                 autoFocus
                 onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
@@ -77,7 +77,7 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
           {/* language */}
           <div className="mt-7">
             <p className="mb-2.5 text-center text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
-              {t(language, "language")}
+              {t(language, "ui.language")}
             </p>
             <LanguageSelector value={language} onChange={setLanguage} />
           </div>
@@ -85,7 +85,7 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
           {/* age */}
           <div className="mt-7">
             <p className="mb-2.5 text-center text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
-              {t(language, "age")}
+              {t(language, "ui.age")}
             </p>
             <div className="flex justify-center">
               <AgeSelector value={ageGroup} onChange={setAgeGroup} language={language} />
@@ -98,7 +98,7 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
               onClick={handleSubmit}
               className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-8 py-3 font-display text-sm font-semibold text-background shadow-[var(--shadow-cozy)] transition-all hover:opacity-90 active:scale-[0.97]"
             >
-              {t(language, "createProfile")}
+              {t(language, "ui.profile.create")}
               <span className="text-base">→</span>
             </button>
           </div>

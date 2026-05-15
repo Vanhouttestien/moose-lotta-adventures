@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppState } from "@/hooks/useAppState";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 import { X, Trash2, Plus, ChevronRight } from "lucide-react";
 
 const avatarColors = [
@@ -40,7 +40,7 @@ export function ProfileSwitcher({
       <div className="w-full max-w-md rounded-t-3xl bg-background px-6 pb-10 pt-6 shadow-[var(--shadow-cozy)] animate-in slide-in-from-bottom">
         <div className="flex items-center justify-between">
           <h2 className="font-display text-lg font-semibold text-foreground">
-            {t(lang, "switchProfile")}
+            {t(lang, "ui.profile.switch")}
           </h2>
           <button
             onClick={onClose}
@@ -96,7 +96,7 @@ export function ProfileSwitcher({
                       onClick={() => handleDelete(profile.name)}
                       className="rounded-full bg-destructive px-3 py-1 text-[11px] font-semibold text-destructive-foreground shadow-sm"
                     >
-                      {t(lang, "deleteProfile")}
+                      {t(lang, "ui.profile.delete")}
                     </button>
                     <button
                       onClick={() => setConfirmDelete(null)}
@@ -126,7 +126,7 @@ export function ProfileSwitcher({
           className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-card/50 px-5 py-3.5 text-sm font-semibold text-muted-foreground shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all hover:bg-card hover:ring-primary/20 hover:text-primary"
         >
           <Plus size={18} />
-          {t(lang, "newProfile")}
+          {t(lang, "ui.profile.new")}
         </button>
       </div>
     </div>

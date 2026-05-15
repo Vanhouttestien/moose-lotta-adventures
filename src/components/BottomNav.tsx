@@ -1,7 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { Map, Home, Sparkles } from "lucide-react";
 import { useAppState } from "@/hooks/useAppState";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 
 export function BottomNav() {
   const { state } = useAppState();

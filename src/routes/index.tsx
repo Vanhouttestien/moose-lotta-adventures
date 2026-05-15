@@ -2,24 +2,24 @@ import { useMemo } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useAppState } from "@/hooks/useAppState";
 import { getStories } from "@/data/stories";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 import { AppShell } from "@/components/AppShell";
-import { Map, Sparkles, ChevronRight, Gift } from "lucide-react";
+import { Map, ChevronRight, Gift } from "lucide-react";
 import mooseHero from "@/assets/moose-lotta-hero2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Moose Lotta Äventyr — magiska berättelser i Hälleforsnäs" },
+      { title: "Moose Lotta Äventyr — upptäck historien på riktiga platser" },
       {
         name: "description",
         content:
-          "En lugn nordisk äventyrsapp där barn upptäcker hemliga berättelser på riktiga platser, guidad av älgen Moose Lotta.",
+          "En äventyrsapp där barn upptäcker lokal historia på riktiga platser utomhus, guidad av älgen Moose Lotta.",
       },
       { property: "og:title", content: "Moose Lotta Äventyr" },
       {
         property: "og:description",
-        content: "Upptäck hemliga berättelser i Hälleforsnäs.",
+        content: "Upptäck historiska platser nära dig.",
       },
     ],
   }),
@@ -81,7 +81,11 @@ function HomePage() {
                   : "Moose Lotta"}
               </h1>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                {hasUnlockable ? t(state.language, "tagline") : t(state.language, "done")}
+                {hasUnlockable
+                  ? state.language === "sv"
+                    ? "Redo för ett äventyr?"
+                    : "Ready for an adventure?"
+                  : t(state.language, "done")}
               </p>
             </div>
           </div>
@@ -92,7 +96,7 @@ function HomePage() {
           <div className="rounded-3xl bg-gradient-to-br from-card to-forest-mist/40 px-5 py-4 shadow-[var(--shadow-soft)] ring-1 ring-border/20">
             <div className="flex items-baseline justify-between">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
-                {t(state.language, "progress")}
+                {t(state.language, "ui.progress")}
               </p>
               <p className="text-xs font-semibold text-muted-foreground">
                 {doneCount}/{totalStories}
@@ -107,7 +111,7 @@ function HomePage() {
             <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
               <Gift size={13} />
               <span>
-                {state.rewards.length} {t(state.language, "collected")}
+                {state.rewards.length} {t(state.language, "ui.collected")}
               </span>
             </div>
           </div>
@@ -140,7 +144,7 @@ function HomePage() {
                   </div>
                   {isDone ? (
                     <span className="shrink-0 rounded-full bg-moss/15 px-2.5 py-1 text-[11px] font-semibold text-moss">
-                      {t(state.language, "done")}
+                      {t(state.language, "ui.done")}
                     </span>
                   ) : (
                     <ChevronRight
@@ -154,30 +158,24 @@ function HomePage() {
           </div>
         </div>
 
-        {/* quick actions */}
+        {/* hero card */}
         <div className="mt-8 px-6 pb-6">
-          <div className="grid grid-cols-2 gap-3">
-            <Link
-              to="/map"
-              className="flex flex-col items-center gap-2 rounded-2xl bg-card py-5 shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all hover:ring-primary/20 active:scale-[0.98]"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-forest-mist to-moss/10">
-                <Map size={20} className="text-primary" />
-              </div>
-              <p className="text-xs font-semibold text-foreground">{t(state.language, "map")}</p>
-            </Link>
-            <Link
-              to="/rewards"
-              className="flex flex-col items-center gap-2 rounded-2xl bg-card py-5 shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all hover:ring-accent/30 active:scale-[0.98]"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-accent/20 to-accent/5">
-                <Sparkles size={20} className="text-accent-foreground" />
-              </div>
-              <p className="text-xs font-semibold text-foreground">
-                {t(state.language, "rewards")}
+          <Link
+            to="/map"
+            className="flex flex-col items-center gap-4 rounded-3xl bg-gradient-to-br from-forest-mist/30 to-moss/10 px-6 py-8 text-center shadow-[var(--shadow-cozy)] ring-1 ring-border/20 transition-all hover:ring-primary/20 active:scale-[0.98]"
+          >
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-forest-mist to-moss/20">
+              <Map size={28} className="text-primary" />
+            </div>
+            <div>
+              <p className="font-display text-lg font-semibold text-foreground">
+                {t(state.language, "ui.goExplore")}
               </p>
-            </Link>
-          </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t(state.language, "ui.exploreSubtitle")}
+              </p>
+            </div>
+          </Link>
         </div>
 
         {/* bottom forest decoration */}

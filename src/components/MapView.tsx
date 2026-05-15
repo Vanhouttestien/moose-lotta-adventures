@@ -58,6 +58,7 @@ export function MapView({
   const storyMarkersRef = useRef<Map<string, L.Marker>>(new Map());
   const animFrameRef = useRef<number | null>(null);
   const navigate = useNavigate();
+  const hasFittedRef = useRef(false);
   const hasCenteredRef = useRef(false);
 
   // INIT MAP
@@ -141,10 +142,10 @@ export function MapView({
     });
   }, [statuses, navigate]);
 
-  // FIT BOUNDS — zoom to show all markers + user position
+  // FIT BOUNDS — only on first load, then user controls zoom/pan
   useEffect(() => {
     const map = mapRef.current;
-    if (!map) return;
+    if (!map || hasFittedRef.current) return;
     const bounds = L.latLngBounds([]);
     let hasPoint = false;
 
@@ -160,6 +161,7 @@ export function MapView({
 
     if (hasPoint) {
       map.fitBounds(bounds, { padding: [60, 60] });
+      hasFittedRef.current = true;
     }
   }, [statuses, position]);
 
@@ -196,8 +198,6 @@ export function MapView({
       if (t < 1) animFrameRef.current = requestAnimationFrame(tick);
     };
     animFrameRef.current = requestAnimationFrame(tick);
-
-    map.panTo(target, { animate: true, duration: 0.8 });
   }, [position]);
 
   return (

@@ -4,15 +4,13 @@ import { AppShell } from "@/components/AppShell";
 import { MapView } from "@/components/MapView";
 import { StoryCard } from "@/components/StoryCard";
 import { GpsPermissionCard } from "@/components/GpsPermissionCard";
-import { Compass } from "@/components/Compass";
 import { UnlockPopup } from "@/components/UnlockPopup";
 import { useAppState } from "@/hooks/useAppState";
 import { distanceMeters, useGeolocation } from "@/hooks/useGeolocation";
 import { useSmoothPosition } from "@/hooks/useSmoothPosition";
-import { bearingDeg, useDeviceHeading } from "@/hooks/useCompass";
 import { getStoryStatuses } from "@/engine/storyEngine";
 import { getStories, villages, type Story } from "@/data/stories";
-import { t } from "@/data/i18n";
+import { t } from "@/i18n";
 
 export const Route = createFileRoute("/map")({
   component: MapPage,
@@ -21,10 +19,11 @@ export const Route = createFileRoute("/map")({
 function MapPage() {
   const { state } = useAppState();
   const { status, position: rawPosition, start } = useGeolocation();
-  const heading = useDeviceHeading();
   const position = useSmoothPosition(rawPosition);
 
-  useEffect(() => { start(); }, [start]);
+  useEffect(() => {
+    start();
+  }, [start]);
 
   const village = useMemo(() => {
     if (!position) return villages[0];
@@ -64,19 +63,6 @@ function MapPage() {
     [statuses],
   );
 
-  // Nearest unlockable target → compass.
-  const nearest = useMemo(() => {
-    const candidates = statuses
-      .filter((s) => !s.completed && s.distance != null)
-      .sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
-    return candidates[0] ?? null;
-  }, [statuses]);
-
-  const compassBearing = useMemo(() => {
-    if (!position || !nearest) return null;
-    return bearingDeg(position, nearest.story.location);
-  }, [position, nearest]);
-
   // Auto-unlock popup: fire once per story when it transitions to unlocked.
   const [unlockedStory, setUnlockedStory] = useState<Story | null>(null);
   const seenUnlockedRef = useRef<Set<string>>(new Set());
@@ -95,22 +81,12 @@ function MapPage() {
     <AppShell>
       <header className="px-6 pt-8 pb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-moss">{village.name}</p>
-        <h1 className="mt-1 font-display text-3xl text-forest-deep">{t(state.language, "map")}</h1>
+        <h1 className="mt-1 font-display text-3xl text-forest-deep">{t(state.language, "ui.map")}</h1>
       </header>
 
       <div className="px-6">
         <div className="relative isolate h-[320px] overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]">
           <MapView village={village} statuses={statuses} position={position} />
-          {/* Floating compass overlay */}
-          <div className="pointer-events-none absolute left-3 right-3 top-3 flex justify-center">
-            <Compass
-              bearing={compassBearing}
-              heading={heading}
-              distance={nearest?.distance ?? null}
-              label={nearest?.story.title ?? null}
-              warm={(nearest?.distance ?? Infinity) <= 100}
-            />
-          </div>
         </div>
       </div>
 
@@ -120,7 +96,7 @@ function MapPage() {
         )}
         {status === "watching" && !position && (
           <p className="rounded-2xl bg-card px-4 py-3 text-center text-sm text-muted-foreground">
-            {t(state.language, "searching")}
+            {t(state.language, "gps.searching")}
           </p>
         )}
 
@@ -128,10 +104,10 @@ function MapPage() {
           <div className="rounded-3xl border border-dashed border-border bg-card/60 px-5 py-6 text-center">
             <p className="text-2xl">🌲</p>
             <p className="mt-2 font-display text-base text-forest-deep">
-              Inga äventyr känns härifrån
+              {t(state.language, "story.noStories.title")}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Gå en bit till — Lotta känner äventyr inom 3 km.
+              {t(state.language, "story.noStories.body")}
             </p>
           </div>
         )}
@@ -145,11 +121,10 @@ function MapPage() {
             {s.tier === "hint" ? (
               <div className="rounded-3xl border border-border bg-card/70 px-5 py-4">
                 <p className="text-xs uppercase tracking-wider text-moss">
-                  ✨ Något väntar här i närheten
+                  {t(state.language, "story.hint.title")}
                 </p>
                 <p className="mt-1 font-display text-base text-forest-deep">
-                  Lotta känner ett äventyr ungefär {Math.round((s.distance ?? 0) / 100) * 100} m
-                  bort…
+                  {t(state.language, "character.lotta.sense", { dist: Math.round((s.distance ?? 0) / 100) * 100 })}
                 </p>
               </div>
             ) : (
@@ -159,7 +134,7 @@ function MapPage() {
         ))}
 
         <Link to="/" className="block pt-2 text-center text-xs text-muted-foreground">
-          ← {t(state.language, "home")}
+          ← {t(state.language, "ui.home")}
         </Link>
       </div>
 
