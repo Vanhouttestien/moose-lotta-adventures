@@ -52,8 +52,7 @@ export const en: Structure<SvDict> = {
       body: "So she can guide you to historical places.",
     },
     enable: "Find me, Lotta!",
-    denied:
-      "Location is off. Change your browser settings so Moose Lotta can find you.",
+    denied: "Location is off. Change your browser settings so Moose Lotta can find you.",
     searching: "Lotta is looking for you in the forest…",
   },
   character: {

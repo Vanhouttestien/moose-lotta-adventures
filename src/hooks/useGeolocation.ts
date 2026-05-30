@@ -8,6 +8,12 @@ export interface GeoPosition {
   accuracy: number;
 }
 
+const WATCH_OPTIONS: PositionOptions = {
+  enableHighAccuracy: true,
+  timeout: 30000,
+  maximumAge: 5000,
+};
+
 export function useGeolocation() {
   const [status, setStatus] = useState<GeoStatus>("idle");
   const [position, setPosition] = useState<GeoPosition | null>(null);
@@ -28,43 +34,26 @@ export function useGeolocation() {
 
     stop();
 
-    const onSuccess = (pos: GeolocationPosition) => {
-      setPosition({
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-        accuracy: pos.coords.accuracy,
-      });
-      setStatus("watching");
-
-      if (watchIdRef.current == null) {
-        watchIdRef.current = navigator.geolocation.watchPosition(
-          (p) => {
-            setPosition({
-              lat: p.coords.latitude,
-              lng: p.coords.longitude,
-              accuracy: p.coords.accuracy,
-            });
-          },
-          () => setStatus("unavailable"),
-          { enableHighAccuracy: true, timeout: 30000, maximumAge: 5000 },
-        );
-      }
-    };
-
-    const onError = (err: GeolocationPositionError) => {
-      if (err.code === err.PERMISSION_DENIED) {
-        setStatus("idle");
-      } else {
-        setStatus("unavailable");
-      }
-    };
-
     setStatus("watching");
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, {
-      enableHighAccuracy: true,
-      timeout: 30000,
-      maximumAge: 60000,
-    });
+
+    watchIdRef.current = navigator.geolocation.watchPosition(
+      (pos) => {
+        setPosition({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+          accuracy: pos.coords.accuracy,
+        });
+        setStatus("watching");
+      },
+      (err) => {
+        if (err.code === err.PERMISSION_DENIED) {
+          setStatus("idle");
+        } else {
+          setStatus("unavailable");
+        }
+      },
+      WATCH_OPTIONS,
+    );
   }, [stop]);
 
   useEffect(() => {

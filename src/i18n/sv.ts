@@ -51,8 +51,7 @@ export const sv = {
       body: "Så kan hon visa dig vägen till historiska platser.",
     },
     enable: "Hitta mig, Lotta!",
-    denied:
-      "Platsen är avstängd. Ändra i webbläsarens inställningar så Moose Lotta kan hitta dig.",
+    denied: "Platsen är avstängd. Ändra i webbläsarens inställningar så Moose Lotta kan hitta dig.",
     searching: "Lotta spanar efter dig i skogen…",
   },
   character: {

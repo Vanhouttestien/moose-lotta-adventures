@@ -1,9 +1,9 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useAppState } from "@/hooks/useAppState";
 import { useGeolocation, distanceMeters } from "@/hooks/useGeolocation";
-import { getStories } from "@/data/stories";
+import { getStories, type Story } from "@/data/stories";
 import { t } from "@/i18n";
 import { Sparkles } from "lucide-react";
 
@@ -21,12 +21,22 @@ export const Route = createFileRoute("/rewards")({
 });
 
 function RewardsPage() {
-  const { state } = useAppState();
+  const { state, currentVillageId } = useAppState();
   const { position, status, start } = useGeolocation();
 
-  useEffect(() => { start(); }, [start]);
+  useEffect(() => {
+    start();
+  }, [start]);
 
-  const all = getStories({ language: state.language, ageGroup: state.ageGroup });
+  const [all, setAll] = useState<Story[]>([]);
+  useEffect(() => {
+    getStories({
+      language: state.language,
+      ageGroup: state.ageGroup,
+      villageId: currentVillageId,
+    }).then(setAll);
+  }, [state.language, state.ageGroup, currentVillageId]);
+
   const total = all.length;
   const done = state.completedStoryIds.length;
   const pct = total === 0 ? 0 : Math.round((done / total) * 100);
@@ -56,7 +66,8 @@ function RewardsPage() {
         </p>
         {nearbyCount !== null && nearbyCount > 0 && (
           <p className="mt-2 text-xs text-muted-foreground/70">
-            🫎 {state.language === "sv"
+            🫎{" "}
+            {state.language === "sv"
               ? `${nearbyCount} fler äventyr inom 10 km`
               : `${nearbyCount} more adventures within 10 km`}
           </p>

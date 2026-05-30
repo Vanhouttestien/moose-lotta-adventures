@@ -10,8 +10,8 @@ import { t } from "@/i18n";
 import { CheckCircle2, MapPin, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/story/$storyId")({
-  loader: ({ params }) => {
-    const story = getStoryById(params.storyId);
+  loader: async ({ params }) => {
+    const story = await getStoryById(params.storyId);
     if (!story) throw notFound();
     return story;
   },
@@ -97,7 +97,9 @@ function StoryPage() {
           <div className="rounded-3xl border-2 border-dashed border-primary/30 bg-card p-5 text-center">
             <p className="text-sm text-muted-foreground">
               {distance != null
-                ? t(state.language, "story.distance.locked", { dist: Math.round(distance / 10) * 10 })
+                ? t(state.language, "story.distance.locked", {
+                    dist: Math.round(distance / 10) * 10,
+                  })
                 : status === "watching"
                   ? t(state.language, "gps.searching")
                   : status === "idle"
@@ -113,7 +115,7 @@ function StoryPage() {
               </button>
             ) : status !== "unavailable" ? (
               <p className="mt-2 font-display text-base text-foreground">
-{t(state.language, "character.lotta.feels")}
+                {t(state.language, "character.lotta.feels")}
               </p>
             ) : null}
           </div>

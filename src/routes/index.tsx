@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useAppState } from "@/hooks/useAppState";
-import { getStories } from "@/data/stories";
+import { getStories, type Story } from "@/data/stories";
 import { t } from "@/i18n";
 import { AppShell } from "@/components/AppShell";
 import { Map, ChevronRight, Gift } from "lucide-react";
@@ -34,27 +34,25 @@ const accentMap: Record<string, string> = {
 };
 
 function HomePage() {
-  const { state, activeProfile } = useAppState();
+  const { state, activeProfile, currentVillageId } = useAppState();
   const navigate = useNavigate();
 
-  const allStories = useMemo(
-    () => getStories({ language: state.language, ageGroup: state.ageGroup }),
-    [state.language, state.ageGroup],
-  );
+  const [allStories, setAllStories] = useState<Story[]>([]);
+  useEffect(() => {
+    getStories({
+      language: state.language,
+      ageGroup: state.ageGroup,
+      villageId: currentVillageId,
+    }).then(setAllStories);
+  }, [state.language, state.ageGroup, currentVillageId]);
 
   const totalStories = allStories.length;
   const doneCount = state.completedStoryIds.length;
   const progressPct = totalStories > 0 ? Math.round((doneCount / totalStories) * 100) : 0;
 
-  const hasUnlockable = useMemo(
-    () => allStories.some((s) => !state.completedStoryIds.includes(s.id)),
-    [allStories, state.completedStoryIds],
-  );
+  const hasUnlockable = allStories.some((s) => !state.completedStoryIds.includes(s.id));
 
-  const doneStories = useMemo(
-    () => allStories.filter((s) => state.completedStoryIds.includes(s.id)),
-    [allStories, state.completedStoryIds],
-  );
+  const doneStories = allStories.filter((s) => state.completedStoryIds.includes(s.id));
 
   return (
     <AppShell>

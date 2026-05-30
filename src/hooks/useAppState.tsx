@@ -8,6 +8,7 @@ import {
   type ProfileData,
 } from "@/services/storage";
 import type { AgeGroup, Language, Story } from "@/data/stories";
+import { villages } from "@/data/stories";
 
 interface AppStateContextValue {
   profiles: Profile[];
@@ -17,6 +18,8 @@ interface AppStateContextValue {
   deleteProfile: (name: string) => void;
   updateProfileData: (patch: Partial<ProfileData>) => void;
   state: ProfileData;
+  currentVillageId: string;
+  setCurrentVillageId: (id: string) => void;
 }
 
 const AppStateContext = createContext<AppStateContextValue | null>(null);
@@ -28,6 +31,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     if (saved && loadProfiles().some((p) => p.name === saved)) return saved;
     return null;
   });
+  const [currentVillageId, setCurrentVillageId] = useState<string>(villages[0].id);
 
   useEffect(() => {
     saveProfiles(profiles);
@@ -106,6 +110,8 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
         deleteProfile,
         updateProfileData,
         state,
+        currentVillageId,
+        setCurrentVillageId,
       }}
     >
       {children}

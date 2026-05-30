@@ -34,7 +34,10 @@ export function SplashPage({ onStart }: { onStart: () => void }) {
           </h1>
 
           {/* tagline */}
-          <p className="mt-2 text-center text-sm text-muted-foreground">                {t("sv", "app.tagline")}</p>
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            {" "}
+            {t("sv", "app.tagline")}
+          </p>
 
           {/* cta */}
           <div className="mt-10 flex justify-center">

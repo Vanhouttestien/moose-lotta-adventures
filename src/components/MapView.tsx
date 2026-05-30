@@ -59,7 +59,6 @@ export function MapView({
   const animFrameRef = useRef<number | null>(null);
   const navigate = useNavigate();
   const hasFittedRef = useRef(false);
-  const hasCenteredRef = useRef(false);
 
   // INIT MAP
   useEffect(() => {
@@ -165,7 +164,7 @@ export function MapView({
     }
   }, [statuses, position]);
 
-  // USER / MOOSE MARKER — animate between positions for buttery motion
+  // USER / MOOSE MARKER — animate between positions and follow the user
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !position) return;
@@ -175,7 +174,6 @@ export function MapView({
     if (!userMarkerRef.current) {
       userMarkerRef.current = L.marker(target, { icon: userIcon() }).addTo(map);
       map.setView(target, map.getZoom(), { animate: false });
-      hasCenteredRef.current = true;
       // GPS just arrived — map may have been behind a permission card
       setTimeout(() => map.invalidateSize(), 200);
       return;
@@ -190,11 +188,12 @@ export function MapView({
 
     const tick = (now: number) => {
       const t = Math.min(1, (now - startTime) / duration);
-      // ease-out cubic
       const e = 1 - Math.pow(1 - t, 3);
       const lat = start.lat + (target[0] - start.lat) * e;
       const lng = start.lng + (target[1] - start.lng) * e;
       marker.setLatLng([lat, lng]);
+      // Follow the user: pan map to keep marker centered
+      map.panTo([lat, lng], { animate: false });
       if (t < 1) animFrameRef.current = requestAnimationFrame(tick);
     };
     animFrameRef.current = requestAnimationFrame(tick);

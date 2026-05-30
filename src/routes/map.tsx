@@ -17,7 +17,7 @@ export const Route = createFileRoute("/map")({
 });
 
 function MapPage() {
-  const { state } = useAppState();
+  const { state, setCurrentVillageId } = useAppState();
   const { status, position: rawPosition, start } = useGeolocation();
   const position = useSmoothPosition(rawPosition);
 
@@ -39,10 +39,16 @@ function MapPage() {
     return closest;
   }, [position]);
 
-  const stories = useMemo(
-    () => getStories({ language: state.language, ageGroup: state.ageGroup, villageId: village.id }),
-    [state.language, state.ageGroup, village.id],
-  );
+  useEffect(() => {
+    setCurrentVillageId(village.id);
+  }, [village.id, setCurrentVillageId]);
+
+  const [stories, setStories] = useState<Story[]>([]);
+  useEffect(() => {
+    getStories({ language: state.language, ageGroup: state.ageGroup, villageId: village.id }).then(
+      setStories,
+    );
+  }, [state.language, state.ageGroup, village.id]);
 
   const statuses = useMemo(
     () => getStoryStatuses(stories, position, state.completedStoryIds),
@@ -81,7 +87,9 @@ function MapPage() {
     <AppShell>
       <header className="px-6 pt-8 pb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-moss">{village.name}</p>
-        <h1 className="mt-1 font-display text-3xl text-forest-deep">{t(state.language, "ui.map")}</h1>
+        <h1 className="mt-1 font-display text-3xl text-forest-deep">
+          {t(state.language, "ui.map")}
+        </h1>
       </header>
 
       <div className="px-6">
@@ -124,7 +132,9 @@ function MapPage() {
                   {t(state.language, "story.hint.title")}
                 </p>
                 <p className="mt-1 font-display text-base text-forest-deep">
-                  {t(state.language, "character.lotta.sense", { dist: Math.round((s.distance ?? 0) / 100) * 100 })}
+                  {t(state.language, "character.lotta.sense", {
+                    dist: Math.round((s.distance ?? 0) / 100) * 100,
+                  })}
                 </p>
               </div>
             ) : (
