@@ -13,6 +13,7 @@ import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StoryStoryIdRouteImport } from './routes/story.$storyId'
+import { Route as DevStoriesRouteImport } from './routes/dev.stories'
 
 const RewardsRoute = RewardsRouteImport.update({
   id: '/rewards',
@@ -34,18 +35,25 @@ const StoryStoryIdRoute = StoryStoryIdRouteImport.update({
   path: '/story/$storyId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DevStoriesRoute = DevStoriesRouteImport.update({
+  id: '/dev/stories',
+  path: '/dev/stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/rewards': typeof RewardsRoute
   '/story/$storyId': typeof StoryStoryIdRoute
+  '/dev/stories': typeof DevStoriesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/rewards': typeof RewardsRoute
   '/story/$storyId': typeof StoryStoryIdRoute
+  '/dev/stories': typeof DevStoriesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/map': typeof MapRoute
   '/rewards': typeof RewardsRoute
   '/story/$storyId': typeof StoryStoryIdRoute
+  '/dev/stories': typeof DevStoriesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/map' | '/rewards' | '/story/$storyId'
+  fullPaths: '/' | '/map' | '/rewards' | '/story/$storyId' | '/dev/stories'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/map' | '/rewards' | '/story/$storyId'
-  id: '__root__' | '/' | '/map' | '/rewards' | '/story/$storyId'
+  to: '/' | '/map' | '/rewards' | '/story/$storyId' | '/dev/stories'
+  id: '__root__' | '/' | '/map' | '/rewards' | '/story/$storyId' | '/dev/stories'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   MapRoute: typeof MapRoute
   RewardsRoute: typeof RewardsRoute
   StoryStoryIdRoute: typeof StoryStoryIdRoute
+  DevStoriesRoute: typeof DevStoriesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StoryStoryIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dev/stories': {
+      id: '/dev/stories'
+      path: '/dev/stories'
+      fullPath: '/dev/stories'
+      preLoaderRoute: typeof DevStoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   MapRoute: MapRoute,
   RewardsRoute: RewardsRoute,
   StoryStoryIdRoute: StoryStoryIdRoute,
+  DevStoriesRoute: DevStoriesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

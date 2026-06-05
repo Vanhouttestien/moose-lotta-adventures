@@ -5,13 +5,14 @@ export const kolhuset_en_5_6: Story = {
   id: "kolhuset_en_5_6",
   villageId: "halleforsnas",
   language: "en",
-  ageGroups: ["3-4", "5-6", "7-9"],
+  ageGroups: ["5-6", "7-9"],
   title: "Kolhuset and the Black Fire",
   subtitle: "Kolhuset",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
-  audio: "",
+  audio: "/audio/kolhuset_en_5_6.mp3",
   emoji: "🔥",
   accent: "ember",
+  sources: ["2", "8"],
   text: `Listen… do you hear how it echoes in here?
 
 Big footsteps.

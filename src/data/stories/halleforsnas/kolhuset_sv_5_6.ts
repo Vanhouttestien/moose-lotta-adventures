@@ -5,13 +5,14 @@ export const kolhuset_sv_5_6: Story = {
   id: "kolhuset_sv_5_6",
   villageId: "halleforsnas",
   language: "sv",
-  ageGroups: ["3-4", "5-6", "7-9"],
+  ageGroups: ["5-6", "7-9"],
   title: "Kolhuset och den svarta elden",
   subtitle: "Kolhuset",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
-  audio: "/audio/kolhuset.mp3",
+  audio: "/audio/kolhuset_sv_5_6.mp3",
   emoji: "🔥",
   accent: "ember",
+  sources: ["2", "8"],
   text: `Lyssna… hör du hur det ekar här inne?
 
     Tunga steg.

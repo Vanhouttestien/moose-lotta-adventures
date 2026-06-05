@@ -6,11 +6,11 @@ export const dinosaurieskogen_sv_5_6: Story = {
   villageId: "halleforsnas",
   language: "sv",
 
-  ageGroups: ["3-4", "5-6", "7-9"],
+  ageGroups: ["5-6", "7-9"],
   title: "Dinosaurierna i skogen",
   subtitle: "Dinosaurieskogen",
   location: { ...LOCATIONS.DINOSAUR_FOREST, label: "Dinosaurieskogen" },
-  audio: "/audio/dino_swedish.mp3",
+  audio: "/audio/dinosaurieskogen_sv_5_6.mp3",
   emoji: "🦕",
   accent: "moss",
   text: `Skogen låter annorlunda här.
@@ -123,4 +123,5 @@ export const dinosaurieskogen_sv_5_6: Story = {
     "Gå fem steg som en dinosaurie",
   ],
   reward: "Dinosaurieupptäckare",
+  sources: [],
 };

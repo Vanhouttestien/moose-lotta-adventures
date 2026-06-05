@@ -5,11 +5,11 @@ export const dinosaurieskogen_en_5_6: Story = {
   id: "dinosaurieskogen_en_5_6",
   villageId: "halleforsnas",
   language: "en",
-  ageGroups: ["3-4", "5-6", "7-9"],
+  ageGroups: ["5-6", "7-9"],
   title: "The Dinosaurs in the Forest",
   subtitle: "Dinosaur Forest",
   location: { ...LOCATIONS.DINOSAUR_FOREST, label: "Dinosaur Forest" },
-  audio: "",
+  audio: "/audio/dinosaurieskogen_en_5_6.mp3",
   emoji: "🦕",
   accent: "moss",
   text: `The forest sounds different here.
@@ -118,4 +118,5 @@ export const dinosaurieskogen_en_5_6: Story = {
     `,
   mission: ["Find a hidden dinosaur", "Say what color it is", "Take five dinosaur steps"],
   reward: "Dinosaur Discoverer",
+  sources: [],
 };

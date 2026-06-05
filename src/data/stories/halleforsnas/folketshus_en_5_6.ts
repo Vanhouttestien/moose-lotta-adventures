@@ -6,13 +6,14 @@ export const folketshus_en_5_6: Story = {
   villageId: "halleforsnas",
   language: "en",
 
-  ageGroups: ["3-4", "5-6", "7-9"],
+  ageGroups: ["5-6", "7-9"],
   title: "House of all people",
   subtitle: "Folkets Hus",
   location: { ...LOCATIONS.FOLKETS_HUS, label: "Folkets Hus" },
-  audio: "",
+  audio: "/audio/folketshus_en_5_6.mp3",
   emoji: "🏛️",
   accent: "bark",
+  sources: ["1"],
   text: `Listen… do you hear it?
 
 I am Lotta the moose, and I'm standing here with you in front of the big building in Hälleforsnäs.
@@ -29,14 +30,7 @@ A place for laughter, dancing, music, and movies.
 
 So they decided to build this house together.
 
-In 1961, construction began.
-
-People helped after finishing their jobs.
-They carried wood, painted walls, and worked side by side.
-
 Everyone helped.
-
-In 1964, the house was finished.
 
 When the doors opened, the whole village came.
 

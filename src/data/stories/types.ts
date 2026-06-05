@@ -22,6 +22,7 @@ export interface Story {
   reward: string;
   emoji: string;
   accent: "moss" | "ember" | "bark" | "shadow" | "rust" | "water";
+  sources: string[];
 }
 
 export interface Village {

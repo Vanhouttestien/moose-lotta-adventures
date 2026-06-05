@@ -9,10 +9,11 @@ export const test_forest_1: Story = {
   title: "The First Moose Signal",
   subtitle: "Test Forest",
   location: { ...LOCATIONS.FOREST_SIGNAL_POINT, label: "Forest Signal Point" },
-  audio: "",
+  audio: "/audio/test_forest_1.mp3",
   text: "A strange signal appears in the forest...",
   mission: ["Walk closer", "Listen", "Observe"],
   reward: "Signal Finder",
   emoji: "📡",
   accent: "moss",
+  sources: [],
 };

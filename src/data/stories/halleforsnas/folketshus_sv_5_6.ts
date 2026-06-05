@@ -5,14 +5,15 @@ export const folketshus_sv_5_6: Story = {
   id: "folketshus_sv_5_6",
   villageId: "halleforsnas",
   language: "sv",
-  ageGroups: ["3-4", "5-6", "7-9"],
+  ageGroups: ["5-6", "7-9"],
 
   title: "Alla människors hus",
   subtitle: "Folkets Hus",
   location: { ...LOCATIONS.FOLKETS_HUS, label: "Folkets Hus" },
-  audio: "/audio/folketshus_swedish.mp3",
+  audio: "/audio/folketshus_sv_5_6.mp3",
   emoji: "🏛️",
   accent: "bark",
+  sources: ["1"],
   text: `Lyssna… hör du det?
     Jag är Lotta älg, och jag står här med dig framför den stora byggnaden i Hälleforsnäs.
     Det här är Folkets hus.
@@ -20,10 +21,7 @@ export const folketshus_sv_5_6: Story = {
     Men efter jobbet drömde de om något mer.
     En plats där alla kunde mötas.En plats för skratt, dans, musik och film.
     Så de bestämde sig för att bygga det här huset tillsammans.
-    År 1961 började bygget.
-    Människor hjälpte till efter sina arbeten.De bar trä, målade väggar och arbetade sida vid sida.
     Alla hjälptes åt.
-    År 1964 stod huset klart.
     När dörrarna öppnades kom hela byn.
     Barnen kom för att titta på film och skratta tillsammans.
     Och än idag… om du lyssnar riktigt noga…
