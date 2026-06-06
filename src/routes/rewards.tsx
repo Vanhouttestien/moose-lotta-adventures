@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { useAppState } from "@/hooks/useAppState";
-import { useGeolocation, distanceMeters } from "@/hooks/useGeolocation";
-import { getStories, type Story } from "@/data/stories";
+import { getStories, villages, type Story } from "@/data/stories";
 import { t } from "@/i18n";
 import { Sparkles } from "lucide-react";
 
@@ -22,11 +21,6 @@ export const Route = createFileRoute("/rewards")({
 
 function RewardsPage() {
   const { state, currentVillageId } = useAppState();
-  const { position, status, start } = useGeolocation();
-
-  useEffect(() => {
-    start();
-  }, [start]);
 
   const [all, setAll] = useState<Story[]>([]);
   useEffect(() => {
@@ -37,6 +31,8 @@ function RewardsPage() {
     }).then(setAll);
   }, [state.language, state.ageGroup, currentVillageId]);
 
+  const currentVillage = villages.find((v) => v.id === currentVillageId);
+
   const total = all.length;
   const done = state.completedStoryIds.length;
   const pct = total === 0 ? 0 : Math.round((done / total) * 100);
@@ -46,13 +42,10 @@ function RewardsPage() {
     [all, state.completedStoryIds],
   );
 
-  const nearbyCount = useMemo(() => {
-    if (!position) return null;
-    return all.filter((s) => {
-      if (state.completedStoryIds.includes(s.id)) return false;
-      return distanceMeters(position, s.location) <= 10000;
-    }).length;
-  }, [all, position, state.completedStoryIds]);
+  const remainingCount = useMemo(
+    () => all.filter((s) => !state.completedStoryIds.includes(s.id)).length,
+    [all, state.completedStoryIds],
+  );
 
   return (
     <AppShell>
@@ -64,12 +57,12 @@ function RewardsPage() {
         <p className="mt-1 text-sm text-muted-foreground">
           {done} {t(state.language, "ui.collected")}
         </p>
-        {nearbyCount !== null && nearbyCount > 0 && (
+        {remainingCount > 0 && (
           <p className="mt-2 text-xs text-muted-foreground/70">
             🫎{" "}
             {state.language === "sv"
-              ? `${nearbyCount} fler äventyr inom 10 km`
-              : `${nearbyCount} more adventures within 10 km`}
+              ? `${remainingCount} fler äventyr i ${currentVillage?.name ?? "byn"}`
+              : `${remainingCount} more adventures in ${currentVillage?.name ?? "the village"}`}
           </p>
         )}
       </header>

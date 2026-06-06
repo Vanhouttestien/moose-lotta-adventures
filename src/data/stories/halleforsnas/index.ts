@@ -89,16 +89,7 @@ import { station_en_10_12 } from "./station_en_10_12";
 import { station_sv_10_12 } from "./station_sv_10_12";
 import { station_en_adult } from "./station_en_adult";
 import { station_sv_adult } from "./station_sv_adult";
-import { test_forest_sv_3_4 } from "./test_forest_sv_3_4";
-import { test_forest_en_3_4 } from "./test_forest_en_3_4";
-import { test_forest_sv_5_6 } from "./test_forest_sv_5_6";
-import { test_forest_en_5_6 } from "./test_forest_en_5_6";
-import { test_forest_sv_7_9 } from "./test_forest_sv_7_9";
-import { test_forest_en_7_9 } from "./test_forest_en_7_9";
-import { test_forest_sv_10_12 } from "./test_forest_sv_10_12";
-import { test_forest_en_10_12 } from "./test_forest_en_10_12";
-import { test_forest_sv_adult } from "./test_forest_sv_adult";
-import { test_forest_en_adult } from "./test_forest_en_adult";
+
 
 export const stories: Story[] = [
   abinenoijs_en_3_4,
@@ -191,14 +182,4 @@ export const stories: Story[] = [
   station_sv_10_12,
   station_en_adult,
   station_sv_adult,
-  test_forest_en_3_4,
-  test_forest_sv_3_4,
-  test_forest_en_5_6,
-  test_forest_sv_5_6,
-  test_forest_en_7_9,
-  test_forest_sv_7_9,
-  test_forest_en_10_12,
-  test_forest_sv_10_12,
-  test_forest_en_adult,
-  test_forest_sv_adult,
 ];
