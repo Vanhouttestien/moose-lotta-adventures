@@ -44,6 +44,11 @@ export const sv = {
       pressToListen: "Tryck för att lyssna",
       missing: "Ljud saknas – läs berättelsen nedan",
     },
+    unlock: {
+      foundAdventure: "✨ Du hittade ett äventyr",
+      listen: "Lyssna på Lottas berättelse",
+      notNow: "Inte just nu",
+    },
     story: {
       locked: "Detta äventyr är låst",
       walkCloser: "Gå närmare för att låsa upp",

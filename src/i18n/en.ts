@@ -45,6 +45,11 @@ export const en: Structure<SvDict> = {
       pressToListen: "Press to listen",
       missing: "Audio missing – read the story below",
     },
+    unlock: {
+      foundAdventure: "✨ You found an adventure",
+      listen: "Listen to Lotta's story",
+      notNow: "Not right now",
+    },
     story: {
       locked: "This adventure is locked",
       walkCloser: "Walk closer to unlock",

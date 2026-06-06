@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
+import { useAppState } from "@/hooks/useAppState";
+import { t } from "@/i18n";
 import type { Story } from "@/data/stories";
 
 export function UnlockPopup({ story, onClose }: { story: Story | null; onClose: () => void }) {
+  const { state } = useAppState();
   useEffect(() => {
     if (!story) return;
     if (typeof navigator !== "undefined" && "vibrate" in navigator) {
@@ -26,7 +29,7 @@ export function UnlockPopup({ story, onClose }: { story: Story | null; onClose: 
         />
         <div className="relative">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-moss">
-            ✨ Du hittade ett äventyr
+            {t(state.language, "ui.unlock.foundAdventure")}
           </p>
           <div className="mt-3 text-5xl animate-float">{story.emoji}</div>
           <h2 className="mt-3 font-display text-2xl text-forest-deep">{story.title}</h2>
@@ -37,13 +40,13 @@ export function UnlockPopup({ story, onClose }: { story: Story | null; onClose: 
               params={{ storyId: story.id }}
               className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-95"
             >
-              Lyssna på Lottas berättelse
+              {t(state.language, "ui.unlock.listen")}
             </Link>
             <button
               onClick={onClose}
               className="text-xs text-muted-foreground underline-offset-4 hover:underline"
             >
-              Inte just nu
+              {t(state.language, "ui.unlock.notNow")}
             </button>
           </div>
         </div>
