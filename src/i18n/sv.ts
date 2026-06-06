@@ -39,6 +39,11 @@ export const sv = {
       switch: "Byt profil",
       profile: "Profil",
     },
+    audio: {
+      tells: "Moose Lotta berättar",
+      pressToListen: "Tryck för att lyssna",
+      missing: "Ljud saknas – läs berättelsen nedan",
+    },
     story: {
       locked: "Detta äventyr är låst",
       walkCloser: "Gå närmare för att låsa upp",

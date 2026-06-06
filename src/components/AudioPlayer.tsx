@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play, RotateCcw } from "lucide-react";
+import { useAppState } from "@/hooks/useAppState";
+import { t } from "@/i18n";
 
 export function AudioPlayer({ src, label }: { src: string; label?: string }) {
+  const { state } = useAppState();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);
@@ -56,10 +59,10 @@ export function AudioPlayer({ src, label }: { src: string; label?: string }) {
       </button>
       <div className="flex-1">
         <p className="text-sm font-semibold text-secondary-foreground">
-          {label ?? "Moose Lotta berättar"}
+          {label ?? t(state.language, "ui.audio.tells")}
         </p>
         <p className="text-xs text-muted-foreground">
-          {available ? "Tryck för att lyssna" : "Ljud saknas – läs berättelsen nedan"}
+          {available ? t(state.language, "ui.audio.pressToListen") : t(state.language, "ui.audio.missing")}
         </p>
       </div>
       <button

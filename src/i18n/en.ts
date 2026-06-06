@@ -40,6 +40,11 @@ export const en: Structure<SvDict> = {
       switch: "Switch profile",
       profile: "Profile",
     },
+    audio: {
+      tells: "Moose Lotta tells a story",
+      pressToListen: "Press to listen",
+      missing: "Audio missing – read the story below",
+    },
     story: {
       locked: "This adventure is locked",
       walkCloser: "Walk closer to unlock",
