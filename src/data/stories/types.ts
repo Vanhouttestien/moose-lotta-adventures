@@ -21,6 +21,7 @@ export interface Story {
   mission: string[];
   reward: string;
   emoji: string;
+  image?: string;
   accent: "moss" | "ember" | "bark" | "shadow" | "rust" | "water";
   sources: string[];
 }

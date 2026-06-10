@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { useAppState } from "@/hooks/useAppState";
+import { StoryImage } from "@/components/StoryImage";
 import { t } from "@/i18n";
 import { playChime } from "@/lib/audio";
 import type { Story } from "@/data/stories";
@@ -33,7 +34,12 @@ export function UnlockPopup({ story, onClose }: { story: Story | null; onClose: 
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-moss">
             {t(state.language, "ui.unlock.foundAdventure")}
           </p>
-          <div className="mt-3 text-5xl animate-float">{story.emoji}</div>
+          <StoryImage
+            imageUrl={story.image}
+            emoji={story.emoji}
+            alt={story.title}
+            variant="popup"
+          />
           <h2 className="mt-3 font-display text-2xl text-forest-deep">{story.title}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{story.subtitle}</p>
           <div className="mt-6 flex flex-col gap-2">

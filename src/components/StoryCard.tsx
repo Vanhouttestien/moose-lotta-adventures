@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { StoryStatus } from "@/engine/storyEngine";
 import { useAppState } from "@/hooks/useAppState";
+import { StoryImage } from "@/components/StoryImage";
 import { t } from "@/i18n";
 import { Lock, Sparkles, MapPin } from "lucide-react";
 
@@ -39,12 +40,13 @@ export function StoryCard({ s }: { s: StoryStatus }) {
         aria-hidden
       />
       <div className="flex items-start gap-4">
-        <div
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-2xl"
-          style={{ background: `color-mix(in oklab, ${accentVar} 18%, transparent)` }}
-        >
-          {s.story.emoji}
-        </div>
+        <StoryImage
+          imageUrl={s.story.image}
+          emoji={s.story.emoji}
+          alt={s.story.title}
+          variant="card"
+          accent={accentVar}
+        />
         <div className="min-w-0 flex-1">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
             {s.story.subtitle}

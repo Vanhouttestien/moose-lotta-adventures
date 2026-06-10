@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
+import { StoryImage } from "@/components/StoryImage";
 import { useAppState } from "@/hooks/useAppState";
 import { getStories, villages, type Story } from "@/data/stories";
 import { t } from "@/i18n";
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/rewards")({
   component: RewardsPage,
 });
 
-function RewardsPage() {
+export function RewardsPage() {
   const { state, currentVillageId } = useAppState();
 
   const [all, setAll] = useState<Story[]>([]);
@@ -92,9 +93,12 @@ function RewardsPage() {
               key={s.id}
               className="rounded-3xl bg-card p-4 text-center shadow-[var(--shadow-soft)] transition-all"
             >
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent/40 text-3xl">
-                ✨
-              </div>
+              <StoryImage
+                imageUrl={s.image}
+                emoji={"✨"}
+                alt={s.reward}
+                variant="reward"
+              />
               <p className="mt-3 font-display text-sm text-foreground">{s.reward}</p>
               <p className="mt-1 text-[11px] text-muted-foreground">{s.location.label}</p>
             </div>

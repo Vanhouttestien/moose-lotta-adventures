@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-ro
 import { useMemo, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { AudioPlayer } from "@/components/AudioPlayer";
+import { StoryImage } from "@/components/StoryImage";
 import { useAppState } from "@/hooks/useAppState";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { getStoryStatuses } from "@/engine/storyEngine";
@@ -83,12 +84,14 @@ function StoryPage() {
           {story.location.label}
         </div>
         <h1 className="mt-2 font-display text-3xl leading-tight text-forest-deep">{story.title}</h1>
-        <div
-          className="mt-6 flex h-32 items-center justify-center rounded-3xl text-6xl shadow-[var(--shadow-soft)]"
-          style={{ background: `color-mix(in oklab, ${accent} 25%, white)` }}
-        >
-          <span className={unlocked ? "animate-float" : "opacity-60"}>{story.emoji}</span>
-        </div>
+        <StoryImage
+          imageUrl={story.image}
+          emoji={story.emoji}
+          alt={story.title}
+          variant="hero"
+          accent={accent}
+          unlocked={unlocked}
+        />
       </div>
 
       <div className="space-y-5 px-6">
