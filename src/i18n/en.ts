@@ -44,6 +44,8 @@ export const en: Structure<SvDict> = {
       tells: "Moose Lotta tells a story",
       pressToListen: "Press to listen",
       missing: "Audio missing – read the story below",
+      transcript: "Read transcript",
+      hideTranscript: "Hide transcript",
     },
     unlock: {
       foundAdventure: "✨ You found an adventure",

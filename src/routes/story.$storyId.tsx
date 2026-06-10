@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { useAppState } from "@/hooks/useAppState";
@@ -46,6 +46,7 @@ function StoryPage() {
   const { state, completeStory } = useAppState();
   const navigate = useNavigate();
   const { position, status, start } = useGeolocation();
+  const [showTranscript, setShowTranscript] = useState(false);
 
   const result = useMemo(
     () => getStoryStatuses([story], position, state.completedStoryIds),
@@ -125,7 +126,28 @@ function StoryPage() {
 
         {unlocked && story.audio ? <AudioPlayer src={story.audio} label={story.title} /> : null}
 
-        {unlocked ? (
+        {unlocked && story.audio ? (
+          <>
+            <button
+              onClick={() => setShowTranscript(!showTranscript)}
+              className="flex w-full items-center justify-between rounded-3xl bg-card px-5 py-3 text-sm font-medium text-muted-foreground shadow-[var(--shadow-soft)] transition-colors hover:text-foreground"
+            >
+              <span>
+                {showTranscript
+                  ? t(state.language, "ui.audio.hideTranscript")
+                  : t(state.language, "ui.audio.transcript")}
+              </span>
+              <span className={`transition-transform ${showTranscript ? "rotate-180" : ""}`}>
+                ▼
+              </span>
+            </button>
+            {showTranscript && (
+              <article className="whitespace-pre-line rounded-3xl bg-card p-5 text-[15px] leading-relaxed text-foreground shadow-[var(--shadow-soft)]">
+                {story.text}
+              </article>
+            )}
+          </>
+        ) : unlocked ? (
           <article className="whitespace-pre-line rounded-3xl bg-card p-5 text-[15px] leading-relaxed text-foreground shadow-[var(--shadow-soft)]">
             {story.text}
           </article>

@@ -45,7 +45,7 @@ Horses pulled heavy sleds full of charcoal all the way here to Kolhuset.
 
 Can you hear them?
 
-*Clonk… clonk… clonk…*
+Clonk… clonk… clonk…
 
 Hooves against the hard winter road.
 

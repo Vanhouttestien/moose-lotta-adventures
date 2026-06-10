@@ -45,7 +45,7 @@ export const kolhuset_sv_5_6: Story = {
     
     Kan du höra dem?
     
-    *Klonk… klonk… klonk…*
+    Klonk… klonk… klonk…
     
     Hovarna mot den frusna vintervägen.
     

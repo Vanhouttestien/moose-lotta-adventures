@@ -43,6 +43,8 @@ export const sv = {
       tells: "Moose Lotta berättar",
       pressToListen: "Tryck för att lyssna",
       missing: "Ljud saknas – läs berättelsen nedan",
+      transcript: "Läs transkript",
+      hideTranscript: "Dölj transkript",
     },
     unlock: {
       foundAdventure: "✨ Du hittade ett äventyr",
