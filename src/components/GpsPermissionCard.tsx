@@ -6,9 +6,11 @@ import { MapPin } from "lucide-react";
 export function GpsPermissionCard({
   status,
   onEnable,
+  onGrant,
 }: {
   status: GeoStatus;
   onEnable: () => void;
+  onGrant?: () => void;
 }) {
   const { state } = useAppState();
   if (status === "watching") return null;
@@ -29,7 +31,10 @@ export function GpsPermissionCard({
               : t(state.language, "gps.permission.body")}
           </p>
           <button
-            onClick={onEnable}
+            onClick={() => {
+              onEnable();
+              onGrant?.();
+            }}
             className="mt-3 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-95"
           >
             {t(state.language, "gps.enable")}

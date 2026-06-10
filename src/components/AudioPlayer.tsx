@@ -62,7 +62,9 @@ export function AudioPlayer({ src, label }: { src: string; label?: string }) {
           {label ?? t(state.language, "ui.audio.tells")}
         </p>
         <p className="text-xs text-muted-foreground">
-          {available ? t(state.language, "ui.audio.pressToListen") : t(state.language, "ui.audio.missing")}
+          {available
+            ? t(state.language, "ui.audio.pressToListen")
+            : t(state.language, "ui.audio.missing")}
         </p>
       </div>
       <button

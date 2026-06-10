@@ -10,6 +10,7 @@ export const liktallarna_en_adult: Story = {
   subtitle: "Liktallarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
   audio: "/audio/liktallarna_en_adult.mp3",
+  image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",
   accent: "ember",
   sources: ["4"],

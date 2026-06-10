@@ -73,7 +73,6 @@ export const sv = {
   character: {
     lotta: {
       greeting: "Redo att upptäcka historien omkring dig?",
-      feels: "🫎 Här är det! Lotta känner historien!",
       sense: "🫎 Lotta känner ett äventyr ungefär {{dist}} m härifrån…",
     },
   },

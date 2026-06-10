@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type Variant = "hero" | "card" | "popup" | "reward";
@@ -14,7 +14,8 @@ interface StoryImageProps {
 
 const variantStyles: Record<Variant, { container: string; img: string; emoji: string }> = {
   hero: {
-    container: "mt-6 flex h-48 w-full items-center justify-center overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]",
+    container:
+      "mt-6 flex aspect-[4/3] max-h-80 w-full items-center justify-center overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]",
     img: "h-full w-full object-cover",
     emoji: "text-6xl",
   },
@@ -24,7 +25,8 @@ const variantStyles: Record<Variant, { container: string; img: string; emoji: st
     emoji: "text-2xl",
   },
   popup: {
-    container: "mx-auto mt-3 flex h-32 w-32 items-center justify-center overflow-hidden rounded-2xl",
+    container:
+      "mx-auto mt-3 flex h-32 w-32 items-center justify-center overflow-hidden rounded-2xl",
     img: "h-full w-full object-cover",
     emoji: "text-5xl",
   },
@@ -35,11 +37,23 @@ const variantStyles: Record<Variant, { container: string; img: string; emoji: st
   },
 };
 
-export function StoryImage({ imageUrl, emoji, alt, variant, accent, unlocked = true }: StoryImageProps) {
+export function StoryImage({
+  imageUrl,
+  emoji,
+  alt,
+  variant,
+  accent,
+  unlocked = true,
+}: StoryImageProps) {
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
   const styles = variantStyles[variant];
   const showImage = imageUrl && !failed;
+
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
 
   return (
     <div
@@ -52,13 +66,11 @@ export function StoryImage({ imageUrl, emoji, alt, variant, accent, unlocked = t
     >
       {showImage ? (
         <>
-          {!loaded && (
-            <div className="h-full w-full animate-pulse bg-muted" />
-          )}
+          {!loaded && <div className="h-full w-full animate-pulse bg-muted" />}
           <img
+            ref={imgRef}
             src={imageUrl}
             alt={alt}
-            loading="lazy"
             onLoad={() => setLoaded(true)}
             onError={() => setFailed(true)}
             className={cn(styles.img, !loaded && "hidden")}

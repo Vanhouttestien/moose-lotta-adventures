@@ -10,6 +10,7 @@ export const liktallarna_en_7_9: Story = {
   subtitle: "The Burned Guardians",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
   audio: "/audio/liktallarna_en_7_9.mp3",
+  image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",
   accent: "ember",
   sources: ["4"],

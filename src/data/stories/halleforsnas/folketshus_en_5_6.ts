@@ -11,6 +11,7 @@ export const folketshus_en_5_6: Story = {
   subtitle: "Folkets Hus",
   location: { ...LOCATIONS.FOLKETS_HUS, label: "Folkets Hus" },
   audio: "/audio/folketshus_en_5_6.mp3",
+  image: "/images/stories/folketshus.jpeg",
   emoji: "🏛️",
   accent: "bark",
   sources: ["1"],

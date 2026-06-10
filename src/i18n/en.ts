@@ -74,7 +74,6 @@ export const en: Structure<SvDict> = {
   character: {
     lotta: {
       greeting: "Ready to discover the history around you?",
-      feels: "🫎 Right here! Lotta senses the history!",
       sense: "🫎 Lotta senses an adventure about {{dist}} m away…",
     },
   },

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { StoryImage } from "@/components/StoryImage";
@@ -44,10 +44,14 @@ export const Route = createFileRoute("/story/$storyId")({
 
 function StoryPage() {
   const story = Route.useLoaderData();
-  const { state, completeStory } = useAppState();
+  const { state, completeStory, updateProfileData } = useAppState();
   const navigate = useNavigate();
   const { position, status, start } = useGeolocation();
   const [showTranscript, setShowTranscript] = useState(false);
+
+  useEffect(() => {
+    if (state.gpsPermissionGranted) start();
+  }, [start, state.gpsPermissionGranted]);
 
   const result = useMemo(
     () => getStoryStatuses([story], position, state.completedStoryIds),
@@ -110,22 +114,17 @@ function StoryPage() {
             </p>
             {status === "idle" ? (
               <button
-                onClick={start}
+                onClick={() => {
+                  start();
+                  updateProfileData({ gpsPermissionGranted: true });
+                }}
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-95"
               >
                 {t(state.language, "gps.enable")}
               </button>
-            ) : status !== "unavailable" ? (
-              <p className="mt-2 font-display text-base text-foreground">
-                {t(state.language, "character.lotta.feels")}
-              </p>
             ) : null}
           </div>
-        ) : (
-          <div className="rounded-3xl bg-primary/10 px-4 py-3 text-center text-sm font-semibold text-primary animate-pulse-ring">
-            {t(state.language, "feels")}
-          </div>
-        )}
+        ) : null}
 
         {unlocked && story.audio ? <AudioPlayer src={story.audio} label={story.title} /> : null}
 

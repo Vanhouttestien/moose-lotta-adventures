@@ -9,6 +9,7 @@ export interface ProfileData {
   completedStoryIds: string[];
   rewards: string[];
   onboarded: boolean;
+  gpsPermissionGranted: boolean;
 }
 
 export interface Profile {
@@ -23,6 +24,7 @@ const defaultProfileData: ProfileData = {
   completedStoryIds: [],
   rewards: [],
   onboarded: false,
+  gpsPermissionGranted: false,
 };
 
 function migrateOldState(): Profile[] {
@@ -39,6 +41,7 @@ function migrateOldState(): Profile[] {
         completedStoryIds: old.completedStoryIds ?? [],
         rewards: old.rewards ?? [],
         onboarded: old.onboarded ?? false,
+        gpsPermissionGranted: old.gpsPermissionGranted ?? false,
       },
       createdAt: new Date().toISOString(),
     };

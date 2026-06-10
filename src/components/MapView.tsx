@@ -148,23 +148,19 @@ export function MapView({
     const map = mapRef.current;
     if (!map || hasFittedRef.current) return;
     const bounds = L.latLngBounds([]);
-    let hasPoint = false;
 
+    bounds.extend([village.center.lat, village.center.lng]);
     if (position) {
       bounds.extend([position.lat, position.lng]);
-      hasPoint = true;
     }
     statuses.forEach((s) => {
       if (s.tier === "hidden") return;
       bounds.extend([s.story.location.lat, s.story.location.lng]);
-      hasPoint = true;
     });
 
-    if (hasPoint) {
-      map.fitBounds(bounds, { padding: [60, 60] });
-      hasFittedRef.current = true;
-    }
-  }, [statuses, position]);
+    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 14 });
+    hasFittedRef.current = true;
+  }, [statuses, position, village]);
 
   // USER / MOOSE MARKER — animate between positions and follow the user
   useEffect(() => {
@@ -185,7 +181,7 @@ export function MapView({
     const marker = userMarkerRef.current;
 
     // Only re-centre the map when the user moves significantly
-    // (300 m) from the last auto-panned position.  Small GPS jitter
+    // (300 m) from the last auto-panned position.  Small GPS jitter
     // or manual pan/zoom by the player no longer fights the map.
     if (lastPanTargetRef.current) {
       const dist = distanceMeters(lastPanTargetRef.current, position);

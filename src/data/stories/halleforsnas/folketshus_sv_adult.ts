@@ -10,6 +10,7 @@ export const folketshus_sv_adult: Story = {
   subtitle: "Folkets Hus",
   location: { ...LOCATIONS.FOLKETS_HUS, label: "Folkets Hus" },
   audio: "/audio/folketshus_sv_adult.mp3",
+  image: "/images/stories/folketshus.jpeg",
   emoji: "🏛️",
   accent: "bark",
   sources: ["1"],

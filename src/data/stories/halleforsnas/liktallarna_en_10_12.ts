@@ -10,6 +10,7 @@ export const liktallarna_en_10_12: Story = {
   subtitle: "The Secret History of the Corpse Pines",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
   audio: "/audio/liktallarna_en_10_12.mp3",
+  image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",
   accent: "shadow",
   sources: ["4"],

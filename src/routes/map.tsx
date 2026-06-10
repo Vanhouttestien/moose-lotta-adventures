@@ -17,7 +17,7 @@ export const Route = createFileRoute("/map")({
 });
 
 function MapPage() {
-  const { state, setCurrentVillageId } = useAppState();
+  const { state, setCurrentVillageId, updateProfileData } = useAppState();
   const { status, position: rawPosition, start } = useGeolocation();
   const position = useSmoothPosition(rawPosition);
 
@@ -38,6 +38,10 @@ function MapPage() {
   useEffect(() => {
     setCurrentVillageId(village.id);
   }, [village.id, setCurrentVillageId]);
+
+  useEffect(() => {
+    if (state.gpsPermissionGranted) start();
+  }, [start, state.gpsPermissionGranted]);
 
   const [stories, setStories] = useState<Story[]>([]);
   useEffect(() => {
@@ -96,7 +100,11 @@ function MapPage() {
 
       <div className="space-y-3 px-6 pt-6">
         {(status === "idle" || status === "unavailable") && (
-          <GpsPermissionCard status={status} onEnable={start} />
+          <GpsPermissionCard
+            status={status}
+            onEnable={start}
+            onGrant={() => updateProfileData({ gpsPermissionGranted: true })}
+          />
         )}
         {status === "watching" && !position && (
           <p className="rounded-2xl bg-card px-4 py-3 text-center text-sm text-muted-foreground">

@@ -10,6 +10,7 @@ export const dinosaurieskogen_en_3_4: Story = {
   subtitle: "Dinosaur Forest",
   location: { ...LOCATIONS.DINOSAUR_FOREST, label: "Dinosaur Forest" },
   audio: "/audio/dinosaurieskogen_en_3_4.mp3",
+  image: "/images/stories/dino.png",
   emoji: "🦕",
   accent: "moss",
   sources: [],
