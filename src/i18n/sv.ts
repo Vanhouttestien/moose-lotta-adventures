@@ -54,6 +54,10 @@ export const sv = {
       walkCloser: "Gå närmare för att låsa upp",
       unlock: "Lås upp äventyret",
     },
+    toast: {
+      completed: "Berättelse avklarad!",
+      rewardEarned: "Du fick: {{reward}}",
+    },
   },
   gps: {
     permission: {

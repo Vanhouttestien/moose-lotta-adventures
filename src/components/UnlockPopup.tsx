@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { useAppState } from "@/hooks/useAppState";
 import { t } from "@/i18n";
+import { playChime } from "@/lib/audio";
 import type { Story } from "@/data/stories";
 
 export function UnlockPopup({ story, onClose }: { story: Story | null; onClose: () => void }) {
   const { state } = useAppState();
   useEffect(() => {
     if (!story) return;
+    playChime();
     if (typeof navigator !== "undefined" && "vibrate" in navigator) {
       try {
         navigator.vibrate?.([40, 60, 100]);

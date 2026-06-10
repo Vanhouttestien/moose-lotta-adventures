@@ -7,6 +7,8 @@ import { useGeolocation } from "@/hooks/useGeolocation";
 import { getStoryStatuses } from "@/engine/storyEngine";
 import { getStoryById } from "@/data/stories";
 import { t } from "@/i18n";
+import { playDone } from "@/lib/audio";
+import { toast } from "sonner";
 import { CheckCircle2, MapPin, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/story/$storyId")({
@@ -171,7 +173,15 @@ function StoryPage() {
 
         {unlocked && !completed && (
           <button
-            onClick={() => completeStory(story)}
+            onClick={() => {
+              completeStory(story);
+              playDone();
+              toast.success(t(state.language, "ui.toast.completed"), {
+                description: t(state.language, "ui.toast.rewardEarned", {
+                  reward: story.reward,
+                }),
+              });
+            }}
             className="w-full rounded-full bg-primary py-4 font-display text-lg font-semibold text-primary-foreground shadow-[var(--shadow-cozy)] active:scale-[0.98]"
           >
             ✨ {t(state.language, "ui.markComplete")}

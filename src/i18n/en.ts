@@ -55,6 +55,10 @@ export const en: Structure<SvDict> = {
       walkCloser: "Walk closer to unlock",
       unlock: "Unlock the adventure",
     },
+    toast: {
+      completed: "Story completed!",
+      rewardEarned: "You earned: {{reward}}",
+    },
   },
   gps: {
     permission: {
