@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { distanceMeters } from "@/hooks/useGeolocation";
 import type { StoryStatus } from "@/engine/storyEngine";
 import type { Village } from "@/data/stories";
 import { useNavigate } from "@tanstack/react-router";
@@ -59,6 +60,7 @@ export function MapView({
   const animFrameRef = useRef<number | null>(null);
   const navigate = useNavigate();
   const hasFittedRef = useRef(false);
+  const lastPanTargetRef = useRef<{ lat: number; lng: number } | null>(null);
 
   // INIT MAP
   useEffect(() => {
@@ -174,12 +176,26 @@ export function MapView({
     if (!userMarkerRef.current) {
       userMarkerRef.current = L.marker(target, { icon: userIcon() }).addTo(map);
       map.setView(target, map.getZoom(), { animate: false });
+      lastPanTargetRef.current = position;
       // GPS just arrived — map may have been behind a permission card
       setTimeout(() => map.invalidateSize(), 200);
       return;
     }
 
     const marker = userMarkerRef.current;
+
+    // Only re-centre the map when the user moves significantly
+    // (300 m) from the last auto-panned position.  Small GPS jitter
+    // or manual pan/zoom by the player no longer fights the map.
+    if (lastPanTargetRef.current) {
+      const dist = distanceMeters(lastPanTargetRef.current, position);
+      if (dist < 300) {
+        marker.setLatLng(target);
+        return;
+      }
+    }
+    lastPanTargetRef.current = position;
+
     const start = marker.getLatLng();
     const startTime = performance.now();
     const duration = 800;

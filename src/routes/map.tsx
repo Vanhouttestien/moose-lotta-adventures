@@ -21,10 +21,6 @@ function MapPage() {
   const { status, position: rawPosition, start } = useGeolocation();
   const position = useSmoothPosition(rawPosition);
 
-  useEffect(() => {
-    start();
-  }, [start]);
-
   const village = useMemo(() => {
     if (!position) return villages[0];
     let closest = villages[0];
