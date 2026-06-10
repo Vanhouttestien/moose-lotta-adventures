@@ -34,13 +34,14 @@ function RewardsPage() {
   const currentVillage = villages.find((v) => v.id === currentVillageId);
 
   const total = all.length;
-  const done = state.completedStoryIds.length;
-  const pct = total === 0 ? 0 : Math.round((done / total) * 100);
 
   const earned = useMemo(
     () => all.filter((s) => state.completedStoryIds.includes(s.id)),
     [all, state.completedStoryIds],
   );
+
+  const doneHere = earned.length;
+  const pct = total === 0 ? 0 : Math.round((doneHere / total) * 100);
 
   const remainingCount = useMemo(
     () => all.filter((s) => !state.completedStoryIds.includes(s.id)).length,
@@ -55,7 +56,7 @@ function RewardsPage() {
           {t(state.language, "ui.rewards")}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {done} {t(state.language, "ui.collected")}
+          {doneHere} {t(state.language, "ui.collected")}
         </p>
         {remainingCount > 0 && (
           <p className="mt-2 text-xs text-muted-foreground/70">
@@ -101,7 +102,7 @@ function RewardsPage() {
         </div>
       )}
 
-      {done === 0 && (
+      {doneHere === 0 && (
         <div className="px-6 pt-8 text-center">
           <p className="text-sm text-muted-foreground">{t(state.language, "ui.noRewards")}</p>
           <Link
