@@ -47,7 +47,7 @@ function HomePage() {
   }, [state.language, state.ageGroup, currentVillageId]);
 
   const totalStories = allStories.length;
-  const doneCount = state.completedStoryIds.length;
+  const doneCount = allStories.filter((s) => state.completedStoryIds.includes(s.id)).length;
   const progressPct = totalStories > 0 ? Math.round((doneCount / totalStories) * 100) : 0;
 
   const hasUnlockable = allStories.some((s) => !state.completedStoryIds.includes(s.id));
@@ -109,7 +109,7 @@ function HomePage() {
             <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
               <Gift size={13} />
               <span>
-                {state.rewards.length} {t(state.language, "ui.collected")}
+                {doneCount} {t(state.language, "ui.collected")}
               </span>
             </div>
           </div>
