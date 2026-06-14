@@ -26,6 +26,7 @@ export const en: Structure<SvDict> = {
     progress: "progress",
     collected: "collected treasures",
     noRewards: "No treasures yet. Go explore!",
+    feedback: "Help us improve — send feedback",
     language: "Language",
     age: "Age",
     profile: {

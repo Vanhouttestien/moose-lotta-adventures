@@ -22,7 +22,7 @@ export function BottomNav() {
             <li key={it.to} className="flex-1">
               <Link
                 to={it.to}
-                className={`flex flex-col items-center gap-1 py-3 text-xs font-medium transition-colors ${
+                className={`flex flex-col items-center gap-1 py-1.5 text-xs font-medium transition-colors ${
                   active ? "text-primary" : "text-muted-foreground"
                 }`}
               >
@@ -33,6 +33,16 @@ export function BottomNav() {
           );
         })}
       </ul>
+      <div className="border-t border-border/30 px-4 py-1.5 text-center">
+        <a
+          href="https://forms.gle/JdfUUxErsMyBV76H7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-[11px] text-muted-foreground/40 transition-colors hover:text-muted-foreground/70"
+        >
+          💬 {t(state.language, "ui.feedback")}
+        </a>
+      </div>
     </nav>
   );
 }

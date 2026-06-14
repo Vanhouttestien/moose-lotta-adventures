@@ -25,6 +25,7 @@ export const sv = {
     progress: "framsteg",
     collected: "samlade skatter",
     noRewards: "Inga skatter ännu. Ut och upptäck!",
+    feedback: "Hjälp oss bli bättre — skicka feedback",
     language: "Språk",
     age: "Ålder",
     profile: {

@@ -176,6 +176,18 @@ function HomePage() {
           </Link>
         </div>
 
+        {/* feedback link */}
+        <div className="mt-2 px-6 pb-2">
+          <a
+            href="https://forms.gle/JdfUUxErsMyBV76H7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 rounded-2xl bg-card/50 px-4 py-3 text-xs text-muted-foreground/60 shadow-[var(--shadow-soft)] ring-1 ring-border/10 transition-all hover:bg-card hover:text-muted-foreground hover:ring-border/30"
+          >
+            💬 {t(state.language, "ui.feedback")}
+          </a>
+        </div>
+
         {/* bottom forest decoration */}
         <div className="pointer-events-none fixed bottom-16 left-0 right-0 h-32 overflow-hidden">
           <div className="absolute -bottom-8 left-1/4 h-20 w-20 rounded-full bg-forest-mist/30" />

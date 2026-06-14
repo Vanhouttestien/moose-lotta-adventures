@@ -128,6 +128,15 @@ export function ProfileSwitcher({
           <Plus size={18} />
           {t(lang, "ui.profile.new")}
         </button>
+
+        <a
+          href="https://forms.gle/JdfUUxErsMyBV76H7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 block text-center text-xs text-muted-foreground/40 transition-colors hover:text-muted-foreground/70"
+        >
+          💬 {t(lang, "ui.feedback")}
+        </a>
       </div>
     </div>
   );
