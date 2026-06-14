@@ -8,6 +8,7 @@ import {
   HeadContent,
 } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 
@@ -126,6 +127,7 @@ function RootComponent() {
       <QueryClientProvider client={queryClient}>
         <Outlet />
         <Toaster />
+        <Analytics />
       </QueryClientProvider>
     </StrictMode>
   );
