@@ -34,4 +34,4 @@
 - **Types:** story/village types in `src/data/stories.ts`
 - **Components:** shadcn/ui pattern — `cn()`, forwardRef, Radix primitives
 - **Testing:** Vitest + `@testing-library/react`, jsdom, jest-dom matchers
-- **Deployment:** Netlify SPA (`public/_redirects`)
+- **Deployment:** Vercel SPA (`vercel.json`)
