@@ -13,7 +13,35 @@ export const abinenoijs_en_3_4: Story = {
   emoji: "🌳",
   accent: "moss",
   sources: ["2", "4", "7"],
-  text: "This park is special.\n\nIt was not always a park.\n\nA long time ago, it was a dump.\n\nTrucks dropped old factory waste here.\n\nThe ground was dirty and not safe.\n\nThen people cleaned it all up.\n\nThey took the bad stuff away.\n\nThey brought good soil.\n\nThey planted trees and grass.\n\nNow it is a beautiful park.\n\nThere are sculptures to look at.\n\nYou can walk and play here.\n\nThe park is named after Abine Noij.\n\nHe started the whole bruk a very, very long time ago!\n\nHe would be happy to see this place today.",
+  text: `This park is special.
+
+It was not always a park.
+
+A long time ago, it was a dump.
+
+Trucks dropped old factory waste here.
+
+The ground was dirty and not safe.
+
+Then people cleaned it all up.
+
+They took the bad stuff away.
+
+They brought good soil.
+
+They planted trees and grass.
+
+Now it is a beautiful park.
+
+There are sculptures to look at.
+
+You can walk and play here.
+
+The park is named after Abine Noij.
+
+He started the whole bruk a very, very long time ago!
+
+He would be happy to see this place today.`,
   mission: [
     "Find a sculpture in the park",
     "Touch the grass",

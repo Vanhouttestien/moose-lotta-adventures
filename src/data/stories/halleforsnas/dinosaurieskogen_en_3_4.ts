@@ -14,7 +14,23 @@ export const dinosaurieskogen_en_3_4: Story = {
   emoji: "🦕",
   accent: "moss",
   sources: [],
-  text: "This forest is very old.\n\nA very long time ago, dinosaurs lived here.\n\nBig dinosaurs with long necks.\n\nSmall dinosaurs that ran fast.\n\nNow the dinosaurs are gone.\n\nBut the forest remembers them.\n\nLook around.\n\nCan you see a dinosaur hiding in the trees?\n\nMaybe it is watching you!",
+  text: `This forest is very old.
+
+A very long time ago, dinosaurs lived here.
+
+Big dinosaurs with long necks.
+
+Small dinosaurs that ran fast.
+
+Now the dinosaurs are gone.
+
+But the forest remembers them.
+
+Look around.
+
+Can you see a dinosaur hiding in the trees?
+
+Maybe it is watching you!`,
   mission: [
     "Look for a dinosaur shape in the trees",
     "Stomp your feet like a big dinosaur",

@@ -14,7 +14,28 @@ export const liktallarna_en_3_4: Story = {
   emoji: "🌲",
   accent: "moss",
   sources: ["4"],
-  text: "Look at the giant pine trees.\n\nThey have stood here for a very, very long time.\nMaybe longer than great-grandparents together.\n\nPeople tell old stories about this place.\nSome say travelers once stopped here to rest.\n\nOthers say the trees are magical.\n\nMaybe they whisper with the wind.\n\nLong ago, the trees were touched by fire.\nThe flames made them dark and smoky.\n\nBut they are still standing.\n\nStrong.\nQuiet.\nWatching over the road.\n\nIf you look carefully, you might see just how old they really are.",
+  text: `Look at the giant pine trees.
+
+They have stood here for a very, very long time.
+Maybe longer than great-grandparents together.
+
+People tell old stories about this place.
+Some say travelers once stopped here to rest.
+
+Others say the trees are magical.
+
+Maybe they whisper with the wind.
+
+Long ago, the trees were touched by fire.
+The flames made them dark and smoky.
+
+But they are still standing.
+
+Strong.
+Quiet.
+Watching over the road.
+
+If you look carefully, you might see just how old they really are.`,
   mission: ["Hug a tree", "Listen to the wind", "Find something soft in nature"],
   reward: "Pine Tree Friend",
 };

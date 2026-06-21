@@ -13,7 +13,25 @@ export const station_sv_3_4: Story = {
   emoji: "🚂",
   accent: "bark",
   sources: ["1", "4"],
-  text: "Tuff tuff!\n\nDet här är där tågen kommer och går.\n\nFör länge sedan fanns det en fin liten byggnad här.\n\nFolk köpte biljetter där inne.\n\nDe väntade på sitt tåg.\n\nSedan kom tåget och tog iväg dem.\n\nByggnaden är borta nu.\n\nMen tågen stannar fortfarande här.\n\nLyssna.\n\nHör du ett tåg som kommer?",
+  text: `Tuff tuff!
+
+Det här är där tågen kommer och går.
+
+För länge sedan fanns det en fin liten byggnad här.
+
+Folk köpte biljetter där inne.
+
+De väntade på sitt tåg.
+
+Sedan kom tåget och tog iväg dem.
+
+Byggnaden är borta nu.
+
+Men tågen stannar fortfarande här.
+
+Lyssna.
+
+Hör du ett tåg som kommer?`,
   mission: [
     "Lyssna efter tågljud",
     "Gör ett tågljud — Tuff tuff!",

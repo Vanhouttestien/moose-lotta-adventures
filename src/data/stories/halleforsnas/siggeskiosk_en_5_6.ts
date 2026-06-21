@@ -12,7 +12,33 @@ export const siggeskiosk_en_5_6: Story = {
   audio: "/audio/siggeskiosk_en_5_6.mp3",
   emoji: "🍦",
   accent: "bark",
-  text: "This spot used to be very busy.\n\nA yellow kiosk with brown corners stood right here, by the stream.\n\nA small bridge crossed the water so people could reach it.\n\nWhen the factory whistle blew, workers came running.\n\nThey were hungry!\n\nThey bought candy, newspapers, and something special called Luffare.\n\nLuffare was warm mashed potatoes with ketchup and mustard, served on a hot dog bun.\n\nIt was the perfect quick snack.\n\nChildren in the neighbourhood loved to search for coins under the bridge.\n\nMoney often fell through the cracks in the wooden planks.\n\nFinding a coin meant they could buy candy too!\n\nThe kiosk closed in the 1970s.\n\nToday, only a concrete foundation is left.\n\nBut the story of the little yellow kiosk and the workers' snack lives on.",
+  text: `This spot used to be very busy.
+
+A yellow kiosk with brown corners stood right here, by the stream.
+
+A small bridge crossed the water so people could reach it.
+
+When the factory whistle blew, workers came running.
+
+They were hungry!
+
+They bought candy, newspapers, and something special called Luffare.
+
+Luffare was warm mashed potatoes with ketchup and mustard, served on a hot dog bun.
+
+It was the perfect quick snack.
+
+Children in the neighbourhood loved to search for coins under the bridge.
+
+Money often fell through the cracks in the wooden planks.
+
+Finding a coin meant they could buy candy too!
+
+The kiosk closed in the 1970s.
+
+Today, only a concrete foundation is left.
+
+But the story of the little yellow kiosk and the workers' snack lives on.`,
   mission: [
     "Spot the concrete foundation",
     "Pretend to order a Luffare",

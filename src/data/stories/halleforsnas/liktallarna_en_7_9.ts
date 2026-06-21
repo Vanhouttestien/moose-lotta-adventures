@@ -14,7 +14,43 @@ export const liktallarna_en_7_9: Story = {
   emoji: "🌲",
   accent: "ember",
   sources: ["4"],
-  text: "Before you stand some of the oldest trees in Hälleforsnäs.\n\nThe Liktallarna.\n\nMore than 400 years old.\n\nFor centuries, people have told stories about this place.\n\nNo one knows exactly which stories are true.\n\nOne old legend says this was once the outer edge of the village — a place where people were hanged.\n\nAnother story says funeral wagons stopped here to rest on their long journey toward the church.\n\nMaybe that is why the place feels different.\n\nQuiet.\nHeavy.\nLike the air itself remembers.\n\nMany people also believed the trees held special powers.\n\nIn old folklore, ancient trees could protect places… or carry memories from the people who passed by.\n\nThen came the fire.\n\nIn the 1980s or 1990s, the trees were badly damaged by flames.\n\nAnd still they survived.\n\nBlackened.\nTwisted.\nAlive.\n\nToday, a memorial plaque stands nearby with a charcoal drawing made in 1966 by Edvin Axelsson.\n\nAlmost as if someone wanted to make sure the trees would never be forgotten.",
+  text: `Before you stand some of the oldest trees in Hälleforsnäs.
+
+The Liktallarna.
+
+More than 400 years old.
+
+For centuries, people have told stories about this place.
+
+No one knows exactly which stories are true.
+
+One old legend says this was once the outer edge of the village — a place where people were hanged.
+
+Another story says funeral wagons stopped here to rest on their long journey toward the church.
+
+Maybe that is why the place feels different.
+
+Quiet.
+Heavy.
+Like the air itself remembers.
+
+Many people also believed the trees held special powers.
+
+In old folklore, ancient trees could protect places… or carry memories from the people who passed by.
+
+Then came the fire.
+
+In the 1980s or 1990s, the trees were badly damaged by flames.
+
+And still they survived.
+
+Blackened.
+Twisted.
+Alive.
+
+Today, a memorial plaque stands nearby with a charcoal drawing made in 1966 by Edvin Axelsson.
+
+Almost as if someone wanted to make sure the trees would never be forgotten.`,
   mission: [
     "Find marks left by the fire",
     "Read the memorial plaque together",

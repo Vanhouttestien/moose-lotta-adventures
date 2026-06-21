@@ -13,7 +13,36 @@ export const station_sv_adult: Story = {
   emoji: "🚉",
   accent: "rust",
   sources: ["1", "4"],
-  text: "Vid sekelskiftet var stationen en livlig plats i Hälleforsnäs.\n\nMänniskor anlände.\nMänniskor reste vidare.\nVaror transporterades mot bruket och sågverket.\n\nJärnvägen kopplade det lilla industrisamhället till resten av Sverige.\n\nFrån början fanns bara en stationsbyggnad.\nMen med tiden byggdes fler hus runt omkring.\n\nLjuden här måste ha varit helt annorlunda då.\n\nÅnga.\nMetall.\nRöster.\nSkramlande vagnar.\nLokets vissla.\n\nMitt emot stationen låg sågverket, vilket gjorde transporterna enklare för industrierna som formade hela samhället.\n\nDen gamla stationsbyggnaden revs 2011.\n\nMen tågen stannar fortfarande här.\n\nPlattformen används än idag, även utan den byggnad som en gång definierade stationen.\n\nStationen har blivit det den egentligen alltid var — en plats där människor anländer och reser vidare.\n\nIngen byggnad behövs.",
+  text: `Vid sekelskiftet var stationen en livlig plats i Hälleforsnäs.
+
+Människor anlände.
+Människor reste vidare.
+Varor transporterades mot bruket och sågverket.
+
+Järnvägen kopplade det lilla industrisamhället till resten av Sverige.
+
+Från början fanns bara en stationsbyggnad.
+Men med tiden byggdes fler hus runt omkring.
+
+Ljuden här måste ha varit helt annorlunda då.
+
+Ånga.
+Metall.
+Röster.
+Skramlande vagnar.
+Lokets vissla.
+
+Mitt emot stationen låg sågverket, vilket gjorde transporterna enklare för industrierna som formade hela samhället.
+
+Den gamla stationsbyggnaden revs 2011.
+
+Men tågen stannar fortfarande här.
+
+Plattformen används än idag, även utan den byggnad som en gång definierade stationen.
+
+Stationen har blivit det den egentligen alltid var — en plats där människor anländer och reser vidare.
+
+Ingen byggnad behövs.`,
   mission: [
     "Betrakta järnvägen på säkert avstånd",
     "Föreställ dig platsen för 100 år sedan",

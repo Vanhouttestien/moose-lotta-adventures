@@ -13,7 +13,25 @@ export const station_en_5_6: Story = {
   emoji: "🚉",
   accent: "rust",
   sources: ["1", "4"],
-  text: 'The station building was built in 1897.\n\nFor over a hundred years, passengers arrived and departed here.\n\nPeople travelled to Eskilstuna, Flen, and beyond.\n\nGoods were loaded and unloaded.\n\nA sawmill stood opposite, making the most of the railway connection.\n\nBut then the railway company did not need the building anymore.\n\nIn 2011, the building was torn down.\n\nToday, only the platform remains.\n\nBut trains still stop here every day.\n\nAnd every time you stand on this platform, you are standing on a piece of history.',
+  text: `The station building was built in 1897.
+
+For over a hundred years, passengers arrived and departed here.
+
+People travelled to Eskilstuna, Flen, and beyond.
+
+Goods were loaded and unloaded.
+
+A sawmill stood opposite, making the most of the railway connection.
+
+But then the railway company did not need the building anymore.
+
+In 2011, the building was torn down.
+
+Today, only the platform remains.
+
+But trains still stop here every day.
+
+And every time you stand on this platform, you are standing on a piece of history.`,
   mission: [
     "Point to where the station building once stood",
     "Make your best train whistle sound",

@@ -12,7 +12,35 @@ export const siggeskiosk_sv_7_9: Story = {
   audio: "/audio/siggeskiosk_sv_7_9.mp3",
   emoji: "🍦",
   accent: "ember",
-  text: "Föreställ dig ljudet: TUUUT.\n\nEn hög fabriksvissla skär genom luften.\n\nÖverallt på bruket slutar arbetarna det de håller på med.\n\nDe beger sig till den lilla gula kiosken vid ån.\n\nSigges kiosk.\n\nDen stod här från 1950-talet till 1970-talet, med gula väggar och bruna knutar. En smal bro ledde över vattnet fram till dörren.\n\nArbetarna kom för tidningar, tobak och godis.\n\nMen det populäraste var Luffare.\n\nLuffare var enkelt: potatismos med ketchup och senap, serverad på korvbröd. Det gick snabbt, var billigt och mättande — perfekt för en hungrig fabriksarbetare.\n\nBarnen hade sin egen lek. De visste att när vuxna tog fram mynt för att betala, ramlade pengar ibland ner mellan träplankorna i bron. Så de letade under den, i hopp om att hitta skatter.\n\nKioskägaren på den tiden var Sigge (senare Janne på 1970-talet). Verksamheten såg likadan ut i decennier.\n\nBakom kiosken, på berget, låg arbetarbostäderna Blåsut.\n\nVattnet som rann under bron kom från Brukssjön. Det var brunt — färgat av föroreningar från bruket.\n\nKiosken revs i slutet av 1970-talet.\n\nIdag finns bara betonggrunden kvar.",
+  text: `Föreställ dig ljudet: TUUUT.
+
+En hög fabriksvissla skär genom luften.
+
+Överallt på bruket slutar arbetarna det de håller på med.
+
+De beger sig till den lilla gula kiosken vid ån.
+
+Sigges kiosk.
+
+Den stod här från 1950-talet till 1970-talet, med gula väggar och bruna knutar. En smal bro ledde över vattnet fram till dörren.
+
+Arbetarna kom för tidningar, tobak och godis.
+
+Men det populäraste var Luffare.
+
+Luffare var enkelt: potatismos med ketchup och senap, serverad på korvbröd. Det gick snabbt, var billigt och mättande — perfekt för en hungrig fabriksarbetare.
+
+Barnen hade sin egen lek. De visste att när vuxna tog fram mynt för att betala, ramlade pengar ibland ner mellan träplankorna i bron. Så de letade under den, i hopp om att hitta skatter.
+
+Kioskägaren på den tiden var Sigge (senare Janne på 1970-talet). Verksamheten såg likadan ut i decennier.
+
+Bakom kiosken, på berget, låg arbetarbostäderna Blåsut.
+
+Vattnet som rann under bron kom från Brukssjön. Det var brunt — färgat av föroreningar från bruket.
+
+Kiosken revs i slutet av 1970-talet.
+
+Idag finns bara betonggrunden kvar.`,
   mission: [
     "Hitta betonggrunden efter kiosken",
     "Föreställ dig bron som en gång korsade vattnet",

@@ -13,7 +13,25 @@ export const station_en_3_4: Story = {
   emoji: "🚂",
   accent: "bark",
   sources: ["1", "4"],
-  text: "Choo choo!\n\nThis is where the trains come and go.\n\nA long time ago, there was a pretty building here.\n\nPeople bought tickets inside.\n\nThey waited for their train.\n\nThen the train came and took them away.\n\nThe building is gone now.\n\nBut the trains still stop here.\n\nListen.\n\nCan you hear a train coming?",
+  text: `Choo choo!
+
+This is where the trains come and go.
+
+A long time ago, there was a pretty building here.
+
+People bought tickets inside.
+
+They waited for their train.
+
+Then the train came and took them away.
+
+The building is gone now.
+
+But the trains still stop here.
+
+Listen.
+
+Can you hear a train coming?`,
   mission: [
     "Listen for a train sound",
     "Make a train sound — Choo choo!",

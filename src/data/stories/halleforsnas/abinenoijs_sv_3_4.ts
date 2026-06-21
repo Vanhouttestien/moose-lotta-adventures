@@ -13,7 +13,35 @@ export const abinenoijs_sv_3_4: Story = {
   emoji: "🌳",
   accent: "moss",
   sources: ["2", "4", "7"],
-  text: "Den här parken är speciell.\n\nDen var inte alltid en park.\n\nFör länge sedan var det en soptipp.\n\nLastbilar dumpade gammalt fabriksavfall här.\n\nMarken var smutsig och inte säker.\n\nSedan städade människor upp allt.\n\nDe tog bort det dåliga.\n\nDe lade dit ny jord.\n\nDe planterade träd och gräs.\n\nNu är det en vacker park.\n\nDet finns skulpturer att titta på.\n\nDu kan gå och leka här.\n\nParken är uppkallad efter Abine Noij.\n\nHan startade hela bruket för väldigt, väldigt länge sedan!\n\nHan skulle vara glad över att se den här platsen idag.",
+  text: `Den här parken är speciell.
+
+Den var inte alltid en park.
+
+För länge sedan var det en soptipp.
+
+Lastbilar dumpade gammalt fabriksavfall här.
+
+Marken var smutsig och inte säker.
+
+Sedan städade människor upp allt.
+
+De tog bort det dåliga.
+
+De lade dit ny jord.
+
+De planterade träd och gräs.
+
+Nu är det en vacker park.
+
+Det finns skulpturer att titta på.
+
+Du kan gå och leka här.
+
+Parken är uppkallad efter Abine Noij.
+
+Han startade hela bruket för väldigt, väldigt länge sedan!
+
+Han skulle vara glad över att se den här platsen idag.`,
   mission: [
     "Hitta en skulptur i parken",
     "Känn på gräset",

@@ -13,7 +13,31 @@ export const gjuterimuseum_en_adult: Story = {
   emoji: "⚒️",
   accent: "ember",
   sources: ["1", "5"],
-  text: "This is where iron shaped Hälleforsnäs.\n\nThe sound must have been overwhelming.\n\nHammering metal.\nFire.\nSteam.\nWorkers shouting across the factory floor.\n\nFor generations, people worked here at the mill.\n\nThe heat from the furnaces could be felt far outside the buildings.\nAnd everywhere there was soot, metal dust, and the smell of oil.\n\nThe work was hard.\nBut the mill also gave people homes, food, and community.\n\nThe entire village grew around iron.\n\nToday, much of it is gone.\nThe machines have fallen silent.\n\nBut if you close your eyes for a moment…\n\nyou can almost hear the factory waking up again.",
+  text: `This is where iron shaped Hälleforsnäs.
+
+The sound must have been overwhelming.
+
+Hammering metal.
+Fire.
+Steam.
+Workers shouting across the factory floor.
+
+For generations, people worked here at the mill.
+
+The heat from the furnaces could be felt far outside the buildings.
+And everywhere there was soot, metal dust, and the smell of oil.
+
+The work was hard.
+But the mill also gave people homes, food, and community.
+
+The entire village grew around iron.
+
+Today, much of it is gone.
+The machines have fallen silent.
+
+But if you close your eyes for a moment…
+
+you can almost hear the factory waking up again.`,
   mission: [
     "Listen for metallic sounds",
     "Find something made of iron",

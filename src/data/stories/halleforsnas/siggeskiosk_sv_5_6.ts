@@ -12,7 +12,33 @@ export const siggeskiosk_sv_5_6: Story = {
   audio: "/audio/siggeskiosk_sv_5_6.mp3",
   emoji: "🍦",
   accent: "bark",
-  text: "Den här platsen var förr mycket livlig.\n\nEn gul kiosk med bruna knutar stod precis här, vid ån.\n\nEn liten bro gick över vattnet så att folk kunde komma fram.\n\nNär fabriksvisslan ljöd — TUUUT — kom arbetarna springande.\n\nDe var hungriga!\n\nDe köpte godis, tidningar och något speciellt som hette Luffare.\n\nLuffare var varmt potatismos med ketchup och senap, serverad på korvbröd.\n\nDet var det perfekta snabba mellanmålet.\n\nBarnen i området älskade att leta efter mynt under bron.\n\nPengar ramlade ofta ner mellan springorna i träplankorna.\n\nAtt hitta ett mynt betydde att de också kunde köpa godis!\n\nKiosken stängde på 1970-talet.\n\nIdag finns bara en betonggrund kvar.\n\nMen berättelsen om den lilla gula kiosken och arbetarnas mellanmål lever vidare.",
+  text: `Den här platsen var förr mycket livlig.
+
+En gul kiosk med bruna knutar stod precis här, vid ån.
+
+En liten bro gick över vattnet så att folk kunde komma fram.
+
+När fabriksvisslan ljöd — TUUUT — kom arbetarna springande.
+
+De var hungriga!
+
+De köpte godis, tidningar och något speciellt som hette Luffare.
+
+Luffare var varmt potatismos med ketchup och senap, serverad på korvbröd.
+
+Det var det perfekta snabba mellanmålet.
+
+Barnen i området älskade att leta efter mynt under bron.
+
+Pengar ramlade ofta ner mellan springorna i träplankorna.
+
+Att hitta ett mynt betydde att de också kunde köpa godis!
+
+Kiosken stängde på 1970-talet.
+
+Idag finns bara en betonggrund kvar.
+
+Men berättelsen om den lilla gula kiosken och arbetarnas mellanmål lever vidare.`,
   mission: [
     "Hitta betonggrunden",
     "Låtsas beställa en Luffare",

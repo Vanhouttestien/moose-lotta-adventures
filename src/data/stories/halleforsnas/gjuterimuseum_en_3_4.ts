@@ -13,7 +13,25 @@ export const gjuterimuseum_en_3_4: Story = {
   emoji: "⚒️",
   accent: "ember",
   sources: ["1", "5"],
-  text: "Look at the big building!\n\nA very long time ago, many people worked here.\n\nThey made things out of iron.\n\nIron is super strong!\n\nThe machines banged and roared.\n\nFire and heat were everywhere.\n\nToday it is quiet.\n\nBut inside the museum, you can see the tools people used.\n\nAnd maybe… if you listen very carefully…\n\nyou can hear the echo of everyone who worked here.",
+  text: `Look at the big building!
+
+A very long time ago, many people worked here.
+
+They made things out of iron.
+
+Iron is super strong!
+
+The machines banged and roared.
+
+Fire and heat were everywhere.
+
+Today it is quiet.
+
+But inside the museum, you can see the tools people used.
+
+And maybe… if you listen very carefully…
+
+you can hear the echo of everyone who worked here.`,
   mission: ["Look at the building", "Find something made of iron", "Pretend to be a worker"],
   reward: "Little Iron Worker",
 };

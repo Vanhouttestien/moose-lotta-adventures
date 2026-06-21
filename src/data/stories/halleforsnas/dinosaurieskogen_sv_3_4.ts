@@ -14,7 +14,23 @@ export const dinosaurieskogen_sv_3_4: Story = {
   emoji: "🦕",
   accent: "moss",
   sources: [],
-  text: "Den här skogen är väldigt gammal.\n\nFör länge, länge sedan levde det dinosaurier här.\n\nStora dinosaurier med långa halsar.\n\nSmå dinosaurier som sprang fort.\n\nNu är dinosaurierna borta.\n\nMen skogen minns dem.\n\nTitta dig omkring.\n\nSer du en dinosaurie som gömmer sig bland träden?\n\nDen kanske tittar på dig!",
+  text: `Den här skogen är väldigt gammal.
+
+För länge, länge sedan levde det dinosaurier här.
+
+Stora dinosaurier med långa halsar.
+
+Små dinosaurier som sprang fort.
+
+Nu är dinosaurierna borta.
+
+Men skogen minns dem.
+
+Titta dig omkring.
+
+Ser du en dinosaurie som gömmer sig bland träden?
+
+Den kanske tittar på dig!`,
   mission: [
     "Letar efter en dinosaurie bland träden",
     "Stampa fötterna som en stor dinosaurie",

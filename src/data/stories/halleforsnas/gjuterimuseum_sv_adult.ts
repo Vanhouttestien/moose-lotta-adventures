@@ -13,7 +13,31 @@ export const gjuterimuseum_sv_adult: Story = {
   emoji: "⚒️",
   accent: "ember",
   sources: ["1", "5"],
-  text: "Här formades järnet som byggde Hälleforsnäs.\n\nLjudet måste ha varit öronbedövande.\n\nHamrande metall.\nEld.\nÅnga.\nRop mellan arbetarna.\n\nI generationer arbetade människor här vid bruket.\n\nVärmen från ugnarna kunde kännas långt utanför byggnaderna.\nOch överallt fanns sot, metallstoft och lukten av olja.\n\nArbetet var tungt.\nMen bruket gav också människor hem, mat och gemenskap.\n\nHela samhället växte kring järnet.\n\nIdag är mycket borta.\nMaskinerna har tystnat.\n\nMen om du blundar en stund…\n\nkan du nästan höra fabriken vakna igen.",
+  text: `Här formades järnet som byggde Hälleforsnäs.
+
+Ljudet måste ha varit öronbedövande.
+
+Hamrande metall.
+Eld.
+Ånga.
+Rop mellan arbetarna.
+
+I generationer arbetade människor här vid bruket.
+
+Värmen från ugnarna kunde kännas långt utanför byggnaderna.
+Och överallt fanns sot, metallstoft och lukten av olja.
+
+Arbetet var tungt.
+Men bruket gav också människor hem, mat och gemenskap.
+
+Hela samhället växte kring järnet.
+
+Idag är mycket borta.
+Maskinerna har tystnat.
+
+Men om du blundar en stund…
+
+kan du nästan höra fabriken vakna igen.`,
   mission: [
     "Lyssna efter metalliska ljud",
     "Hitta något som är gjort av järn",

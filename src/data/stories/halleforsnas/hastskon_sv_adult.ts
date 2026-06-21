@@ -13,7 +13,38 @@ export const hastskon_sv_adult: Story = {
   emoji: "🐴",
   accent: "ember",
   sources: ["4", "9"],
-  text: "Byggnaden bredvid Kolhuset kallades länge bara för Hästskon.\n\nUppifrån böjde sig huset som en hästsko runt gården.\n\nHär låg en gång brukets stall.\n\nMen år 1920 förändrades byggnaden.\n\nArbetare flyttade in.\n\nEnsamstående hyrde små rum.\nFamiljer bodde i enkla lägenheter.\nHär öppnade också en matsal för arbetarna efter de långa skiften vid bruket.\n\nUnder flera år fungerade byggnaden även som bibliotek.\n\nDet är nästan märkligt att tänka på.\n\nTung industri utanför.\nBöcker och tystnad där inne.\n\nSedan kom branden år 2020.\n\nElden skadade huset svårt.\n\nPlötsligt höll något som överlevt generationer av människor på att försvinna.\n\nMen Hästskon övergavs aldrig.\n\nIdag finns planer på att återställa byggnaden.\n\nSom om samhället bestämt sig för att huset fortfarande har fler historier kvar att berätta.",
+  text: `Byggnaden bredvid Kolhuset kallades länge bara för Hästskon.
+
+Uppifrån böjde sig huset som en hästsko runt gården.
+
+Här låg en gång brukets stall.
+
+Men år 1920 förändrades byggnaden.
+
+Arbetare flyttade in.
+
+Ensamstående hyrde små rum.
+Familjer bodde i enkla lägenheter.
+Här öppnade också en matsal för arbetarna efter de långa skiften vid bruket.
+
+Under flera år fungerade byggnaden även som bibliotek.
+
+Det är nästan märkligt att tänka på.
+
+Tung industri utanför.
+Böcker och tystnad där inne.
+
+Sedan kom branden år 2020.
+
+Elden skadade huset svårt.
+
+Plötsligt höll något som överlevt generationer av människor på att försvinna.
+
+Men Hästskon övergavs aldrig.
+
+Idag finns planer på att återställa byggnaden.
+
+Som om samhället bestämt sig för att huset fortfarande har fler historier kvar att berätta.`,
   mission: [
     "Gå runt byggnadens form",
     "Föreställ dig livet här för 100 år sedan",

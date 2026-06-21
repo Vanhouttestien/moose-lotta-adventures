@@ -14,7 +14,28 @@ export const liktallarna_sv_3_4: Story = {
   emoji: "🌲",
   accent: "moss",
   sources: ["4"],
-  text: "Titta på de stora tallarna.\n\nDe har stått här väldigt, väldigt länge.\nKanske längre än gammelmormor och gammelmorfar tillsammans.\n\nMänniskor berättar gamla historier om platsen.\nVissa säger att människor stannade här för att vila när de reste långt.\n\nAndra säger att tallarna är magiska.\n\nKanske viskar de med vinden.\n\nFör länge sedan började tallarna brinna.\nElden gjorde dem mörka och sotiga.\n\nMen de står fortfarande kvar.\n\nStarka.\nTysta.\nVaktande över vägen.\n\nOm du tittar noga kanske du kan se hur gamla de verkligen är.",
+  text: `Titta på de stora tallarna.
+
+De har stått här väldigt, väldigt länge.
+Kanske längre än gammelmormor och gammelmorfar tillsammans.
+
+Människor berättar gamla historier om platsen.
+Vissa säger att människor stannade här för att vila när de reste långt.
+
+Andra säger att tallarna är magiska.
+
+Kanske viskar de med vinden.
+
+För länge sedan började tallarna brinna.
+Elden gjorde dem mörka och sotiga.
+
+Men de står fortfarande kvar.
+
+Starka.
+Tysta.
+Vaktande över vägen.
+
+Om du tittar noga kanske du kan se hur gamla de verkligen är.`,
   mission: ["Krama ett träd", "Lyssna på vinden", "Hitta något mjukt i naturen"],
   reward: "Tallvän",
 };

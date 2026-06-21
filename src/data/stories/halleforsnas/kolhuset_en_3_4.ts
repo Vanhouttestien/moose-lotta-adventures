@@ -13,7 +13,29 @@ export const kolhuset_en_3_4: Story = {
   emoji: "🏭",
   accent: "moss",
   sources: ["2", "8"],
-  text: "Look at this huge building!\n\nIt is called the charcoal house.\n\nA long time ago, it was filled with charcoal.\n\nCharcoal is like the food the furnace ate to make iron.\n\nThe walls are made of stone from the factory.\n\nYou can even see little black bits in the walls.\n\nThose are pieces of coal!\n\nThen a big fire came and burned many buildings.\n\nBut this one did not burn.\n\nIt was too strong.\n\nNow people use it for theatre and music.\n\nWhat a strong building!",
+  text: `Look at this huge building!
+
+It is called the charcoal house.
+
+A long time ago, it was filled with charcoal.
+
+Charcoal is like the food the furnace ate to make iron.
+
+The walls are made of stone from the factory.
+
+You can even see little black bits in the walls.
+
+Those are pieces of coal!
+
+Then a big fire came and burned many buildings.
+
+But this one did not burn.
+
+It was too strong.
+
+Now people use it for theatre and music.
+
+What a strong building!`,
   mission: [
     "Touch the wall and feel the stones",
     "Look for tiny black bits in the wall",

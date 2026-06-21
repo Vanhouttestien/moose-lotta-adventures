@@ -13,7 +13,25 @@ export const gjuterimuseum_sv_3_4: Story = {
   emoji: "⚒️",
   accent: "ember",
   sources: ["1", "5"],
-  text: "Titta på den stora byggnaden!\n\nFör väldigt länge sedan arbetade många människor här.\n\nDe gjorde saker av järn.\n\nJärn är superstarkt!\n\nDet small och dånade från maskinerna.\n\nEld och värme fanns överallt.\n\nIdag är det tyst.\n\nMen inne i museet kan du se verktygen som människorna använde.\n\nOch kanske… om du lyssnar riktigt noga…\n\nkan du höra ekot av alla som arbetade här.",
+  text: `Titta på den stora byggnaden!
+
+För väldigt länge sedan arbetade många människor här.
+
+De gjorde saker av järn.
+
+Järn är superstarkt!
+
+Det small och dånade från maskinerna.
+
+Eld och värme fanns överallt.
+
+Idag är det tyst.
+
+Men inne i museet kan du se verktygen som människorna använde.
+
+Och kanske… om du lyssnar riktigt noga…
+
+kan du höra ekot av alla som arbetade här.`,
   mission: ["Titta på byggnaden", "Hitta något av järn", "Låtsas vara en arbetare"],
   reward: "Lilla järnarbetaren",
 };

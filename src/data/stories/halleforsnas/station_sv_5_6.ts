@@ -13,7 +13,25 @@ export const station_sv_5_6: Story = {
   emoji: "🚉",
   accent: "rust",
   sources: ["1", "4"],
-  text: 'Stationsbyggnaden byggdes 1897.\n\nI över hundra år kom och gick passagerare här.\n\nFolk reste till Eskilstuna, Flen och längre bort.\n\nVaror lastades och lossades.\n\nEtt sågverk låg mittemot och utnyttjade järnvägsförbindelsen.\n\nMen sedan behövde inte järnvägsbolaget byggnaden längre.\n\n2011 revs byggnaden.\n\nIdag finns bara perrongen kvar.\n\nMen tågen stannar fortfarande här varje dag.\n\nOch varje gång du står på den här perrongen står du på en bit av historien.',
+  text: `Stationsbyggnaden byggdes 1897.
+
+I över hundra år kom och gick passagerare här.
+
+Folk reste till Eskilstuna, Flen och längre bort.
+
+Varor lastades och lossades.
+
+Ett sågverk låg mittemot och utnyttjade järnvägsförbindelsen.
+
+Men sedan behövde inte järnvägsbolaget byggnaden längre.
+
+2011 revs byggnaden.
+
+Idag finns bara perrongen kvar.
+
+Men tågen stannar fortfarande här varje dag.
+
+Och varje gång du står på den här perrongen står du på en bit av historien.`,
   mission: [
     "Peka på var stationsbyggnaden en gång stod",
     "Gör ditt bästa tågvisseljud",

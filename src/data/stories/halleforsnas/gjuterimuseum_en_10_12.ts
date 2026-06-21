@@ -13,7 +13,19 @@ export const gjuterimuseum_en_10_12: Story = {
   emoji: "⚒️",
   accent: "ember",
   sources: ["1", "5"],
-  text: "Hälleforsnäs Foundry Museum is no ordinary museum. It is a living working-life museum housed in the very mill buildings where iron was once shaped.\n\nThe ironworks operated for over 330 years. During that time, everything from iron stoves and manhole covers to advanced machine components was manufactured here and exported worldwide.\n\nThe museum's exhibits show workplaces and tools from different eras: how casting was done, how models were made, and how the finished product was ground and finished. Photographs and archival material offer insight into the workers' daily lives — a hard existence shaped by heat, soot, noise, and long shifts.\n\nOne of the most fascinating parts is the laboratory.\n\nThe museum also houses the \"Brukets blå\" exhibition about Hälleforsnäs IF's legendary bandy team, which put the town on the map.\n\nThe association behind the museum has around 100 members and offers guided tours with people who themselves worked at the mill.\n\nThe Foundry Museum is more than a collection of objects. It is a story of labour, community, and an era that shaped an entire society.",
+  text: `Hälleforsnäs Foundry Museum is no ordinary museum. It is a living working-life museum housed in the very mill buildings where iron was once shaped.
+
+The ironworks operated for over 330 years. During that time, everything from iron stoves and manhole covers to advanced machine components was manufactured here and exported worldwide.
+
+The museum's exhibits show workplaces and tools from different eras: how casting was done, how models were made, and how the finished product was ground and finished. Photographs and archival material offer insight into the workers' daily lives — a hard existence shaped by heat, soot, noise, and long shifts.
+
+One of the most fascinating parts is the laboratory.
+
+The museum also houses the "Brukets blå" exhibition about Hälleforsnäs IF's legendary bandy team, which put the town on the map.
+
+The association behind the museum has around 100 members and offers guided tours with people who themselves worked at the mill.
+
+The Foundry Museum is more than a collection of objects. It is a story of labour, community, and an era that shaped an entire society.`,
   mission: [
     "Go inside and study tools from different eras",
     "Visit the laboratory — why is it unique?",

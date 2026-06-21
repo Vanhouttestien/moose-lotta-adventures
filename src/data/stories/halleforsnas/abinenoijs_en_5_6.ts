@@ -13,7 +13,37 @@ export const abinenoijs_en_5_6: Story = {
   emoji: "🌳",
   accent: "water",
   sources: ["2", "4", "7"],
-  text: 'This park has an amazing secret.\n\nIt was once a dumping ground for the bruk\'s waste.\n\nFor hundreds of years, slag and tar were thrown here.\n\nThe ground became poisoned.\n\nNothing could grow.\n\nThen something incredible happened.\n\nA huge cleanup project started.\n\nIt was called "Rena Bruket" — Clean the Bruk.\n\nThe polluted soil was removed.\n\nThe stream was rerouted.\n\nIt cost 74 million Swedish crowns!\n\nAfter years of work, the park was born.\n\nOn September 17, 2009, a sculpture park was opened here.\n\nIt was named Abine Noijs park, after the man who founded the bruk in 1659.\n\nNow people come here to walk, play, and enjoy art.\n\nA place that was once poison is now beautiful.',
+  text: `This park has an amazing secret.
+
+It was once a dumping ground for the bruk's waste.
+
+For hundreds of years, slag and tar were thrown here.
+
+The ground became poisoned.
+
+Nothing could grow.
+
+Then something incredible happened.
+
+A huge cleanup project started.
+
+It was called "Rena Bruket" — Clean the Bruk.
+
+The polluted soil was removed.
+
+The stream was rerouted.
+
+It cost 74 million Swedish crowns!
+
+After years of work, the park was born.
+
+On September 17, 2009, a sculpture park was opened here.
+
+It was named Abine Noijs park, after the man who founded the bruk in 1659.
+
+Now people come here to walk, play, and enjoy art.
+
+A place that was once poison is now beautiful.`,
   mission: [
     "Find a sculpture you like",
     "Walk across the park and imagine it covered in waste",
