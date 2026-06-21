@@ -13,7 +13,119 @@ export const hastskon_en_10_12: Story = {
   emoji: "🫎",
   accent: "shadow",
   sources: ["4", "9"],
-  text: 'Very few buildings in Hälleforsnäs have lived as many lives as Hästskon.\n\nBuilt around 1850 by brukspatron Lars von Celsing, the horseshoe-shaped building ("Hästskon" means "the horseshoe") was originally a stable, riding house, and carriage shed — an essential part of the bruk\'s transport infrastructure.\n\nIn the early 1900s, an unusual resident moved in.\n\nLotta was a tame moose trained to pull wagons and sleds. In a time when horses were the main form of transport, a working moose was a remarkable sight. She was stabled here, known to everyone in the village.\n\nIn 1920, Hästskon was converted into worker housing. Single workers got small rooms; families got apartments. A communal canteen was added.\n\nFor decades, the building also housed the town library. Imagine borrowing books in a room where carriages were once repaired.\n\nOn May 28, 2020, fire destroyed the building completely. It was described as a culturally and historically valuable building.\n\nThe site has since been purchased by new owners who plan to restore it.\n\nHästskon\'s story is a缩影 of the bruk itself: built for industry, adapted for community, damaged by fire, and waiting for renewal.',
+  text: `
+Imagine standing in one place…
+but the ground beneath you remembers 170 years of change.
+
+This is Hästskon.
+
+A building that has been many things.
+
+A stable.
+A carriage shed.
+A home.
+A library.
+And finally… a ruin.
+
+But let’s start at the beginning.
+
+Around 1850, Hästskon was built by brukspatron Lars von Celsing.
+
+It was shaped like a horseshoe.
+That is why it got its name: Hästskon.
+
+Inside, horses rested.
+Carriages were repaired.
+Wood and metal filled the air.
+
+Back then, this place was full of movement.
+
+Then something unusual happened.
+
+A new kind of worker arrived in the village.
+
+Not a horse.
+
+A moose.
+
+Her name was Lotta.
+
+She was trained to pull wagons and sleds.
+
+Imagine that.
+A moose walking through the streets, doing the work of horses.
+
+People in the village knew her well.
+
+She was part of everyday life.
+
+Time passed.
+
+In 1920, Hästskon changed.
+
+It stopped being for animals and transport.
+
+It became homes.
+
+Small rooms for workers.
+Family apartments.
+A shared canteen.
+
+And in one room…
+
+books appeared.
+
+The building became a library.
+
+Imagine this:
+
+Where wheels once rolled…
+now pages turned quietly.
+
+Where horses once stood…
+now children read stories.
+
+But history is not always gentle.
+
+On May 28, 2020…
+
+fire came to Hästskon.
+
+Flames spread through the building.
+
+And by the end of the day…
+
+it was gone.
+
+More than 170 years of history disappeared in one night.
+
+Today, the site is empty.
+
+But not forgotten.
+
+The land has been bought again.
+
+And there are plans to bring Hästskon back.
+
+So if you stand here…
+
+try this:
+
+Close your eyes.
+
+Listen.
+
+Can you hear the horses?
+
+Can you hear the workers?
+
+Can you hear the pages of the library?
+
+Because places like this never really disappear.
+
+They just wait…
+to be remembered.
+`,
   mission: [
     "Walk where the building's outline would have been",
     "Imagine the sounds — horses, workers, library visitors",
