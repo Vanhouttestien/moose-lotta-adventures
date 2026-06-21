@@ -9,6 +9,7 @@ export const liktallarna_sv_7_9: Story = {
   title: "Liktallarnas hemlighet",
   subtitle: "De brända väktarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_sv_7_9.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",
@@ -24,9 +25,7 @@ Under hundratals år har människor berättat historier om den här platsen.
 
 Ingen vet exakt vilka berättelser som är sanna.
 
-En gammal sägen säger att detta en gång var samhällets yttersta gräns.
-
-En annan berättelse säger att likskjutsar brukade stanna här för att vila på vägen mot kyrkan.
+En gammal berättelse säger att likskjutsar brukade stanna här för att vila på vägen mot kyrkan.
 
 Kanske är det därför platsen känns så märklig.
 

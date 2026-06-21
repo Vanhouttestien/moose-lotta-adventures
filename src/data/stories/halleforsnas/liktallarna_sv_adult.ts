@@ -9,6 +9,7 @@ export const liktallarna_sv_adult: Story = {
   title: "De fyrahundraåriga väktarna",
   subtitle: "Liktallarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_sv_adult.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",

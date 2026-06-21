@@ -9,6 +9,7 @@ export const kolhuset_sv_adult_memory: Story = {
   title: "Huset som vägrade dö",
   subtitle: "Kolhuset",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
+  ambience: "fire",
   audio: "/audio/kolhuset_sv_adult_memory.mp3",
   emoji: "🏭",
   accent: "shadow",

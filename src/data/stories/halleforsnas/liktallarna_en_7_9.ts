@@ -9,6 +9,7 @@ export const liktallarna_en_7_9: Story = {
   title: "The Secret of the Pine Trees",
   subtitle: "The Burned Guardians",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_en_7_9.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",
@@ -24,9 +25,7 @@ For centuries, people have told stories about this place.
 
 No one knows exactly which stories are true.
 
-One old legend says this was once the outer edge of the village — a place where people were hanged.
-
-Another story says funeral wagons stopped here to rest on their long journey toward the church.
+One old story says funeral wagons stopped here to rest on their long journey toward the church.
 
 Maybe that is why the place feels different.
 

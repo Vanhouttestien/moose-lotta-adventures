@@ -2,6 +2,7 @@ import re
 import sys
 import asyncio
 from pathlib import Path
+from typing import Optional
 
 VOICE_MAP = {
     "en": "en-GB-SoniaNeural",
@@ -9,6 +10,21 @@ VOICE_MAP = {
 }
 
 AUDIO_DIR = Path(__file__).resolve().parent.parent / "public" / "audio"
+
+AMBIENCE_MAP: dict[str, str] = {
+    "birds": "public/sfx/birds.mp3",
+    "carriage": "public/sfx/carriage.mp3",
+    "fire": "public/sfx/fire.mp3",
+    "forest": "public/sfx/forest.mp3",
+    "shush": "public/sfx/shush.mp3",
+    "stomp": "public/sfx/stomp.mp3",
+    "train": "public/sfx/train.mp3",
+    "whistle": "public/sfx/whistle.mp3",
+    "wind": "public/sfx/wind.mp3",
+    "windchime": "public/sfx/windchime.mp3",
+}
+
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def _extract_text(content: str):
@@ -28,6 +44,7 @@ def extract_fields(content: str, filename: str):
     story_id = re.search(r'^\s*id:\s*"([^"]+)"', content, re.MULTILINE)
     language = re.search(r'^\s*language:\s*"([^"]+)"', content, re.MULTILINE)
     audio = re.search(r'^\s*audio:\s*"([^"]*)"', content, re.MULTILINE)
+    ambience = re.search(r'^\s*ambience:\s*"([^"]*)"', content, re.MULTILINE)
 
     if not story_id:
         print(f"  ERROR: no id in {filename}")
@@ -44,6 +61,7 @@ def extract_fields(content: str, filename: str):
     return {
         "id": story_id.group(1),
         "language": language.group(1),
+        "ambience": ambience.group(1) if ambience else None,
         "text": text,
         "current_audio": audio.group(1) if audio else "",
     }
@@ -67,25 +85,59 @@ def update_audio_field(content: str, story_id: str) -> str:
     )
 
 
-async def generate_audio(text: str, story_id: str, language: str) -> bool:
+async def generate_audio(
+    text: str, story_id: str, language: str, ambience: Optional[str]
+) -> bool:
     import edge_tts
+
+    clean_text = re.sub(r'\[[A-Z_]+\]\s*', "", text).strip()
 
     voice = VOICE_MAP.get(language)
     if not voice:
         print(f"  ERROR: unknown language '{language}' for {story_id}")
         return False
 
+    tts_path = AUDIO_DIR / f"{story_id}.tts.mp3"
     output = AUDIO_DIR / f"{story_id}.mp3"
+
     try:
-        communicate = edge_tts.Communicate(text, voice)
-        await communicate.save(str(output))
-        if not output.exists():
-            print(f"  ERROR: {output} not created")
+        communicate = edge_tts.Communicate(clean_text, voice)
+        await communicate.save(str(tts_path))
+        if not tts_path.exists():
+            print(f"  ERROR: TTS output not created for {story_id}")
             return False
-        return True
     except Exception as e:
         print(f"  ERROR edge-tts: {e}")
         return False
+
+    try:
+        from pydub import AudioSegment
+
+        tts_audio = AudioSegment.from_file(tts_path)
+        tts_path.unlink()
+
+        if ambience:
+            sfx_path = AMBIENCE_MAP.get(ambience)
+            if sfx_path:
+                full = ROOT / sfx_path
+                if full.exists():
+                    amb = AudioSegment.from_file(str(full)) - 18
+                    ttl = len(tts_audio)
+                    if len(amb) < ttl:
+                        repeats = (ttl // len(amb)) + 1
+                        amb = amb * repeats
+                    amb = amb[:ttl]
+                    tts_audio = tts_audio.overlay(amb)
+
+        tts_audio.export(str(output), format="mp3", bitrate="128k")
+    except ImportError:
+        print("  WARNING: pydub not available, skipping ambience")
+        tts_audio.export(str(output), format="mp3", bitrate="128k")
+
+    if not output.exists():
+        print(f"  ERROR: {output} not created")
+        return False
+    return True
 
 
 async def process_file(filepath: Path, sem: asyncio.Semaphore, dry_run: bool = False) -> bool:
@@ -100,18 +152,20 @@ async def process_file(filepath: Path, sem: asyncio.Semaphore, dry_run: bool = F
 
     story_id = fields["id"]
     language = fields["language"]
+    ambience = fields["ambience"]
     text = fields["text"]
     current_audio = fields["current_audio"]
     audio_path = AUDIO_DIR / f"{story_id}.mp3"
 
     if not needs_update(story_id, current_audio, audio_path):
-        return True  # skip silently
+        return True
 
-    print(f"\n  [{story_id}] generating ({len(text)} chars, {language})...")
+    label = f"[{story_id}]" + (f" ambience={ambience}" if ambience else "")
+    print(f"\n  {label} generating ({len(text)} chars, {language})...")
 
     if not dry_run:
         async with sem:
-            ok = await generate_audio(text, story_id, language)
+            ok = await generate_audio(text, story_id, language, ambience)
             if not ok:
                 return False
             size = audio_path.stat().st_size / 1024
@@ -133,6 +187,7 @@ async def main():
 
     story_dir = Path(__file__).resolve().parent.parent / "src" / "data" / "stories" / "halleforsnas"
     AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+    (ROOT / "public" / "sfx").mkdir(parents=True, exist_ok=True)
 
     files = sorted(story_dir.glob("*.ts"))
     files = [f for f in files if f.name != "index.ts"]

@@ -9,6 +9,7 @@ export const kolhuset_sv_3_4: Story = {
   title: "Det gigantiska kolhuset",
   subtitle: "En väldigt stor byggnad",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
+  ambience: "fire",
   audio: "/audio/kolhuset_sv_3_4.mp3",
   emoji: "🏭",
   accent: "moss",

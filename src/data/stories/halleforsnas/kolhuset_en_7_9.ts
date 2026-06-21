@@ -9,6 +9,7 @@ export const kolhuset_en_7_9: Story = {
   title: "Fire, Coal and a Secret Theatre",
   subtitle: "The Charcoal House Story",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
+  ambience: "fire",
   audio: "/audio/kolhuset_en_7_9.mp3",
   emoji: "🔥",
   accent: "ember",

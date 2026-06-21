@@ -9,6 +9,7 @@ export const kolhuset_sv_5_6: Story = {
   title: "Kolhuset och den svarta elden",
   subtitle: "Kolhuset",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
+  ambience: "fire",
   audio: "/audio/kolhuset_sv_5_6.mp3",
   emoji: "🔥",
   accent: "ember",

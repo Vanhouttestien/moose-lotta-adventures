@@ -9,6 +9,7 @@ export const liktallarna_en_5_6: Story = {
   title: "The Trees That Remember",
   subtitle: "Liktallarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_en_5_6.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",

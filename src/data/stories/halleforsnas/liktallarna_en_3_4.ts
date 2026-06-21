@@ -9,33 +9,57 @@ export const liktallarna_en_3_4: Story = {
   title: "The Old Pine Trees",
   subtitle: "Liktallarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_en_3_4.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",
   accent: "moss",
   sources: ["4"],
-  text: `Look at the giant pine trees.
+  text: `Look at the old tree trunks.
 
-They have stood here for a very, very long time.
-Maybe longer than great-grandparents together.
+A long, long time ago, these were tall pine trees.
 
-People tell old stories about this place.
-Some say travelers once stopped here to rest.
+They grew here for hundreds of years.
 
-Others say the trees are magical.
+They watched the seasons change.
 
-Maybe they whisper with the wind.
+Snow fell around them.
 
-Long ago, the trees were touched by fire.
-The flames made them dark and smoky.
+Birds rested on their branches.
 
-But they are still standing.
+And the wind whispered through their needles.
 
-Strong.
-Quiet.
-Watching over the road.
+Today, only parts of the trees remain.
 
-If you look carefully, you might see just how old they really are.`,
+But they still have a story to tell.
+
+Can you touch the old wood?
+
+It feels different from a young tree.
+
+These trees were already old before your grandparents were born.
+
+That is a very long time.
+
+Maybe the old trunks are like forest grandpas.
+
+Quietly standing here.
+
+Remembering all the things they have seen.
+
+Take a close look.
+
+Can you find a crack?
+
+A pattern?
+
+A tiny insect hiding nearby?
+
+Even though the trees are no longer growing tall, they are still part of the forest.
+
+And they still have visitors.
+
+Including you.`,
   mission: ["Hug a tree", "Listen to the wind", "Find something soft in nature"],
   reward: "Pine Tree Friend",
 };

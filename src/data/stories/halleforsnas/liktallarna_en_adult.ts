@@ -9,6 +9,7 @@ export const liktallarna_en_adult: Story = {
   title: "The Four-Hundred-Year-Old Guardians",
   subtitle: "Liktallarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_en_adult.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",

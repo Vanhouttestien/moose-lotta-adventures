@@ -9,6 +9,7 @@ export const dinosaurieskogen_en_5_6: Story = {
   title: "The Dinosaurs in the Forest",
   subtitle: "Dinosaur Forest",
   location: { ...LOCATIONS.DINOSAUR_FOREST, label: "Dinosaur Forest" },
+  ambience: "forest",
   audio: "/audio/dinosaurieskogen_en_5_6.mp3",
   image: "/images/stories/dino.jpeg", 
   emoji: "🦕",

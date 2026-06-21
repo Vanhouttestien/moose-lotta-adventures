@@ -9,6 +9,7 @@ export const kolhuset_sv_10_12: Story = {
   title: "Byggnaden som inte ville brinna",
   subtitle: "Kolhuset genom århundradena",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
+  ambience: "fire",
   audio: "/audio/kolhuset_sv_10_12.mp3",
   emoji: "🏛️",
   accent: "shadow",

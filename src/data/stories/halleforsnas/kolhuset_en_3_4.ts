@@ -9,6 +9,7 @@ export const kolhuset_en_3_4: Story = {
   title: "The Giant Coal Shed",
   subtitle: "A Very Big Building",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
+  ambience: "fire",
   audio: "/audio/kolhuset_en_3_4.mp3",
   emoji: "🏭",
   accent: "moss",

@@ -9,6 +9,7 @@ export const liktallarna_sv_5_6: Story = {
   title: "Tallarna som minns",
   subtitle: "Liktallarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_sv_5_6.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",

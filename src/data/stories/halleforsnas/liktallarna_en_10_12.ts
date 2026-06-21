@@ -9,6 +9,7 @@ export const liktallarna_en_10_12: Story = {
   title: "Trees as Witnesses",
   subtitle: "The Secret History of the Corpse Pines",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_en_10_12.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",

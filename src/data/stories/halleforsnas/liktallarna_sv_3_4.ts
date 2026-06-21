@@ -9,33 +9,57 @@ export const liktallarna_sv_3_4: Story = {
   title: "De gamla tallarna",
   subtitle: "Liktallarna",
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
+  ambience: "wind",
   audio: "/audio/liktallarna_sv_3_4.mp3",
   image: "/images/stories/liktalarna.jpeg", 
   emoji: "🌲",
   accent: "moss",
   sources: ["4"],
-  text: `Titta på de stora tallarna.
+  text: `Titta på de gamla trädstammarna.
 
-De har stått här väldigt, väldigt länge.
-Kanske längre än gammelmormor och gammelmorfar tillsammans.
+För väldigt, väldigt länge sedan var det här stora tallar.
 
-Människor berättar gamla historier om platsen.
-Vissa säger att människor stannade här för att vila när de reste långt.
+De växte här i hundratals år.
 
-Andra säger att tallarna är magiska.
+De såg årstiderna komma och gå.
 
-Kanske viskar de med vinden.
+Snö föll runt dem.
 
-För länge sedan började tallarna brinna.
-Elden gjorde dem mörka och sotiga.
+Fåglar vilade på deras grenar.
 
-Men de står fortfarande kvar.
+Och vinden viskade genom deras barr.
 
-Starka.
-Tysta.
-Vaktande över vägen.
+Idag finns bara delar av träden kvar.
 
-Om du tittar noga kanske du kan se hur gamla de verkligen är.`,
+Men de har fortfarande en historia att berätta.
+
+Kan du röra vid den gamla veden?
+
+Den känns annorlunda än ett ungt träd.
+
+De här träden var redan gamla innan dina morföräldrar föddes.
+
+Det är väldigt länge sedan.
+
+Kanske är de gamla stammarna som skogens morfäder.
+
+Tyst stående här.
+
+Som minns allt de har sett.
+
+Titta noga.
+
+Kan du hitta en spricka?
+
+Ett mönster?
+
+Ett litet kryp som gömmer sig?
+
+Även om träden inte längre växer på höjden är de fortfarande en del av skogen.
+
+Och de får fortfarande besök.
+
+Inklusive av dig.`,
   mission: ["Krama ett träd", "Lyssna på vinden", "Hitta något mjukt i naturen"],
   reward: "Tallvän",
 };

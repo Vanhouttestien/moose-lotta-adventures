@@ -17,6 +17,7 @@ export interface Story {
   subtitle: string;
   location: StoryLocation;
   audio: string;
+  ambience?: string;
   text: string;
   mission: string[];
   reward: string;

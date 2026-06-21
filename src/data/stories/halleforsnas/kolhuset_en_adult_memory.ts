@@ -9,6 +9,7 @@ export const kolhuset_en_adult_memory: Story = {
   title: "The House That Refused to Die",
   subtitle: "Kolhuset",
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
+  ambience: "fire",
   audio: "/audio/kolhuset_en_adult_memory.mp3",
   emoji: "🏭",
   accent: "shadow",
