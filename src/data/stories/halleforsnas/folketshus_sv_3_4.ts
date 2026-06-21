@@ -14,7 +14,7 @@ export const folketshus_sv_3_4: Story = {
   emoji: "🏛️",
   accent: "bark",
   sources: ["1"],
-  ambience: "wind",
+  ambience: "library",
   text: `Titta på den här stora byggnaden.
 
 Den heter Folkets Hus.

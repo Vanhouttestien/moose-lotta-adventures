@@ -10,6 +10,7 @@ export const folketshus_sv_5_6: Story = {
   title: "Alla människors hus",
   subtitle: "Folkets Hus",
   location: { ...LOCATIONS.FOLKETS_HUS, label: "Folkets Hus" },
+  ambience: "library",
   audio: "/audio/folketshus_sv_5_6.mp3",
   image: "/images/stories/folketshus.jpeg",
   emoji: "🏛️",

@@ -16,6 +16,7 @@ AMBIENCE_MAP: dict[str, str] = {
     "carriage": "public/sfx/carriage.mp3",
     "fire": "public/sfx/fire.mp3",
     "forest": "public/sfx/forest.mp3",
+    "library": "public/sfx/library.mp3",
     "shush": "public/sfx/shush.mp3",
     "stomp": "public/sfx/stomp.mp3",
     "train": "public/sfx/train.mp3",

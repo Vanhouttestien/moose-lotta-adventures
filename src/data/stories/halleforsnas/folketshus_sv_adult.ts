@@ -9,6 +9,7 @@ export const folketshus_sv_adult: Story = {
   title: "Arbetarrörelsens eget hus",
   subtitle: "Folkets Hus",
   location: { ...LOCATIONS.FOLKETS_HUS, label: "Folkets Hus" },
+  ambience: "library",
   audio: "/audio/folketshus_sv_adult.mp3",
   image: "/images/stories/folketshus.jpeg",
   emoji: "🏛️",

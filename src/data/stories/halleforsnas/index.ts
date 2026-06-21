@@ -23,6 +23,8 @@ import { dinosaurieskogen_en_3_4 } from "./dinosaurieskogen_en_3_4";
 import { dinosaurieskogen_sv_3_4 } from "./dinosaurieskogen_sv_3_4";
 import { dinosaurieskogen_en_5_6 } from "./dinosaurieskogen_en_5_6";
 import { dinosaurieskogen_sv_5_6 } from "./dinosaurieskogen_sv_5_6";
+import { folketshus_en_3_4 } from "./folketshus_en_3_4";
+import { folketshus_sv_3_4 } from "./folketshus_sv_3_4";
 import { folketshus_sv_5_6 } from "./folketshus_sv_5_6";
 import { folketshus_en_5_6 } from "./folketshus_en_5_6";
 import { folketshus_sv_10_12 } from "./folketshus_sv_10_12";
@@ -89,6 +91,10 @@ import { station_en_10_12 } from "./station_en_10_12";
 import { station_sv_10_12 } from "./station_sv_10_12";
 import { station_en_adult } from "./station_en_adult";
 import { station_sv_adult } from "./station_sv_adult";
+import { storahuset_en_3_4 } from "./storahuset_en_3_4";
+import { storahuset_sv_3_4 } from "./storahuset_sv_3_4";
+import { storahuset_en_5_6 } from "./storahuset_en_5_6";
+import { storahuset_sv_5_6 } from "./storahuset_sv_5_6";
 
 export const stories: Story[] = [
   abinenoijs_en_3_4,
@@ -115,6 +121,8 @@ export const stories: Story[] = [
   edstromsvallen_sv_10_12,
   edstromsvallen_en_adult,
   edstromsvallen_sv_adult,
+  folketshus_en_3_4,
+  folketshus_sv_3_4,
   folketshus_en_5_6,
   folketshus_sv_5_6,
   folketshus_en_10_12,
@@ -181,4 +189,8 @@ export const stories: Story[] = [
   station_sv_10_12,
   station_en_adult,
   station_sv_adult,
+  storahuset_en_3_4,
+  storahuset_sv_3_4,
+  storahuset_en_5_6,
+  storahuset_sv_5_6,
 ];

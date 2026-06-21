@@ -9,6 +9,7 @@ export const folketshus_en_adult: Story = {
   title: "The Labour Movement's Own House",
   subtitle: "Folkets Hus",
   location: { ...LOCATIONS.FOLKETS_HUS, label: "Folkets Hus" },
+  ambience: "library",
   audio: "/audio/folketshus_en_adult.mp3",
   image: "/images/stories/folketshus.jpeg",
   emoji: "🏛️",
