@@ -11,7 +11,7 @@ export const liktallarna_sv_adult: Story = {
   location: { ...LOCATIONS.LIKTALLARNA, label: "Liktallarna" },
   ambience: "wind",
   audio: "/audio/liktallarna_sv_adult.mp3",
-  image: "/images/stories/liktalarna.jpeg", 
+  image: "/images/stories/liktalarna.jpeg",
   emoji: "🌲",
   accent: "ember",
   sources: ["4"],

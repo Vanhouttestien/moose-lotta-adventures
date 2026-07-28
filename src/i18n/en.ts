@@ -41,6 +41,30 @@ export const en: Structure<SvDict> = {
       switch: "Switch profile",
       profile: "Profile",
     },
+    onboarding: {
+      step1: "This is you",
+      step2: "Sometimes it's quiet — that means adventures are further away",
+      step3: "Gray question marks are hidden adventures — walk toward them to unlock them",
+      skip: "Skip",
+      next: "Next",
+      done: "Explore!",
+      showAgain: "Show again",
+    },
+    firstRun: {
+      title: "Your first adventure awaits — open the map to begin",
+      toMap: "Open map",
+    },
+    compass: {
+      n: "north",
+      ne: "northeast",
+      e: "east",
+      se: "southeast",
+      s: "south",
+      sw: "southwest",
+      w: "west",
+      nw: "northwest",
+      hint: "Try heading {{direction}}",
+    },
     audio: {
       tells: "Moose Lotta tells a story",
       pressToListen: "Press to listen",
@@ -84,7 +108,7 @@ export const en: Structure<SvDict> = {
     },
     noStories: {
       title: "It's quiet here…",
-      body: "Walk a bit further — Lotta senses adventures within 3 km.",
+      body: "Wander on — adventures await over there.",
     },
     distance: {
       locked: "You're about {{dist}} m away.",

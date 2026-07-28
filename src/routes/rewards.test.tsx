@@ -56,8 +56,19 @@ vi.mock("@/components/AppShell", () => ({
 }));
 
 vi.mock("@tanstack/react-router", () => ({
-  Link: ({ children, to, className }: { children: React.ReactNode; to: string; className?: string }) =>
-    <a href={to} className={className}>{children}</a>,
+  Link: ({
+    children,
+    to,
+    className,
+  }: {
+    children: React.ReactNode;
+    to: string;
+    className?: string;
+  }) => (
+    <a href={to} className={className}>
+      {children}
+    </a>
+  ),
   createFileRoute: () => () => ({}),
 }));
 

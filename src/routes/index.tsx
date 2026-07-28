@@ -4,7 +4,7 @@ import { useAppState } from "@/hooks/useAppState";
 import { getStories, type Story } from "@/data/stories";
 import { t } from "@/i18n";
 import { AppShell } from "@/components/AppShell";
-import { Map, ChevronRight, Gift } from "lucide-react";
+import { Map, ChevronRight, Gift, CheckCircle2 } from "lucide-react";
 import mooseHero from "@/assets/moose-lotta-hero2.jpg";
 
 export const Route = createFileRoute("/")({
@@ -89,72 +89,92 @@ function HomePage() {
           </div>
         </div>
 
-        {/* progress card */}
+        {/* progress card or first-run prompt */}
         <div className="px-6">
-          <div className="rounded-3xl bg-gradient-to-br from-card to-forest-mist/40 px-5 py-4 shadow-[var(--shadow-soft)] ring-1 ring-border/20">
-            <div className="flex items-baseline justify-between">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
-                {t(state.language, "ui.progress")}
+          {doneCount === 0 ? (
+            <Link
+              to="/map"
+              className="flex flex-col gap-3 rounded-3xl bg-gradient-to-br from-forest-mist/30 to-moss/10 px-5 py-6 shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all hover:ring-primary/20 active:scale-[0.98]"
+            >
+              <p className="font-display text-base font-semibold leading-snug text-foreground">
+                {t(state.language, "ui.firstRun.title")}
               </p>
-              <p className="text-xs font-semibold text-muted-foreground">
-                {doneCount}/{totalStories}
-              </p>
-            </div>
-            <div className="mt-2.5 h-2 rounded-full bg-muted">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-moss to-primary transition-all"
-                style={{ width: `${progressPct}%` }}
-              />
-            </div>
-            <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Gift size={13} />
-              <span>
-                {doneCount} {t(state.language, "ui.collected")}
+              <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)]">
+                <Map size={16} />
+                {t(state.language, "ui.firstRun.toMap")}
               </span>
+            </Link>
+          ) : (
+            <div className="rounded-3xl bg-gradient-to-br from-card to-forest-mist/40 px-5 py-4 shadow-[var(--shadow-soft)] ring-1 ring-border/20">
+              <div className="flex items-baseline justify-between">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
+                  {t(state.language, "ui.progress")}
+                </p>
+                <p className="text-xs font-semibold text-muted-foreground">
+                  {doneCount}/{totalStories} · {progressPct}%
+                </p>
+              </div>
+              <div className="mt-2.5 h-2 rounded-full bg-muted">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-moss to-primary transition-all"
+                  style={{ width: `${progressPct}%` }}
+                />
+              </div>
+              <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Gift size={13} />
+                <span>
+                  {doneCount} {t(state.language, "ui.collected")}
+                </span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* all stories */}
-        <div className="mt-6 px-6">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
-            {state.language === "sv" ? "Upptäckta äventyr" : "Discovered stories"}
-          </p>
-          <div className="space-y-3">
-            {doneStories.map((story) => {
-              const isDone = state.completedStoryIds.includes(story.id);
-              return (
-                <button
-                  key={story.id}
-                  onClick={() => navigate({ to: "/story/$storyId", params: { storyId: story.id } })}
-                  className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-br ${accentMap[story.accent] ?? "from-card to-card"} p-4 text-left shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all active:scale-[0.99]`}
-                >
-                  <span className="text-2xl">{story.emoji}</span>
-                  <div className="flex-1 min-w-0">
-                    <p
-                      className={`font-display text-sm font-semibold truncate ${isDone ? "text-muted-foreground/60" : "text-foreground"}`}
-                    >
-                      {story.title}
-                    </p>
-                    <p className="mt-0.5 text-xs text-muted-foreground/70 truncate">
-                      {story.subtitle}
-                    </p>
-                  </div>
-                  {isDone ? (
-                    <span className="shrink-0 rounded-full bg-moss/15 px-2.5 py-1 text-[11px] font-semibold text-moss">
-                      {t(state.language, "ui.done")}
-                    </span>
-                  ) : (
-                    <ChevronRight
-                      size={16}
-                      className="shrink-0 text-muted-foreground/30 transition-transform group-hover:translate-x-0.5"
-                    />
-                  )}
-                </button>
-              );
-            })}
+        {doneStories.length > 0 && (
+          <div className="mt-6 px-6">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
+              {state.language === "sv" ? "Upptäckta äventyr" : "Discovered stories"}
+            </p>
+            <div className="space-y-3">
+              {doneStories.map((story) => {
+                const isDone = state.completedStoryIds.includes(story.id);
+                return (
+                  <button
+                    key={story.id}
+                    onClick={() =>
+                      navigate({ to: "/story/$storyId", params: { storyId: story.id } })
+                    }
+                    className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-br ${accentMap[story.accent] ?? "from-card to-card"} p-4 text-left shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all active:scale-[0.99]`}
+                  >
+                    <span className="text-2xl">{story.emoji}</span>
+                    <div className="flex-1 min-w-0">
+                      <p
+                        className={`font-display text-sm font-semibold truncate ${isDone ? "text-muted-foreground/60" : "text-foreground"}`}
+                      >
+                        {story.title}
+                      </p>
+                      <p className="mt-0.5 text-xs text-muted-foreground/70 truncate">
+                        {story.subtitle}
+                      </p>
+                    </div>
+                    {isDone ? (
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-moss/15 px-3 py-1 text-[11px] font-semibold text-moss ring-1 ring-moss/30">
+                        <CheckCircle2 size={12} />
+                        {t(state.language, "ui.done")}
+                      </span>
+                    ) : (
+                      <ChevronRight
+                        size={16}
+                        className="shrink-0 text-muted-foreground/30 transition-transform group-hover:translate-x-0.5"
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* hero card */}
         <div className="mt-8 px-6 pb-6">

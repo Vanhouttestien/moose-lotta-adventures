@@ -6,7 +6,7 @@ import { StoryCard } from "@/components/StoryCard";
 import { GpsPermissionCard } from "@/components/GpsPermissionCard";
 import { UnlockPopup } from "@/components/UnlockPopup";
 import { useAppState } from "@/hooks/useAppState";
-import { distanceMeters, useGeolocation } from "@/hooks/useGeolocation";
+import { distanceMeters, bearing, compassDirection, useGeolocation } from "@/hooks/useGeolocation";
 import { useSmoothPosition } from "@/hooks/useSmoothPosition";
 import { getStoryStatuses } from "@/engine/storyEngine";
 import { getStories, villages, type Story } from "@/data/stories";
@@ -55,6 +55,30 @@ function MapPage() {
     [stories, position, state.completedStoryIds],
   );
 
+  // Nearest hidden story (for directional empty-state hint)
+  const nearestHiddenDir = useMemo(() => {
+    if (!position) return null;
+    const hidden = statuses
+      .filter((s) => s.tier === "hidden" && s.distance != null)
+      .sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
+    if (hidden.length === 0) return null;
+    const target = hidden[0];
+    const dir = compassDirection(bearing(position, target.story.location));
+    const dirs: Record<string, string> = {
+      n: t(state.language, "ui.compass.n" as never),
+      ne: t(state.language, "ui.compass.ne" as never),
+      e: t(state.language, "ui.compass.e" as never),
+      se: t(state.language, "ui.compass.se" as never),
+      s: t(state.language, "ui.compass.s" as never),
+      sw: t(state.language, "ui.compass.sw" as never),
+      w: t(state.language, "ui.compass.w" as never),
+      nw: t(state.language, "ui.compass.nw" as never),
+    };
+    return t(state.language, "ui.compass.hint" as never, {
+      direction: dirs[dir] ?? "n",
+    });
+  }, [statuses, position, state.language]);
+
   // Discovery list: only show stories the player can sense (hint+).
   const discoverable = useMemo(
     () =>
@@ -93,7 +117,7 @@ function MapPage() {
       </header>
 
       <div className="px-6">
-        <div className="relative isolate h-[320px] overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]">
+        <div className="relative isolate h-[340px] overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]">
           <MapView village={village} statuses={statuses} position={position} />
         </div>
       </div>
@@ -121,6 +145,9 @@ function MapPage() {
             <p className="mt-1 text-xs text-muted-foreground">
               {t(state.language, "story.noStories.body")}
             </p>
+            {nearestHiddenDir && (
+              <p className="mt-3 text-xs font-medium text-moss">{nearestHiddenDir}</p>
+            )}
           </div>
         )}
 

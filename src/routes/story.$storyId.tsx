@@ -10,7 +10,7 @@ import { getStoryById } from "@/data/stories";
 import { t } from "@/i18n";
 import { playDone } from "@/lib/audio";
 import { toast } from "sonner";
-import { CheckCircle2, MapPin, Sparkles } from "lucide-react";
+import { Check, CheckCircle2, MapPin, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/story/$storyId")({
   loader: async ({ params }) => {
@@ -48,6 +48,26 @@ function StoryPage() {
   const navigate = useNavigate();
   const { position, status, start } = useGeolocation();
   const [showTranscript, setShowTranscript] = useState(false);
+  const [doneSteps, setDoneSteps] = useState<boolean[]>(() => {
+    try {
+      const saved = sessionStorage.getItem(`quest-steps:${story.id}`);
+      return saved ? JSON.parse(saved) : story.mission.map(() => false);
+    } catch {
+      return story.mission.map(() => false);
+    }
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem(`quest-steps:${story.id}`, JSON.stringify(doneSteps));
+  }, [story.id, doneSteps]);
+
+  const toggleStep = (i: number) => {
+    setDoneSteps((prev) => {
+      const next = [...prev];
+      next[i] = !next[i];
+      return next;
+    });
+  };
 
   useEffect(() => {
     if (state.gpsPermissionGranted) start();
@@ -161,20 +181,39 @@ function StoryPage() {
               🌿 {t(state.language, "ui.mission")}
             </h2>
             <ul className="mt-3 space-y-2">
-              {(story.mission as string[]).map((m: string, i: number) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-3 rounded-2xl bg-card/70 px-3 py-3 text-sm text-foreground"
-                >
-                  <span
-                    className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
-                    style={{ background: accent, color: "white" }}
-                  >
-                    {i + 1}
-                  </span>
-                  {m}
-                </li>
-              ))}
+              {(story.mission as string[]).map((m: string, i: number) => {
+                const checked = doneSteps[i] ?? false;
+                return (
+                  <li key={i}>
+                    <button
+                      onClick={() => toggleStep(i)}
+                      className={`flex w-full items-start gap-3 rounded-2xl px-3 py-3 text-left text-sm transition-all ${
+                        checked
+                          ? "bg-moss/10 text-muted-foreground"
+                          : "bg-card/70 text-foreground hover:bg-card"
+                      }`}
+                    >
+                      <span
+                        className={`mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all ${
+                          checked ? "bg-moss text-white scale-110" : "bg-transparent ring-2"
+                        }`}
+                        style={{
+                          borderColor: checked ? "var(--moss)" : accent,
+                          background: checked ? "var(--moss)" : "transparent",
+                        }}
+                        key={`cb-${checked}`}
+                      >
+                        {checked ? <Check size={14} className="animate-fade-up" /> : i + 1}
+                      </span>
+                      <span
+                        className={checked ? "line-through decoration-muted-foreground/40" : ""}
+                      >
+                        {m}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         ) : null}

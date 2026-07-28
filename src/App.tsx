@@ -1,15 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppStateProvider, useAppState } from "@/hooks/useAppState";
 import { RouterProvider } from "@tanstack/react-router";
 import { ProfilePicker } from "@/components/ProfilePicker";
 import { CreateProfile } from "@/components/CreateProfile";
 import { SplashPage } from "@/components/SplashPage";
+import { OnboardingSequence } from "@/components/OnboardingSequence";
 import { router } from "./router";
 
 function AppGate() {
-  const { profiles, activeProfile } = useAppState();
+  const { profiles, activeProfile, state, update } = useAppState();
   const [showSplash, setShowSplash] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    if (activeProfile && !state.onboarded) {
+      setShowOnboarding(true);
+    }
+  }, [activeProfile, activeProfile?.name, state.onboarded]);
+
+  if (showOnboarding && activeProfile) {
+    return (
+      <OnboardingSequence
+        onComplete={() => {
+          update({ onboarded: true });
+          setShowOnboarding(false);
+        }}
+        onSkip={() => {
+          update({ onboarded: true });
+          setShowOnboarding(false);
+        }}
+      />
+    );
+  }
 
   if (activeProfile) {
     return <RouterProvider router={router} />;

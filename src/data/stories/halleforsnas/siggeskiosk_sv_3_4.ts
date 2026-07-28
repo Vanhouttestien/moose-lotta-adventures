@@ -35,11 +35,7 @@ Kiosken är borta nu.
 Bara en betongplatta finns kvar.
 
 Men om du blundar kan du nästan höra visslan.`,
-  mission: [
-    "Hitta betonggrunden",
-    "Låtsas köpa en Luffare",
-    "Räkna dina steg över betonggrunden",
-  ],
+  mission: ["Hitta betonggrunden", "Låtsas köpa en Luffare", "Räkna dina steg över betonggrunden"],
   reward: "Lilla kunden",
   sources: ["4", "10"],
 };

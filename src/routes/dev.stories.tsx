@@ -5,16 +5,40 @@ import type { AgeGroup, Language, Story } from "@/data/stories";
 import { villages } from "@/data/stories";
 
 const SOURCE_REF: Record<string, { label: string; url: string }> = {
-  "1": { label: "Wikipedia: Hälleforsnäs", url: "https://sv.wikipedia.org/wiki/H%C3%A4lleforsn%C3%A4s" },
-  "2": { label: "Wikipedia: Hälleforsnäs bruk", url: "https://sv.wikipedia.org/wiki/H%C3%A4lleforsn%C3%A4s_bruk" },
-  "3": { label: "Wikipedia: Hälleforsnäs bruks herrgård", url: "https://sv.wikipedia.org/wiki/H%C3%A4lleforsn%C3%A4s_bruks_herrg%C3%A5rd" },
-  "4": { label: "Flen Municipality: Hälleforsnäs då och nu", url: "https://flen.se/kommun--politik/flens-kommunarkiv/flens-kommun-da-och-nu/-halleforsnas-da-och-nu" },
-  "5": { label: "Gjuterimuseet: Bandyutställningen", url: "https://www.gjuterimuseum.se/projekt/lagenhetshus/" },
-  "6": { label: "Flen Municipality: Ortsanalys 2007", url: "https://flen.se/download/18.95ab96d1892406caed60b/1688560805648/Ortsanalys_Hallaforsnas.pdf" },
+  "1": {
+    label: "Wikipedia: Hälleforsnäs",
+    url: "https://sv.wikipedia.org/wiki/H%C3%A4lleforsn%C3%A4s",
+  },
+  "2": {
+    label: "Wikipedia: Hälleforsnäs bruk",
+    url: "https://sv.wikipedia.org/wiki/H%C3%A4lleforsn%C3%A4s_bruk",
+  },
+  "3": {
+    label: "Wikipedia: Hälleforsnäs bruks herrgård",
+    url: "https://sv.wikipedia.org/wiki/H%C3%A4lleforsn%C3%A4s_bruks_herrg%C3%A5rd",
+  },
+  "4": {
+    label: "Flen Municipality: Hälleforsnäs då och nu",
+    url: "https://flen.se/kommun--politik/flens-kommunarkiv/flens-kommun-da-och-nu/-halleforsnas-da-och-nu",
+  },
+  "5": {
+    label: "Gjuterimuseet: Bandyutställningen",
+    url: "https://www.gjuterimuseum.se/projekt/lagenhetshus/",
+  },
+  "6": {
+    label: "Flen Municipality: Ortsanalys 2007",
+    url: "https://flen.se/download/18.95ab96d1892406caed60b/1688560805648/Ortsanalys_Hallaforsnas.pdf",
+  },
   "7": { label: "Kolhusteatern: Om Kolhusteatern", url: "https://kolhusteatern.se/?page_id=56" },
   "8": { label: "Kolhusteatern: Kolhuset", url: "https://kolhusteatern.se/?page_id=57" },
-  "9": { label: "SVT: Kulturhistoriskt värdefull byggnad förstörd i brand", url: "https://www.svt.se/nyheter/lokalt/sormland/kulturhistoriskt-vardefull-byggnad" },
-  "10": { label: "Flen Municipality (Facebook): Hann du smaka på Luffare från Sigges kiosk?", url: "https://www.facebook.com/Flenskommunsormlandshjarta/posts/hann-du-smaka-p%C3%A5-luffare-fr%C3%A5n-sigges-kiosk-luffare-var-en-delikatess-best%C3%A5ende-a/955531596615522/" },
+  "9": {
+    label: "SVT: Kulturhistoriskt värdefull byggnad förstörd i brand",
+    url: "https://www.svt.se/nyheter/lokalt/sormland/kulturhistoriskt-vardefull-byggnad",
+  },
+  "10": {
+    label: "Flen Municipality (Facebook): Hann du smaka på Luffare från Sigges kiosk?",
+    url: "https://www.facebook.com/Flenskommunsormlandshjarta/posts/hann-du-smaka-p%C3%A5-luffare-fr%C3%A5n-sigges-kiosk-luffare-var-en-delikatess-best%C3%A5ende-a/955531596615522/",
+  },
 };
 
 const villageLoaders: Record<string, () => Promise<Story[]>> = {
@@ -193,16 +217,25 @@ function DevStoriesPage() {
                       )}
                     </td>
                     <td className="p-2 text-muted-foreground max-w-xs truncate">
-                      {s.text ? s.text.split("\n").find((l) => l.trim())?.trim() : "—"}
+                      {s.text
+                        ? s.text
+                            .split("\n")
+                            .find((l) => l.trim())
+                            ?.trim()
+                        : "—"}
                     </td>
                   </tr>
                   {expanded === s.id && (
                     <tr key={`${s.id}-expanded`}>
                       <td colSpan={9} className="p-0">
                         <div className="bg-muted/20 border-b px-4 py-3">
-                          <p className="text-xs font-semibold text-muted-foreground mb-1">Subtitle:</p>
+                          <p className="text-xs font-semibold text-muted-foreground mb-1">
+                            Subtitle:
+                          </p>
                           <p className="text-sm mb-3">{s.subtitle}</p>
-                          <p className="text-xs font-semibold text-muted-foreground mb-1">Reward:</p>
+                          <p className="text-xs font-semibold text-muted-foreground mb-1">
+                            Reward:
+                          </p>
                           <p className="text-sm mb-3">{s.reward}</p>
                           <p className="text-xs font-semibold text-muted-foreground mb-1">Audio:</p>
                           <p className="text-sm mb-3">
@@ -219,25 +252,31 @@ function DevStoriesPage() {
                               <span className="text-muted-foreground text-xs">None</span>
                             )}
                           </p>
-                          <p className="text-xs font-semibold text-muted-foreground mb-1">Story text:</p>
+                          <p className="text-xs font-semibold text-muted-foreground mb-1">
+                            Story text:
+                          </p>
                           <div className="text-sm whitespace-pre-line bg-background border rounded p-3 mb-2 max-h-80 overflow-y-auto">
                             {s.text || "(no text)"}
                           </div>
-                          <p className="text-xs font-semibold text-muted-foreground mb-1">Sources:</p>
-                          {s.sources?.length
-                            ? s.sources.map((src) => (
-                                <div key={src} className="text-xs mb-1">
-                                  <a
-                                    href={SOURCE_REF[src]?.url || "#"}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-blue-600 hover:underline"
-                                  >
-                                    [{src}] {SOURCE_REF[src]?.label || src}
-                                  </a>
-                                </div>
-                              ))
-                            : <p className="text-xs text-muted-foreground">None</p>}
+                          <p className="text-xs font-semibold text-muted-foreground mb-1">
+                            Sources:
+                          </p>
+                          {s.sources?.length ? (
+                            s.sources.map((src) => (
+                              <div key={src} className="text-xs mb-1">
+                                <a
+                                  href={SOURCE_REF[src]?.url || "#"}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:underline"
+                                >
+                                  [{src}] {SOURCE_REF[src]?.label || src}
+                                </a>
+                              </div>
+                            ))
+                          ) : (
+                            <p className="text-xs text-muted-foreground">None</p>
+                          )}
                         </div>
                       </td>
                     </tr>

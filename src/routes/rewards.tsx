@@ -72,10 +72,12 @@ export function RewardsPage() {
       <div className="px-6">
         <div className="rounded-3xl bg-card p-5 shadow-[var(--shadow-soft)]">
           <div className="flex items-baseline justify-between">
-            <span className="text-sm font-semibold text-foreground">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
               {t(state.language, "ui.progress")}
             </span>
-            <span className="font-display text-xl text-primary">{pct}%</span>
+            <span className="text-xs font-semibold text-muted-foreground">
+              {doneHere}/{total} · {pct}%
+            </span>
           </div>
           <div className="mt-3 h-3 overflow-hidden rounded-full bg-muted">
             <div
@@ -88,21 +90,39 @@ export function RewardsPage() {
 
       {earned.length > 0 && (
         <div className="grid grid-cols-2 gap-3 px-6 pt-6">
-          {earned.map((s) => (
-            <div
-              key={s.id}
-              className="rounded-3xl bg-card p-4 text-center shadow-[var(--shadow-soft)] transition-all"
-            >
-              <StoryImage
-                imageUrl={s.image}
-                emoji={"✨"}
-                alt={s.reward}
-                variant="reward"
-              />
-              <p className="mt-3 font-display text-sm text-foreground">{s.reward}</p>
-              <p className="mt-1 text-[11px] text-muted-foreground">{s.location.label}</p>
-            </div>
-          ))}
+          {earned.map((s) => {
+            const accentVar =
+              s.accent === "moss"
+                ? "var(--moss)"
+                : s.accent === "ember"
+                  ? "var(--ember)"
+                  : s.accent === "bark"
+                    ? "var(--bark)"
+                    : s.accent === "rust"
+                      ? "var(--accent)"
+                      : s.accent === "water"
+                        ? "var(--forest-mist)"
+                        : "var(--primary)";
+            return (
+              <div
+                key={s.id}
+                className="rounded-3xl p-4 text-center shadow-[var(--shadow-soft)] transition-all"
+                style={{
+                  background: `color-mix(in oklab, ${accentVar} 12%, var(--card))`,
+                }}
+              >
+                <StoryImage
+                  imageUrl={s.image}
+                  emoji={s.emoji}
+                  alt={s.reward}
+                  variant="reward"
+                  accent={accentVar}
+                />
+                <p className="mt-3 font-display text-sm text-foreground">{s.reward}</p>
+                <p className="mt-1 text-[11px] text-muted-foreground">{s.location.label}</p>
+              </div>
+            );
+          })}
         </div>
       )}
 

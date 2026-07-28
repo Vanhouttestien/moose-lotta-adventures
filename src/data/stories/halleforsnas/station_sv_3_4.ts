@@ -32,10 +32,6 @@ Men tågen stannar fortfarande här.
 Lyssna.
 
 Hör du ett tåg som kommer?`,
-  mission: [
-    "Lyssna efter tågljud",
-    "Gör ett tågljud — Tuff tuff!",
-    "Låtsas att du är tågförare",
-  ],
+  mission: ["Lyssna efter tågljud", "Gör ett tågljud — Tuff tuff!", "Låtsas att du är tågförare"],
   reward: "Tågspanare",
 };

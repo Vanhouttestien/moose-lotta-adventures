@@ -40,6 +40,30 @@ export const sv = {
       switch: "Byt profil",
       profile: "Profil",
     },
+    onboarding: {
+      step1: "Den här är du",
+      step2: "Ibland är det tyst — då finns äventyr längre bort",
+      step3: "Gråa frågetecken är gömda äventyr — gå mot dem för att låsa upp dem",
+      skip: "Hoppa över",
+      next: "Nästa",
+      done: "Utforska!",
+      showAgain: "Visa igen",
+    },
+    firstRun: {
+      title: "Din första resa väntar — öppna kartan för att börja",
+      toMap: "Öppna kartan",
+    },
+    compass: {
+      n: "norr",
+      ne: "nordost",
+      e: "öster",
+      se: "sydost",
+      s: "söder",
+      sw: "sydväst",
+      w: "väster",
+      nw: "nordväst",
+      hint: "Prova att gå mot {{direction}}",
+    },
     audio: {
       tells: "Moose Lotta berättar",
       pressToListen: "Tryck för att lyssna",
@@ -83,7 +107,7 @@ export const sv = {
     },
     noStories: {
       title: "Här var det tyst…",
-      body: "Gå en bit till — Lotta känner äventyr inom 3 km.",
+      body: "Vandra vidare — äventyren väntar där borta.",
     },
     distance: {
       locked: "Du är ungefär {{dist}} m bort.",

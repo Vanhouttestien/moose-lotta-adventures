@@ -63,6 +63,25 @@ export function useGeolocation() {
   return { status, position, start };
 }
 
+export function bearing(
+  from: { lat: number; lng: number },
+  to: { lat: number; lng: number },
+): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const toDeg = (r: number) => (r * 180) / Math.PI;
+  const lat1 = toRad(from.lat);
+  const lat2 = toRad(to.lat);
+  const dLng = toRad(to.lng - from.lng);
+  const y = Math.sin(dLng) * Math.cos(lat2);
+  const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+  return (toDeg(Math.atan2(y, x)) + 360) % 360;
+}
+
+export function compassDirection(bearingDeg: number): string {
+  const dirs = ["n", "ne", "e", "se", "s", "sw", "w", "nw"];
+  return dirs[Math.round(bearingDeg / 45) % 8];
+}
+
 export function distanceMeters(
   a: { lat: number; lng: number },
   b: { lat: number; lng: number },

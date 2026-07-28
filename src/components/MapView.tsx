@@ -2,13 +2,13 @@ import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { distanceMeters } from "@/hooks/useGeolocation";
-import type { StoryStatus } from "@/engine/storyEngine";
+import type { StoryStatus, DiscoveryTier } from "@/engine/storyEngine";
 import type { Village } from "@/data/stories";
 import { useNavigate } from "@tanstack/react-router";
 
 type PinKind = "hint" | "visible" | "warm" | "unlocked" | "completed";
 
-function pinIcon(kind: PinKind, emoji: string) {
+function pinIcon(kind: PinKind, emoji: string, tierUp?: boolean) {
   const palette: Record<PinKind, { fill: string; glyph: string; opacity: number; ring: string }> = {
     hint: { fill: "#b9b3a4", glyph: "?", opacity: 0.55, ring: "" },
     visible: { fill: "#a89070", glyph: emoji, opacity: 1, ring: "" },
@@ -17,12 +17,13 @@ function pinIcon(kind: PinKind, emoji: string) {
     completed: { fill: "#d49a5c", glyph: "✨", opacity: 1, ring: "" },
   };
   const p = palette[kind];
+  const anim = tierUp ? "ml-pin-tier-up" : "ml-pin-appear";
   return L.divIcon({
     className: "",
     iconSize: [44, 54],
     iconAnchor: [22, 52],
     html: `
-      <div class="${p.ring}" style="position:relative;width:44px;height:54px;opacity:${p.opacity};">
+      <div class="${anim} ${p.ring}" style="position:relative;width:44px;height:54px;opacity:${p.opacity};">
         <svg viewBox="0 0 44 54" width="44" height="54">
           <path d="M22 2 C 10 2 2 11 2 22 C 2 36 22 52 22 52 C 22 52 42 36 42 22 C 42 11 34 2 22 2 Z"
                 fill="${p.fill}" stroke="white" stroke-width="2.5"/>
@@ -57,10 +58,20 @@ export function MapView({
   const mapRef = useRef<L.Map | null>(null);
   const userMarkerRef = useRef<L.Marker | null>(null);
   const storyMarkersRef = useRef<Map<string, L.Marker>>(new Map());
+  const prevTiersRef = useRef<Map<string, DiscoveryTier>>(new Map());
   const animFrameRef = useRef<number | null>(null);
   const navigate = useNavigate();
   const hasFittedRef = useRef(false);
   const lastPanTargetRef = useRef<{ lat: number; lng: number } | null>(null);
+
+  // Seeded hash for consistent hint-pin jitter per story ID
+  function hashId(s: string): number {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) {
+      h = (h * 31 + s.charCodeAt(i)) | 0;
+    }
+    return h;
+  }
 
   // INIT MAP
   useEffect(() => {
@@ -77,7 +88,18 @@ export function MapView({
       maxZoom: 19,
     }).addTo(map);
 
-    L.control.attribution({ prefix: false }).addAttribution("© OpenStreetMap").addTo(map);
+    L.control
+      .attribution({ prefix: false, position: "bottomright" })
+      .addAttribution("© OpenStreetMap")
+      .addTo(map);
+    // Keep attribution visible above overflow-hidden container
+    map
+      .getContainer()
+      .querySelector(".leaflet-control-attribution")
+      ?.setAttribute(
+        "style",
+        "margin-bottom:4px;background:oklch(0.985 0.01 95 / 0.85);border-radius:8px;padding:2px 6px;font-size:10px;",
+      );
 
     mapRef.current = map;
 
@@ -97,27 +119,35 @@ export function MapView({
     if (!map) return;
     const visibleIds = new Set<string>();
 
+    // Small jitter offset for hint pins so nearby ones don't overlap
+    function jitter(id: string, coord: number): number {
+      return coord + ((hashId(id) % 41) - 20) * 0.000004;
+    }
+
     statuses.forEach((s) => {
-      // Hidden stories never appear on the map.
       if (s.tier === "hidden") return;
 
       const id = s.story.id;
       visibleIds.add(id);
 
+      const prevTier = prevTiersRef.current.get(id);
       const kind: PinKind = s.completed
         ? "completed"
         : s.unlocked
           ? "unlocked"
           : (s.tier as PinKind);
+      const tierUp = prevTier != null && prevTier !== s.tier;
+      prevTiersRef.current.set(id, s.tier);
 
-      const icon = pinIcon(kind, s.story.emoji);
+      const icon = pinIcon(kind, s.story.emoji, tierUp);
 
-      // Hint pins are intentionally offset / fuzzy — show approximate area
-      // by snapping to nearest 0.001 deg (≈100m) so children "search" for it.
-      const lat =
-        s.tier === "hint" ? Math.round(s.story.location.lat * 1000) / 1000 : s.story.location.lat;
-      const lng =
-        s.tier === "hint" ? Math.round(s.story.location.lng * 1000) / 1000 : s.story.location.lng;
+      // Hint-tier pins: snap to 0.001° grid + per-story jitter for declustering
+      let lat = s.story.location.lat;
+      let lng = s.story.location.lng;
+      if (s.tier === "hint") {
+        lat = jitter(id, Math.round(lat * 1000) / 1000);
+        lng = jitter(id, Math.round(lng * 1000) / 1000);
+      }
 
       if (storyMarkersRef.current.has(id)) {
         const marker = storyMarkersRef.current.get(id)!;
@@ -134,11 +164,12 @@ export function MapView({
       storyMarkersRef.current.set(id, marker);
     });
 
-    // remove out-of-range markers
+    // remove out-of-range markers and their prevTier entries
     storyMarkersRef.current.forEach((marker, id) => {
       if (!visibleIds.has(id)) {
         map.removeLayer(marker);
         storyMarkersRef.current.delete(id);
+        prevTiersRef.current.delete(id);
       }
     });
   }, [statuses, navigate]);
@@ -170,7 +201,7 @@ export function MapView({
     const target: [number, number] = [position.lat, position.lng];
 
     if (!userMarkerRef.current) {
-      userMarkerRef.current = L.marker(target, { icon: userIcon() }).addTo(map);
+      userMarkerRef.current = L.marker(target, { icon: userIcon(), zIndexOffset: 1000 }).addTo(map);
       map.setView(target, map.getZoom(), { animate: false });
       lastPanTargetRef.current = position;
       // GPS just arrived — map may have been behind a permission card
