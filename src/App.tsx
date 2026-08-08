@@ -19,22 +19,15 @@ function AppGate() {
     }
   }, [activeProfile, activeProfile?.name, state.onboarded]);
 
-  if (showOnboarding && activeProfile) {
-    return (
-      <OnboardingSequence
-        onComplete={() => {
-          update({ onboarded: true });
-          setShowOnboarding(false);
-        }}
-        onSkip={() => {
-          update({ onboarded: true });
-          setShowOnboarding(false);
-        }}
-      />
-    );
-  }
+  const finishOnboarding = () => {
+    update({ onboarded: true });
+    setShowOnboarding(false);
+  };
 
   if (activeProfile) {
+    if (showOnboarding) {
+      return <OnboardingSequence onComplete={finishOnboarding} onSkip={finishOnboarding} />;
+    }
     return <RouterProvider router={router} />;
   }
 
@@ -42,10 +35,19 @@ function AppGate() {
     return <SplashPage onStart={() => setShowSplash(false)} />;
   }
 
+  if (showOnboarding) {
+    return <OnboardingSequence onComplete={finishOnboarding} onSkip={finishOnboarding} />;
+  }
+
   const namedProfiles = profiles.filter((p) => p.name.trim());
 
   if (namedProfiles.length === 0 || showCreate) {
-    return <CreateProfile onDone={() => setShowCreate(false)} />;
+    return (
+      <CreateProfile
+        onDone={() => setShowCreate(false)}
+        onShowOnboarding={() => setShowOnboarding(true)}
+      />
+    );
   }
 
   return <ProfilePicker onSelect={() => {}} onCreate={() => setShowCreate(true)} />;

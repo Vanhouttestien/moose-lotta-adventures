@@ -5,7 +5,13 @@ import { AgeSelector, LanguageSelector } from "@/components/Selectors";
 import type { AgeGroup, Language } from "@/data/stories";
 import mooseHero from "@/assets/moose-lotta-hero2.jpg";
 
-export function CreateProfile({ onDone }: { onDone: () => void }) {
+export function CreateProfile({
+  onDone,
+  onShowOnboarding,
+}: {
+  onDone: () => void;
+  onShowOnboarding?: () => void;
+}) {
   const { createProfile } = useAppState();
   const [name, setName] = useState("");
   const [ageGroup, setAgeGroup] = useState<AgeGroup>("5-6");
@@ -102,6 +108,17 @@ export function CreateProfile({ onDone }: { onDone: () => void }) {
               <span className="text-base">→</span>
             </button>
           </div>
+
+          {onShowOnboarding && (
+            <div className="mt-6 flex justify-center">
+              <button
+                onClick={onShowOnboarding}
+                className="text-xs font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+              >
+                {t(language, "ui.onboarding.showAgain")}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

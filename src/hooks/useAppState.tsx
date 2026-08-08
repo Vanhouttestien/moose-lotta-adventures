@@ -51,6 +51,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     completedStoryIds: [],
     rewards: [],
     onboarded: false,
+    gpsPermissionGranted: false,
   };
 
   const selectProfile = useCallback((name: string) => {
@@ -73,6 +74,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
             completedStoryIds: [],
             rewards: [],
             onboarded: false,
+            gpsPermissionGranted: false,
           },
           createdAt: new Date().toISOString(),
         };

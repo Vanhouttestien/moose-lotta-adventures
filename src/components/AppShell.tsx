@@ -3,6 +3,7 @@ import { BottomNav } from "./BottomNav";
 import { ProfileBadge } from "./ProfileBadge";
 import { ProfileSwitcher } from "./ProfileSwitcher";
 import { CreateProfile } from "./CreateProfile";
+import { useAppState } from "@/hooks/useAppState";
 
 export function AppShell({
   children,
@@ -15,9 +16,15 @@ export function AppShell({
 }) {
   const [showSwitcher, setShowSwitcher] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
+  const { update } = useAppState();
 
   if (showCreate) {
-    return <CreateProfile onDone={() => setShowCreate(false)} />;
+    return (
+      <CreateProfile
+        onDone={() => setShowCreate(false)}
+        onShowOnboarding={() => update({ onboarded: false })}
+      />
+    );
   }
 
   return (
