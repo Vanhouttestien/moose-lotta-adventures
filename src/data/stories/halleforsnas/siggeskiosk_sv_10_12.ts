@@ -10,6 +10,7 @@ export const siggeskiosk_sv_10_12: Story = {
   subtitle: "Sigges kiosk och arbetarkulturen",
   location: { ...LOCATIONS.SIGGES_KIOSK, label: "Sigges kiosk" },
   audio: "/audio/siggeskiosk_sv_10_12.mp3",
+  image: "images/stories/siggeskiosk.jpeg",
   emoji: "🍦",
   accent: "water",
   text: `Arbetet var tungt, bullrigt och smutsigt. Gjutjärn, rök och svett fyllde varje sal.

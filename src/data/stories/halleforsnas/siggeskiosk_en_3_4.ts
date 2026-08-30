@@ -10,6 +10,7 @@ export const siggeskiosk_en_3_4: Story = {
   subtitle: "Sigge's Snack Shop",
   location: { ...LOCATIONS.SIGGES_KIOSK, label: "Sigge's Kiosk" },
   audio: "/audio/siggeskiosk_en_3_4.mp3",
+  image: "images/stories/siggeskiosk.jpeg",
   emoji: "🍦",
   accent: "moss",
   text: `There was once a little yellow kiosk here.

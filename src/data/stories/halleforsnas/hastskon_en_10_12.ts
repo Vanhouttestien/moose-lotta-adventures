@@ -10,6 +10,7 @@ export const hastskon_en_10_12: Story = {
   subtitle: "From Carriage Shed to Ashes",
   location: { ...LOCATIONS.HASTSKON, label: "Hästskon" },
   audio: "/audio/hastskon_en_10_12.mp3",
+  image: "images/stories/hastkon.jpeg",
   emoji: "🫎",
   accent: "shadow",
   sources: ["4", "9"],

@@ -10,6 +10,7 @@ export const gjuterimuseum_en_adult: Story = {
   subtitle: "The Foundry",
   location: { ...LOCATIONS.FOUNDRY_MUSEUM, label: "Hälleforsnäs Foundry Museum" },
   audio: "/audio/gjuterimuseum_en_adult.mp3",
+  image: "images/stories/gjuterimuseet.jpeg",
   emoji: "⚒️",
   accent: "ember",
   sources: ["1", "5"],

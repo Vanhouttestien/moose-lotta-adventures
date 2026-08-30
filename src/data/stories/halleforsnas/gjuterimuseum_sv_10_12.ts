@@ -10,6 +10,7 @@ export const gjuterimuseum_sv_10_12: Story = {
   subtitle: "Gjuterimuseet",
   location: { ...LOCATIONS.FOUNDRY_MUSEUM, label: "Hälleforsnäs Gjuterimuseum" },
   audio: "/audio/gjuterimuseum_sv_10_12.mp3",
+  image: "images/stories/gjuterimuseet.jpeg",
   emoji: "⚒️",
   accent: "ember",
   sources: ["1", "5"],

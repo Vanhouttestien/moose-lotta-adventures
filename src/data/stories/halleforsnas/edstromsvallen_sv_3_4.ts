@@ -10,6 +10,7 @@ export const edstromsvallen_sv_3_4: Story = {
   subtitle: "Edströmsvallen",
   location: { ...LOCATIONS.EDSTROMSVALLEN, label: "Edströmsvallen" },
   audio: "/audio/edstromsvallen_sv_3_4.mp3",
+  image: "/images/edstromsvallen.jpg",
   emoji: "⚽",
   accent: "moss",
   sources: ["1", "6"],

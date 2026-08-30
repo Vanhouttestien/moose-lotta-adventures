@@ -10,6 +10,7 @@ export const hastskon_en_5_6: Story = {
   subtitle: "A Very Unusual Helper",
   location: { ...LOCATIONS.HASTSKON, label: "Hästskon" },
   audio: "/audio/hastskon_en_5_6.mp3",
+  image: "images/stories/hastkon.jpeg",
   emoji: "🫎",
   accent: "bark",
   sources: ["4", "9"],

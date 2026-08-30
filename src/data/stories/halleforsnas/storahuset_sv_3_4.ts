@@ -10,6 +10,7 @@ export const storahuset_sv_3_4: Story = {
   subtitle: "Herrgården",
   location: { ...LOCATIONS.STORA_HUSET, label: "Stora Huset" },
   audio: "/audio/storahuset_sv_3_4.mp3",
+  image: "images/stories/storahuset.jpeg",
   emoji: "🏡",
   accent: "moss",
   sources: ["3"],

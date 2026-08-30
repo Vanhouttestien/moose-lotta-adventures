@@ -10,6 +10,7 @@ export const siggeskiosk_sv_adult: Story = {
   subtitle: "Sigges kiosk",
   location: { ...LOCATIONS.SIGGES_KIOSK, label: "Sigges kiosk" },
   audio: "/audio/siggeskiosk_sv_adult.mp3",
+  image: "images/stories/siggeskiosk.jpeg",
   emoji: "🍦",
   accent: "water",
   text: `Idag finns nästan ingenting kvar av Sigges kiosk.

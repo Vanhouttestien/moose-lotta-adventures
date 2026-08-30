@@ -10,6 +10,7 @@ export const hastskon_sv_10_12: Story = {
   subtitle: "Från vagnslider till aska",
   location: { ...LOCATIONS.HASTSKON, label: "Hästskon" },
   audio: "/audio/hastskon_sv_10_12.mp3",
+  image: "images/stories/hastkon.jpeg",
   emoji: "🫎",
   accent: "shadow",
   sources: ["4", "9"],

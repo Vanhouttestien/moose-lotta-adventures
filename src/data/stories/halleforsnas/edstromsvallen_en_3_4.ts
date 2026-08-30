@@ -9,6 +9,7 @@ export const edstromsvallen_en_3_4: Story = {
   title: "The Field That Rose From Ashes",
   subtitle: "Edströmsvallen",
   location: { ...LOCATIONS.EDSTROMSVALLEN, label: "Edströmsvallen" },
+  image: "/images/edstromsvallen.jpg",
   audio: "/audio/edstromsvallen_en_3_4.mp3",
   emoji: "⚽",
   accent: "moss",

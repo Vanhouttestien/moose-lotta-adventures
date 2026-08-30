@@ -10,6 +10,7 @@ export const siggeskiosk_en_10_12: Story = {
   subtitle: "Sigge's Kiosk and Worker Culture",
   location: { ...LOCATIONS.SIGGES_KIOSK, label: "Sigge's Kiosk" },
   audio: "/audio/siggeskiosk_en_10_12.mp3",
+  image: "images/stories/siggeskiosk.jpeg",
   emoji: "🍦",
   accent: "water",
   text: `The work was heavy, noisy, and dirty. Cast iron, smoke, and sweat filled every hall.

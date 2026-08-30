@@ -10,6 +10,7 @@ export const hastskon_en_7_9: Story = {
   subtitle: "Hästskon's Many Lives",
   location: { ...LOCATIONS.HASTSKON, label: "Hästskon" },
   audio: "/audio/hastskon_en_7_9.mp3",
+  image: "images/stories/hastkon.jpeg",
   emoji: "🫎",
   accent: "ember",
   sources: ["4", "9"],

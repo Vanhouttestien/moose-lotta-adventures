@@ -11,6 +11,7 @@ export const kolhuset_en_7_9: Story = {
   location: { ...LOCATIONS.KOLHUSET, label: "Kolhuset" },
   ambience: "fire",
   audio: "/audio/kolhuset_en_7_9.mp3",
+  image: "images/stories/kolhuset.jpeg",
   emoji: "🔥",
   accent: "ember",
   sources: ["2", "8"],

@@ -10,6 +10,7 @@ export const siggeskiosk_sv_5_6: Story = {
   subtitle: "Sigges kiosk",
   location: { ...LOCATIONS.SIGGES_KIOSK, label: "Sigges kiosk" },
   audio: "/audio/siggeskiosk_sv_5_6.mp3",
+  image: "images/stories/siggeskiosk.jpeg",
   emoji: "🍦",
   accent: "bark",
   text: `Den här platsen var förr mycket livlig.
