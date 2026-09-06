@@ -47,7 +47,6 @@ export function OnboardingSequence({
   const { state } = useAppState();
   const [step, setStep] = useState(0);
   const lang = state.language;
-  const isLast = step === slides.length - 1;
 
   const slides = [
     {
@@ -128,6 +127,8 @@ export function OnboardingSequence({
     t(lang, "ui.onboarding.step2"),
     t(lang, "ui.onboarding.step3"),
   ];
+
+  const isLast = step === slides.length - 1;
 
   return (
     <div className="fixed inset-0 z-[2000] flex flex-col bg-background">

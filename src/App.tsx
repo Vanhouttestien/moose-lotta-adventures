@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AppStateProvider, useAppState } from "@/hooks/useAppState";
 import { RouterProvider } from "@tanstack/react-router";
 import { ProfilePicker } from "@/components/ProfilePicker";
@@ -12,12 +12,6 @@ function AppGate() {
   const [showSplash, setShowSplash] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
-
-  useEffect(() => {
-    if (activeProfile && !state.onboarded) {
-      setShowOnboarding(true);
-    }
-  }, [activeProfile, activeProfile?.name, state.onboarded]);
 
   const finishOnboarding = () => {
     update({ onboarded: true });
@@ -44,7 +38,10 @@ function AppGate() {
   if (namedProfiles.length === 0 || showCreate) {
     return (
       <CreateProfile
-        onDone={() => setShowCreate(false)}
+        onDone={() => {
+          setShowCreate(false);
+          setShowOnboarding(true);
+        }}
         onShowOnboarding={() => setShowOnboarding(true)}
       />
     );

@@ -34,7 +34,7 @@ export function AppShell({
           <ProfileBadge onPress={() => setShowSwitcher(true)} />
         </div>
       )}
-      <main id="main-content" className={`flex-1 ${hideNav ? "" : "pb-24"}`}>
+      <main id="main-content" className={`flex flex-1 flex-col ${hideNav ? "" : "pb-24"}`}>
         {children}
       </main>
       {!hideNav && <BottomNav />}

@@ -7,9 +7,9 @@ export function BottomNav() {
   const { state } = useAppState();
   const loc = useLocation();
   const items = [
-    { to: "/" as const, icon: Home, label: t(state.language, "home") },
-    { to: "/map" as const, icon: Map, label: t(state.language, "map") },
-    { to: "/rewards" as const, icon: Sparkles, label: t(state.language, "rewards") },
+    { to: "/" as const, icon: Home, label: t(state.language, "ui.home") },
+    { to: "/map" as const, icon: Map, label: t(state.language, "ui.map") },
+    { to: "/rewards" as const, icon: Sparkles, label: t(state.language, "ui.rewards") },
   ];
 
   return (

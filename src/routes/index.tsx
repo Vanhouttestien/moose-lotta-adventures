@@ -79,7 +79,7 @@ function HomePage() {
 
   return (
     <AppShell>
-      <div className="relative">
+      <div className="relative flex flex-1 flex-col">
         {/* greeting + large mascot */}
         <div className="flex flex-col items-center px-6 pt-0 pb-2">
           <div
@@ -116,9 +116,9 @@ function HomePage() {
           </p>
         </div>
 
-        {/* merged hero card */}
-        <div className="relative">
-          <div className="px-5">
+        {/* merged hero card — grows to fill remaining space */}
+        <div className="relative mt-4 flex flex-1 flex-col px-5">
+          <div className="flex min-h-0 flex-1 flex-col">
             <Link
               to="/map"
               onClick={(e) => {
@@ -126,7 +126,7 @@ function HomePage() {
                 leaveTo(() => navigate({ to: "/map" }));
               }}
               aria-disabled={isLeaving}
-              className="ml-bounce-press relative block overflow-hidden rounded-3xl text-center shadow-[var(--shadow-cozy)] ring-1 ring-[#B9A14B]/25 transition-all hover:ring-primary/20"
+              className="ml-bounce-press relative flex flex-col overflow-hidden rounded-3xl text-center shadow-[var(--shadow-cozy)] ring-1 ring-[#B9A14B]/25 transition-all hover:ring-primary/20"
             >
               <img
                 src={forestBg}
@@ -134,26 +134,29 @@ function HomePage() {
                 aria-hidden
                 className="absolute inset-0 h-full w-full scale-125 object-cover object-right"
               />
-              <div aria-hidden className="pointer-events-none absolute inset-0 bg-bark/40" />
-              <span className="relative z-10 flex flex-col items-center gap-3 px-6 py-5 text-center">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#241504]/95 via-[#241504]/45 to-transparent"
+              />
+              <span className="relative z-10 flex flex-1 flex-col justify-end gap-4 px-6 pb-6 pt-14 text-center">
                 {/* progress bar (returning users) */}
                 {doneCount > 0 && (
-                  <div className="w-full rounded-2xl bg-[#FDF8EE]/60 px-4 py-3 backdrop-blur-sm">
+                  <div className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 backdrop-blur-sm">
                     <div className="flex items-baseline justify-between">
-                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/60">
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#FDF8EE]/70">
                         {t(state.language, "ui.progress")}
                       </p>
-                      <p className="text-xs font-semibold text-foreground/70">
+                      <p className="text-xs font-semibold text-[#FDF8EE]/85">
                         {doneCount}/{totalStories} · {progressPct}%
                       </p>
                     </div>
-                    <div className="mt-2 h-2 rounded-full bg-foreground/10">
+                    <div className="mt-2 h-2 rounded-full bg-white/20">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-[#D9A441] to-[#6B8F5C] transition-all"
                         style={{ width: `${progressPct}%` }}
                       />
                     </div>
-                    <div className="mt-1.5 flex items-center gap-1.5 text-xs text-foreground/60">
+                    <div className="mt-1.5 flex items-center gap-1.5 text-xs text-[#FDF8EE]/70">
                       <Gift size={13} />
                       <span>
                         {doneCount} {t(state.language, "ui.collected")}
@@ -162,30 +165,21 @@ function HomePage() {
                   </div>
                 )}
 
-                {/* CTA content */}
-                <div className="flex flex-col items-center gap-2.5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FDF8EE]/70 shadow-md">
-                    <Map size={24} className="text-[#6B8F5C]" />
-                  </div>
-                  <div className="mx-auto rounded-2xl bg-[#FDF8EE] px-4 py-2 text-center shadow-md">
-                    <p className="font-display text-base font-bold text-foreground">
-                      {t(state.language, "ui.goExplore")}
-                    </p>
-                    <p className="mt-0.5 text-sm text-foreground/65">
-                      {t(state.language, "ui.exploreSubtitle")}
-                    </p>
-                  </div>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-cozy)] transition-transform">
-                    <Map size={18} />
-                    {t(state.language, "ui.firstRun.toMap")}
-                  </span>
+                {/* caption sitting on the illustration */}
+                <div className="relative">
+                  <p className="font-display text-xl font-bold text-[#FDF8EE]">
+                    {t(state.language, "ui.goExplore")}
+                  </p>
+                  <p className="mt-1 text-sm text-[#FDF8EE]/85">
+                    {t(state.language, "ui.exploreSubtitle")}
+                  </p>
                 </div>
+                <span className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-cozy)] transition-transform">
+                  <Map size={18} />
+                  {t(state.language, "ui.firstRun.toMap")}
+                </span>
               </span>
             </Link>
-          </div>
-          {/* single decorative accent, top-right corner */}
-          <div className="pointer-events-none absolute -top-3 right-3 z-10 select-none text-xl animate-float opacity-50">
-            🌿
           </div>
         </div>
 

@@ -7,7 +7,7 @@ export const DISCOVERY_THRESHOLDS = {
   hint: 1000,
   visible: 300,
   warm: 100,
-  unlock: 50,
+  unlock: 30,
 } as const;
 
 export interface StoryStatus {
