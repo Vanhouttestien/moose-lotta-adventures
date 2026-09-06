@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AppStateProvider, useAppState } from "@/hooks/useAppState";
 import { RouterProvider } from "@tanstack/react-router";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ProfilePicker } from "@/components/ProfilePicker";
 import { CreateProfile } from "@/components/CreateProfile";
 import { SplashPage } from "@/components/SplashPage";
@@ -53,7 +54,9 @@ function AppGate() {
 export default function App() {
   return (
     <AppStateProvider>
-      <AppGate />
+      <ErrorBoundary>
+        <AppGate />
+      </ErrorBoundary>
     </AppStateProvider>
   );
 }

@@ -1,9 +1,12 @@
 import { t } from "@/i18n";
+import { useViewportHeight } from "@/hooks/useViewportHeight";
 import mooseHero from "@/assets/moose-lotta-hero.png";
 
 export function SplashPage({ onStart }: { onStart: () => void }) {
+  const heightStyle = useViewportHeight();
+
   return (
-    <div className="relative flex h-screen flex-col overflow-hidden bg-background">
+    <div className="relative flex flex-col overflow-hidden bg-background" style={heightStyle}>
       <div className="pointer-events-none absolute top-0 left-0 right-0 h-[420px] overflow-hidden">
         <div className="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-forest-mist/60" />
         <div className="absolute top-40 -left-16 h-48 w-48 rounded-full bg-secondary/15" />

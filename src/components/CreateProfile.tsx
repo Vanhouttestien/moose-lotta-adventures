@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAppState } from "@/hooks/useAppState";
+import { useViewportHeight } from "@/hooks/useViewportHeight";
 import { t } from "@/i18n";
 import { AgeSelector, LanguageSelector } from "@/components/Selectors";
 import type { AgeGroup, Language } from "@/data/stories";
@@ -17,6 +18,7 @@ export function CreateProfile({
   const [ageGroup, setAgeGroup] = useState<AgeGroup>("5-6");
   const [language, setLanguage] = useState<Language>("sv");
   const [error, setError] = useState("");
+  const minHeightStyle = useViewportHeight(true);
 
   const handleSubmit = () => {
     const trimmed = name.trim();
@@ -39,7 +41,10 @@ export function CreateProfile({
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-background px-6">
+    <div
+      className="relative flex flex-col overflow-hidden bg-background px-6"
+      style={minHeightStyle}
+    >
       {/* decorative background shapes */}
       <div className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-forest-mist/40" />
       <div className="pointer-events-none absolute -bottom-16 -left-20 h-56 w-56 rounded-full bg-secondary/20" />

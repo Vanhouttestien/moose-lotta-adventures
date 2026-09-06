@@ -1,4 +1,5 @@
 import { useAppState } from "@/hooks/useAppState";
+import { useViewportHeight } from "@/hooks/useViewportHeight";
 import { t } from "@/i18n";
 import { Plus, ChevronRight } from "lucide-react";
 import mooseHero from "@/assets/moose-lotta-hero.png";
@@ -19,9 +20,13 @@ export function ProfilePicker({
 }) {
   const { profiles, selectProfile, activeProfile } = useAppState();
   const lang = activeProfile?.data.language ?? "sv";
+  const minHeightStyle = useViewportHeight(true);
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-background px-6">
+    <div
+      className="relative flex flex-col overflow-hidden bg-background px-6"
+      style={minHeightStyle}
+    >
       {/* decorative bg */}
       <div className="pointer-events-none absolute -top-32 -left-20 h-72 w-72 rounded-full bg-forest-mist/50" />
       <div className="pointer-events-none absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-secondary/20" />

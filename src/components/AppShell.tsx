@@ -4,6 +4,7 @@ import { ProfileBadge } from "./ProfileBadge";
 import { ProfileSwitcher } from "./ProfileSwitcher";
 import { CreateProfile } from "./CreateProfile";
 import { useAppState } from "@/hooks/useAppState";
+import { useViewportHeight } from "@/hooks/useViewportHeight";
 
 export function AppShell({
   children,
@@ -17,6 +18,7 @@ export function AppShell({
   const [showSwitcher, setShowSwitcher] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
   const { update } = useAppState();
+  const minHeightStyle = useViewportHeight(true);
 
   if (showCreate) {
     return (
@@ -28,7 +30,7 @@ export function AppShell({
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col bg-background">
+    <div className="mx-auto flex max-w-md flex-col bg-background" style={minHeightStyle}>
       {!hideProfile && (
         <div className="sticky top-0 z-[900] flex items-center justify-end px-4 pt-1 pb-1">
           <ProfileBadge onPress={() => setShowSwitcher(true)} />
