@@ -4,8 +4,7 @@ import type { SvDict } from "./sv";
 export const en: Structure<SvDict> = {
   app: {
     title: "Moose Lotta Adventures",
-    location: "Out in the forest",
-    tagline: "History's secrets are waiting — out in the forest.",
+    tagline: "History's secrets are waiting.",
   },
   ui: {
     start: "Explore",
@@ -49,6 +48,9 @@ export const en: Structure<SvDict> = {
       next: "Next",
       done: "Explore!",
       showAgain: "Show again",
+      youHere: "You are here",
+      hidden: "Hidden",
+      found: "Discovered",
     },
     firstRun: {
       title: "Your first adventure awaits — open the map to begin",
@@ -99,7 +101,7 @@ export const en: Structure<SvDict> = {
   character: {
     lotta: {
       greeting: "Ready to discover the history around you?",
-      sense: "🫎 Lotta senses an adventure about {{dist}} m away…",
+      sense: "Lotta senses an adventure about {{dist}} m away…",
     },
   },
   story: {

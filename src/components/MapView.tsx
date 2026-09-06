@@ -5,15 +5,20 @@ import { distanceMeters } from "@/hooks/useGeolocation";
 import type { StoryStatus, DiscoveryTier } from "@/engine/storyEngine";
 import type { Village } from "@/data/stories";
 import { useNavigate } from "@tanstack/react-router";
+import headIcon from "@/assets/head.png";
 
 type PinKind = "hint" | "visible" | "warm" | "unlocked" | "completed";
 
 function pinIcon(kind: PinKind, emoji: string, tierUp?: boolean) {
+  const isHead = emoji === "🫎";
+  const glyphHtml = isHead
+    ? `<img src="${headIcon}" alt="" style="width:18px;height:auto;display:block;margin:0 auto;opacity:0.9;">`
+    : emoji;
   const palette: Record<PinKind, { fill: string; glyph: string; opacity: number; ring: string }> = {
     hint: { fill: "#b9b3a4", glyph: "?", opacity: 0.55, ring: "" },
-    visible: { fill: "#a89070", glyph: emoji, opacity: 1, ring: "" },
-    warm: { fill: "#d49a5c", glyph: emoji, opacity: 1, ring: "ml-warm-ring" },
-    unlocked: { fill: "#7ea66a", glyph: emoji, opacity: 1, ring: "" },
+    visible: { fill: "#a89070", glyph: glyphHtml, opacity: 1, ring: "" },
+    warm: { fill: "#d49a5c", glyph: glyphHtml, opacity: 1, ring: "ml-warm-ring" },
+    unlocked: { fill: "#7ea66a", glyph: glyphHtml, opacity: 1, ring: "" },
     completed: { fill: "#d49a5c", glyph: "✨", opacity: 1, ring: "" },
   };
   const p = palette[kind];
@@ -39,9 +44,9 @@ function pinIcon(kind: PinKind, emoji: string, tierUp?: boolean) {
 
 function userIcon() {
   return L.icon({
-    iconUrl: "/moose-lotta-pointer.png",
-    iconSize: [65, 48],
-    iconAnchor: [24, 48],
+    iconUrl: headIcon,
+    iconSize: [44, 85],
+    iconAnchor: [22, 83],
   });
 }
 

@@ -19,7 +19,7 @@ export function ProfileSwitcher({
   onClose: () => void;
   onCreate: () => void;
 }) {
-  const { profiles, activeProfile, selectProfile, deleteProfile, update } = useAppState();
+  const { profiles, activeProfile, selectProfile, deleteProfile } = useAppState();
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const lang = activeProfile?.data.language ?? "sv";
 
@@ -127,16 +127,6 @@ export function ProfileSwitcher({
         >
           <Plus size={18} />
           {t(lang, "ui.profile.new")}
-        </button>
-
-        <button
-          onClick={() => {
-            update({ onboarded: false });
-            onClose();
-          }}
-          className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl bg-card/50 px-5 py-3 text-sm font-medium text-muted-foreground/60 shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all hover:bg-card hover:text-muted-foreground hover:ring-border/30"
-        >
-          {t(lang, "ui.onboarding.showAgain")}
         </button>
 
         <a

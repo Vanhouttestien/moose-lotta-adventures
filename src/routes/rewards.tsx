@@ -6,6 +6,7 @@ import { useAppState } from "@/hooks/useAppState";
 import { getStories, villages, type Story } from "@/data/stories";
 import { t } from "@/i18n";
 import { Sparkles } from "lucide-react";
+import headImg from "@/assets/head.png";
 
 export const Route = createFileRoute("/rewards")({
   head: () => ({
@@ -60,8 +61,8 @@ export function RewardsPage() {
           {doneHere} {t(state.language, "ui.collected")}
         </p>
         {remainingCount > 0 && (
-          <p className="mt-2 text-xs text-muted-foreground/70">
-            🫎{" "}
+          <p className="mt-2 flex items-center justify-center gap-1 text-xs text-muted-foreground/70">
+            <img src={headImg} alt="" aria-hidden className="h-4 w-auto opacity-80" />
             {state.language === "sv"
               ? `${remainingCount} fler äventyr i ${currentVillage?.name ?? "byn"}`
               : `${remainingCount} more adventures in ${currentVillage?.name ?? "the village"}`}

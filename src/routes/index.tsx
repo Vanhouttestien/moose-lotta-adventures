@@ -4,8 +4,9 @@ import { useAppState } from "@/hooks/useAppState";
 import { getStories, type Story } from "@/data/stories";
 import { t } from "@/i18n";
 import { AppShell } from "@/components/AppShell";
+import { Lotta } from "@/components/Lotta";
+import forestBg from "@/assets/forest_background.png";
 import { Map, ChevronRight, Gift, CheckCircle2 } from "lucide-react";
-import mooseHero from "@/assets/moose-lotta-hero2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,6 +47,28 @@ function HomePage() {
     }).then(setAllStories);
   }, [state.language, state.ageGroup, currentVillageId]);
 
+  const [isWaving, setIsWaving] = useState(false);
+  const [isLeaving, setIsLeaving] = useState(false);
+
+  // Greeting wave shortly after load, then wave again on a slow randomized cadence.
+  useEffect(() => {
+    const initial = window.setTimeout(() => setIsWaving(true), 900);
+    return () => clearTimeout(initial);
+  }, []);
+
+  useEffect(() => {
+    if (isWaving || isLeaving) return;
+    const next = window.setTimeout(() => setIsWaving(true), 12000 + Math.random() * 10000);
+    return () => clearTimeout(next);
+  }, [isWaving, isLeaving]);
+
+  // Leave: start walking, then switch page partway through while she keeps exiting.
+  const leaveTo = (go: () => void) => {
+    if (isLeaving) return;
+    setIsLeaving(true);
+    window.setTimeout(go, 1400);
+  };
+
   const totalStories = allStories.length;
   const doneCount = allStories.filter((s) => state.completedStoryIds.includes(s.id)).length;
   const progressPct = totalStories > 0 ? Math.round((doneCount / totalStories) * 100) : 0;
@@ -56,78 +79,114 @@ function HomePage() {
 
   return (
     <AppShell>
-      {/* decorative background */}
-      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[420px] overflow-hidden">
-        <div className="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-forest-mist/60" />
-        <div className="absolute top-40 -left-16 h-48 w-48 rounded-full bg-secondary/15" />
-        <div className="absolute top-60 right-12 h-32 w-32 rounded-full bg-accent/8" />
-      </div>
-
       <div className="relative">
-        {/* greeting */}
-        <div className="px-6 pt-6 pb-4">
-          <div className="flex items-center gap-4">
-            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-2xl shadow-[var(--shadow-soft)]">
-              <img src={mooseHero} alt="Moose Lotta" className="h-full w-full object-cover" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h1 className="font-display text-xl font-semibold leading-tight text-foreground">
-                {activeProfile
-                  ? state.language === "sv"
-                    ? `Hej, ${activeProfile.name}!`
-                    : `Hi, ${activeProfile.name}!`
-                  : "Moose Lotta"}
-              </h1>
-              <p className="mt-0.5 text-sm text-muted-foreground">
-                {hasUnlockable
-                  ? state.language === "sv"
-                    ? "Redo för ett äventyr?"
-                    : "Ready for an adventure?"
-                  : t(state.language, "done")}
-              </p>
-            </div>
+        {/* greeting + large mascot */}
+        <div className="flex flex-col items-center px-6 pt-0 pb-2">
+          <div
+            className="relative mb-0.5 transition-transform duration-[2300ms] ease-in-out"
+            style={{
+              transform: isLeaving
+                ? "translateX(-60vw) translateY(2vh) scale(0.8)"
+                : "translateX(0) translateY(0) scale(1)",
+            }}
+          >
+            {/* warm glow at Lotta's feet, like light on the ground */}
+            <div className="absolute bottom-0 left-1/2 h-8 w-32 -translate-x-1/2 rounded-[100%] bg-ember/25 blur-md" />
+            <Lotta
+              isWaving={isWaving}
+              isWalking={isLeaving}
+              waveOnHover
+              onWaveComplete={() => setIsWaving(false)}
+              className="w-28"
+            />
           </div>
+          <h1 className="font-display text-xl font-bold leading-tight text-foreground">
+            {activeProfile
+              ? state.language === "sv"
+                ? `Hej, ${activeProfile.name}!`
+                : `Hi, ${activeProfile.name}!`
+              : "Moose Lotta"}
+          </h1>
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            {hasUnlockable
+              ? state.language === "sv"
+                ? "Redo för ett äventyr?"
+                : "Ready for an adventure?"
+              : t(state.language, "done")}
+          </p>
         </div>
 
-        {/* progress card or first-run prompt */}
-        <div className="px-6">
-          {doneCount === 0 ? (
+        {/* merged hero card */}
+        <div className="relative">
+          <div className="px-5">
             <Link
               to="/map"
-              className="flex flex-col gap-3 rounded-3xl bg-gradient-to-br from-forest-mist/30 to-moss/10 px-5 py-6 shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all hover:ring-primary/20 active:scale-[0.98]"
+              onClick={(e) => {
+                e.preventDefault();
+                leaveTo(() => navigate({ to: "/map" }));
+              }}
+              aria-disabled={isLeaving}
+              className="ml-bounce-press relative block overflow-hidden rounded-3xl text-center shadow-[var(--shadow-cozy)] ring-1 ring-[#B9A14B]/25 transition-all hover:ring-primary/20"
             >
-              <p className="font-display text-base font-semibold leading-snug text-foreground">
-                {t(state.language, "ui.firstRun.title")}
-              </p>
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-cozy)]">
-                <Map size={16} />
-                {t(state.language, "ui.firstRun.toMap")}
+              <img
+                src={forestBg}
+                alt=""
+                aria-hidden
+                className="absolute inset-0 h-full w-full scale-125 object-cover object-right"
+              />
+              <div aria-hidden className="pointer-events-none absolute inset-0 bg-bark/40" />
+              <span className="relative z-10 flex flex-col items-center gap-3 px-6 py-5 text-center">
+                {/* progress bar (returning users) */}
+                {doneCount > 0 && (
+                  <div className="w-full rounded-2xl bg-[#FDF8EE]/60 px-4 py-3 backdrop-blur-sm">
+                    <div className="flex items-baseline justify-between">
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-foreground/60">
+                        {t(state.language, "ui.progress")}
+                      </p>
+                      <p className="text-xs font-semibold text-foreground/70">
+                        {doneCount}/{totalStories} · {progressPct}%
+                      </p>
+                    </div>
+                    <div className="mt-2 h-2 rounded-full bg-foreground/10">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-[#D9A441] to-[#6B8F5C] transition-all"
+                        style={{ width: `${progressPct}%` }}
+                      />
+                    </div>
+                    <div className="mt-1.5 flex items-center gap-1.5 text-xs text-foreground/60">
+                      <Gift size={13} />
+                      <span>
+                        {doneCount} {t(state.language, "ui.collected")}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* CTA content */}
+                <div className="flex flex-col items-center gap-2.5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FDF8EE]/70 shadow-md">
+                    <Map size={24} className="text-[#6B8F5C]" />
+                  </div>
+                  <div className="mx-auto rounded-2xl bg-[#FDF8EE] px-4 py-2 text-center shadow-md">
+                    <p className="font-display text-base font-bold text-foreground">
+                      {t(state.language, "ui.goExplore")}
+                    </p>
+                    <p className="mt-0.5 text-sm text-foreground/65">
+                      {t(state.language, "ui.exploreSubtitle")}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-cozy)] transition-transform">
+                    <Map size={18} />
+                    {t(state.language, "ui.firstRun.toMap")}
+                  </span>
+                </div>
               </span>
             </Link>
-          ) : (
-            <div className="rounded-3xl bg-gradient-to-br from-card to-forest-mist/40 px-5 py-4 shadow-[var(--shadow-soft)] ring-1 ring-border/20">
-              <div className="flex items-baseline justify-between">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground/70">
-                  {t(state.language, "ui.progress")}
-                </p>
-                <p className="text-xs font-semibold text-muted-foreground">
-                  {doneCount}/{totalStories} · {progressPct}%
-                </p>
-              </div>
-              <div className="mt-2.5 h-2 rounded-full bg-muted">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-moss to-primary transition-all"
-                  style={{ width: `${progressPct}%` }}
-                />
-              </div>
-              <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Gift size={13} />
-                <span>
-                  {doneCount} {t(state.language, "ui.collected")}
-                </span>
-              </div>
-            </div>
-          )}
+          </div>
+          {/* single decorative accent, top-right corner */}
+          <div className="pointer-events-none absolute -top-3 right-3 z-10 select-none text-xl animate-float opacity-50">
+            🌿
+          </div>
         </div>
 
         {/* all stories */}
@@ -143,7 +202,12 @@ function HomePage() {
                   <button
                     key={story.id}
                     onClick={() =>
-                      navigate({ to: "/story/$storyId", params: { storyId: story.id } })
+                      leaveTo(() =>
+                        navigate({
+                          to: "/story/$storyId",
+                          params: { storyId: story.id },
+                        }),
+                      )
                     }
                     className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-br ${accentMap[story.accent] ?? "from-card to-card"} p-4 text-left shadow-[var(--shadow-soft)] ring-1 ring-border/20 transition-all active:scale-[0.99]`}
                   >
@@ -175,44 +239,6 @@ function HomePage() {
             </div>
           </div>
         )}
-
-        {/* hero card */}
-        <div className="mt-8 px-6 pb-6">
-          <Link
-            to="/map"
-            className="flex flex-col items-center gap-4 rounded-3xl bg-gradient-to-br from-forest-mist/30 to-moss/10 px-6 py-8 text-center shadow-[var(--shadow-cozy)] ring-1 ring-border/20 transition-all hover:ring-primary/20 active:scale-[0.98]"
-          >
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-forest-mist to-moss/20">
-              <Map size={28} className="text-primary" />
-            </div>
-            <div>
-              <p className="font-display text-lg font-semibold text-foreground">
-                {t(state.language, "ui.goExplore")}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {t(state.language, "ui.exploreSubtitle")}
-              </p>
-            </div>
-          </Link>
-        </div>
-
-        {/* feedback link */}
-        <div className="mt-2 px-6 pb-2">
-          <a
-            href="https://forms.gle/JdfUUxErsMyBV76H7"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 rounded-2xl bg-card/50 px-4 py-3 text-xs text-muted-foreground/60 shadow-[var(--shadow-soft)] ring-1 ring-border/10 transition-all hover:bg-card hover:text-muted-foreground hover:ring-border/30"
-          >
-            💬 {t(state.language, "ui.feedback")}
-          </a>
-        </div>
-
-        {/* bottom forest decoration */}
-        <div className="pointer-events-none fixed bottom-16 left-0 right-0 h-32 overflow-hidden">
-          <div className="absolute -bottom-8 left-1/4 h-20 w-20 rounded-full bg-forest-mist/30" />
-          <div className="absolute -bottom-4 right-1/3 h-16 w-16 rounded-full bg-secondary/15" />
-        </div>
       </div>
     </AppShell>
   );

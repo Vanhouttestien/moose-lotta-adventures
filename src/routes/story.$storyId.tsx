@@ -11,6 +11,7 @@ import { t } from "@/i18n";
 import { playDone } from "@/lib/audio";
 import { toast } from "sonner";
 import { Check, CheckCircle2, MapPin, Sparkles } from "lucide-react";
+import headImg from "@/assets/head.png";
 
 export const Route = createFileRoute("/story/$storyId")({
   loader: async ({ params }) => {
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/story/$storyId")({
   notFoundComponent: () => (
     <AppShell>
       <div className="px-6 py-16 text-center">
-        <p className="text-4xl">🫎</p>
+        <img src={headImg} alt="" aria-hidden className="mx-auto h-28 w-auto opacity-80" />
         <h1 className="mt-2 font-display text-xl">Berättelsen kunde inte hittas</h1>
         <Link to="/map" className="mt-4 inline-block text-primary underline">
           Tillbaka till kartan

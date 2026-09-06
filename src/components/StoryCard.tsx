@@ -3,6 +3,7 @@ import type { StoryStatus } from "@/engine/storyEngine";
 import { useAppState } from "@/hooks/useAppState";
 import { StoryImage } from "@/components/StoryImage";
 import { t } from "@/i18n";
+import headImg from "@/assets/head.png";
 import { Lock, Sparkles, MapPin } from "lucide-react";
 
 export function StoryCard({ s }: { s: StoryStatus }) {
@@ -62,7 +63,8 @@ export function StoryCard({ s }: { s: StoryStatus }) {
             )}
             {status === "unlocked" && (
               <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 font-semibold text-primary">
-                🫎 öppen
+                <img src={headImg} alt="" aria-hidden className="h-3.5 w-auto opacity-80" />
+                öppen
               </span>
             )}
             {status === "locked" && (

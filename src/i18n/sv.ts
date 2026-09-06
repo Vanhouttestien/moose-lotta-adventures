@@ -3,8 +3,7 @@ import type { TranslationDict } from "./types";
 export const sv = {
   app: {
     title: "Moose Lotta Äventyr",
-    location: "Ute i skogen",
-    tagline: "Historiens hemligheter väntar — ute i skogen.",
+    tagline: "Historiens hemligheter väntar.",
   },
   ui: {
     start: "Utforska",
@@ -48,6 +47,9 @@ export const sv = {
       next: "Nästa",
       done: "Utforska!",
       showAgain: "Visa igen",
+      youHere: "Du är här",
+      hidden: "Gömd",
+      found: "Upptäckt",
     },
     firstRun: {
       title: "Din första resa väntar — öppna kartan för att börja",
@@ -98,7 +100,7 @@ export const sv = {
   character: {
     lotta: {
       greeting: "Redo att upptäcka historien omkring dig?",
-      sense: "🫎 Lotta känner ett äventyr ungefär {{dist}} m härifrån…",
+      sense: "Lotta känner ett äventyr ungefär {{dist}} m härifrån…",
     },
   },
   story: {

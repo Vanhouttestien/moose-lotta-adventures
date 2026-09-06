@@ -3,7 +3,7 @@ import { useAppState } from "@/hooks/useAppState";
 import { t } from "@/i18n";
 import { AgeSelector, LanguageSelector } from "@/components/Selectors";
 import type { AgeGroup, Language } from "@/data/stories";
-import mooseHero from "@/assets/moose-lotta-hero2.jpg";
+import mooseHero from "@/assets/moose-lotta-hero.png";
 
 export function CreateProfile({
   onDone,

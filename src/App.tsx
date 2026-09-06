@@ -24,15 +24,15 @@ function AppGate() {
     setShowOnboarding(false);
   };
 
+  if (showSplash) {
+    return <SplashPage onStart={() => setShowSplash(false)} />;
+  }
+
   if (activeProfile) {
     if (showOnboarding) {
       return <OnboardingSequence onComplete={finishOnboarding} onSkip={finishOnboarding} />;
     }
     return <RouterProvider router={router} />;
-  }
-
-  if (showSplash) {
-    return <SplashPage onStart={() => setShowSplash(false)} />;
   }
 
   if (showOnboarding) {

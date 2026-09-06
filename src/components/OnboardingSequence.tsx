@@ -37,84 +37,6 @@ function UnlockedPin({ emoji }: { emoji: string }) {
   );
 }
 
-const slides = [
-  {
-    illustration: (
-      <div className="relative mx-auto aspect-square w-56">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-forest-mist to-forest-deep/10" />
-        <div className="absolute inset-4 overflow-hidden rounded-full">
-          <div
-            className="h-full w-full"
-            style={{
-              background:
-                "linear-gradient(135deg, #d4e8d0 0%, #b8d4b0 30%, #e0edc8 60%, #c8dbb8 100%)",
-            }}
-          />
-          <div
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(0deg, rgba(0,0,0,0.1) 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-            }}
-          />
-        </div>
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 drop-shadow-lg">
-          <div className="animate-float">
-            <img
-              src="/moose-lotta-pointer.png"
-              alt="Moose Lotta"
-              className="h-auto w-28"
-            />
-          </div>
-        </div>
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-forest-deep shadow-sm backdrop-blur">
-          Du är här
-        </div>
-      </div>
-    ),
-    key: "you-are-here",
-  },
-  {
-    illustration: (
-      <div className="mx-auto w-64 rounded-3xl border-2 border-dashed border-border bg-card/80 px-5 py-6 text-center shadow-[var(--shadow-soft)]">
-        <p className="text-3xl">🌲</p>
-        <p className="mt-2 font-display text-base text-forest-deep">Här var det tyst…</p>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Vandra vidare — äventyren väntar där borta.
-        </p>
-      </div>
-    ),
-    key: "empty-state",
-  },
-  {
-    illustration: (
-      <div className="relative mx-auto flex w-64 items-center justify-center gap-3">
-        <div className="flex flex-col items-center gap-1">
-          <div className="opacity-55">
-            <HintPin />
-          </div>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Gömd
-          </span>
-        </div>
-        <div className="mt-[-1.5rem]">
-          <ChevronRight size={28} className="text-muted-foreground/40" />
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <div className="animate-float">
-            <UnlockedPin emoji="🌳" />
-          </div>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-moss">
-            Upptäckt
-          </span>
-        </div>
-      </div>
-    ),
-    key: "pin-progression",
-  },
-];
-
 export function OnboardingSequence({
   onComplete,
   onSkip,
@@ -126,6 +48,80 @@ export function OnboardingSequence({
   const [step, setStep] = useState(0);
   const lang = state.language;
   const isLast = step === slides.length - 1;
+
+  const slides = [
+    {
+      illustration: (
+        <div className="relative mx-auto aspect-square w-56">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-forest-mist to-forest-deep/10" />
+          <div className="absolute inset-4 overflow-hidden rounded-full">
+            <div
+              className="h-full w-full"
+              style={{
+                background:
+                  "linear-gradient(135deg, #d4e8d0 0%, #b8d4b0 30%, #e0edc8 60%, #c8dbb8 100%)",
+              }}
+            />
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(0deg, rgba(0,0,0,0.1) 1px, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }}
+            />
+          </div>
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 drop-shadow-lg">
+            <div className="animate-float">
+              <img src="/moose-lotta-pointer.png" alt="Moose Lotta" className="h-auto w-28" />
+            </div>
+          </div>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-forest-deep shadow-sm backdrop-blur">
+            {t(lang, "ui.onboarding.youHere")}
+          </div>
+        </div>
+      ),
+      key: "you-are-here",
+    },
+    {
+      illustration: (
+        <div className="mx-auto w-64 rounded-3xl border-2 border-dashed border-border bg-card/80 px-5 py-6 text-center shadow-[var(--shadow-soft)]">
+          <p className="text-3xl">🌲</p>
+          <p className="mt-2 font-display text-base text-forest-deep">
+            {t(lang, "story.noStories.title")}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">{t(lang, "story.noStories.body")}</p>
+        </div>
+      ),
+      key: "empty-state",
+    },
+    {
+      illustration: (
+        <div className="relative mx-auto flex w-64 items-center justify-center gap-3">
+          <div className="flex flex-col items-center gap-1">
+            <div className="opacity-55">
+              <HintPin />
+            </div>
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              {t(lang, "ui.onboarding.hidden")}
+            </span>
+          </div>
+          <div className="mt-[-1.5rem]">
+            <ChevronRight size={28} className="text-muted-foreground/40" />
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="animate-float">
+              <UnlockedPin emoji="🌳" />
+            </div>
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-moss">
+              {t(lang, "ui.onboarding.found")}
+            </span>
+          </div>
+        </div>
+      ),
+      key: "pin-progression",
+    },
+  ];
 
   const stepLabels = [
     t(lang, "ui.onboarding.step1"),

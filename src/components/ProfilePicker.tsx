@@ -1,7 +1,7 @@
 import { useAppState } from "@/hooks/useAppState";
 import { t } from "@/i18n";
 import { Plus, ChevronRight } from "lucide-react";
-import mooseHero from "@/assets/moose-lotta-hero2.jpg";
+import mooseHero from "@/assets/moose-lotta-hero.png";
 
 const avatarColors = [
   "from-accent/40 to-accent/10",
